@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="260" viewBox="0 0 720 260">
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#30445f"/></marker></defs>
+  <rect id="data" x="36" y="95" width="170" height="64" fill="#e1ecff"/>
+  <text x="121" y="132" font-size="16" text-anchor="middle">Input data</text>
+  <rect id="model" x="275" y="95" width="170" height="64" fill="#e5f2ed"/>
+  <text x="360" y="132" font-size="16" text-anchor="middle">Model</text>
+  <rect id="result" x="514" y="95" width="170" height="64" fill="#fff0de"/>
+  <text x="599" y="132" font-size="16" text-anchor="middle">Evaluation</text>
+  <line id="data-model" x1="206" y1="127" x2="275" y2="127" marker-end="url(#arrow)" stroke="#30445f"/>
+  <line id="model-result" x1="445" y1="127" x2="514" y2="127" marker-end="url(#arrow)" stroke="#30445f"/>
+</svg>

@@ -1,0 +1,207 @@
+{
+  "dataset": "yashengsun/SciDiagramRevision",
+  "source": "https://huggingface.co/datasets/yashengsun/SciDiagramRevision",
+  "selection": "First N rows in published test split order; not a representative random sample",
+  "license": "mixed-arxiv-source; no source SVGs or images redistributed",
+  "rows": 20,
+  "supported": 0,
+  "first_failure_counts": {
+    "Unsupported attribute transform; flatten SVG styles/transforms first": 3,
+    "Unsupported element: filter": 2,
+    "Unsupported element: symbol": 1,
+    "Unsupported element: style": 5,
+    "Unsupported element: image": 3,
+    "Only absolute M/L connector paths are supported": 1,
+    "Unsupported element: linearGradient": 1,
+    "Unsupported element: pattern": 1,
+    "Source SVG unavailable in dataset row": 1,
+    "Inherited group styles are unsupported; place styles on primitives": 2
+  },
+  "limitations": [
+    "Not an edit-quality evaluation",
+    "Only first parser failure recorded",
+    "No ground-truth relationship annotations"
+  ],
+  "records": [
+    {
+      "row": 0,
+      "task_id": "2001.09326_pics_Model_3_4",
+      "svg_sha256": "9136ba6286f6199426cbc1ecf87749800db31269107dbadc48bbfbfecc62f14a",
+      "svg_bytes": 5668,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported attribute transform; flatten SVG styles/transforms first"
+    },
+    {
+      "row": 1,
+      "task_id": "2003.09044_figures_overview_1_2",
+      "svg_sha256": "80f938bc5923b348fc239241dc2dc51514ed48268b4e63ca16caf88a67a9714e",
+      "svg_bytes": 287423,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: filter"
+    },
+    {
+      "row": 2,
+      "task_id": "2004.05273_figures_trace_1_2",
+      "svg_sha256": "cbf7c0048b883e5cd25bcc16ea166d569c7effc183e576f79ebe0c41ff031bdb",
+      "svg_bytes": 45360,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: symbol"
+    },
+    {
+      "row": 3,
+      "task_id": "2004.11145_arch_4_5",
+      "svg_sha256": "bbaf02d192560c97dd989cd1f1823694c3510bdd5fa807fb0fb6f7269c05a6d4",
+      "svg_bytes": 13489,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: style"
+    },
+    {
+      "row": 4,
+      "task_id": "2004.11588_Framework_1_2",
+      "svg_sha256": "934e63611d21b88f7e69498af761082bdcfed60f254dd7c406f592fb09d7e841",
+      "svg_bytes": 14367,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: style"
+    },
+    {
+      "row": 5,
+      "task_id": "2004.12027_fig_method_1_2",
+      "svg_sha256": "7ab40c300bbeec31505318ccaae61c6ffd55d9038296af0b61ac6aba486c070d",
+      "svg_bytes": 315163,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: image"
+    },
+    {
+      "row": 6,
+      "task_id": "2004.14257_images_add-tagger_1_2",
+      "svg_sha256": "467ff20111071d124d7b906d35ec44bda01a749483fe69b4009ef52e81ae3871",
+      "svg_bytes": 4558,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Only absolute M/L connector paths are supported"
+    },
+    {
+      "row": 7,
+      "task_id": "2005.05298_figures_example_2_3",
+      "svg_sha256": "2e8b24e475e8da8bd4604c166caefc223f4c520f625d7fad69446947d1dee7fb",
+      "svg_bytes": 11787,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: filter"
+    },
+    {
+      "row": 8,
+      "task_id": "2005.08083_figures_Figure-AutoML_2_3",
+      "svg_sha256": "46b458c2b7d50cbe9eadcb4515d5ffb21948de594a7a3e69613f4778ae023feb",
+      "svg_bytes": 6085,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported attribute transform; flatten SVG styles/transforms first"
+    },
+    {
+      "row": 9,
+      "task_id": "2005.13013_stilts_crosslingual_method_2_3",
+      "svg_sha256": "5cf93fef2308bbafdede434241db4a9ccd66ae139cef382b52aa57c2a9370a5b",
+      "svg_bytes": 8931,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: linearGradient"
+    },
+    {
+      "row": 10,
+      "task_id": "2006.02068_fig_overview_2_3",
+      "svg_sha256": "81b70146ad91708290bb3c56cb05351e03a2083afbff19d87c7db33a7fb68bab",
+      "svg_bytes": 10123,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: image"
+    },
+    {
+      "row": 11,
+      "task_id": "2006.03535_images_CoCon_2_4",
+      "svg_sha256": "5b79e3c4cc1bbe36daea024f4ceec287750240866b3c5250ed7aed82c86f6ea9",
+      "svg_bytes": 8934,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: style"
+    },
+    {
+      "row": 12,
+      "task_id": "2006.05265_fig_overview_7_8",
+      "svg_sha256": "c9272ba8f39b4e4217c2049748bebcd4e03343c37c2980e4cffc62fa09e7af7b",
+      "svg_bytes": 14825,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: style"
+    },
+    {
+      "row": 13,
+      "task_id": "2006.06648_Figure_Network_2_3",
+      "svg_sha256": "36b57ff54c4b64fc1076aa9cf515988013b3133549a168511592035e7fff1f1e",
+      "svg_bytes": 7955,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: pattern"
+    },
+    {
+      "row": 14,
+      "task_id": "2006.07802_figure_Qualitative_4_5",
+      "svg_sha256": "5341c7a608ce320607abed4a2acaaf602853812d0799c328d0f5aabcc7849413",
+      "svg_bytes": 2403,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: image"
+    },
+    {
+      "row": 15,
+      "task_id": "2006.07802_figure_teaser_2_3",
+      "svg_sha256": null,
+      "svg_bytes": 0,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Source SVG unavailable in dataset row"
+    },
+    {
+      "row": 16,
+      "task_id": "2006.08084_Figs_MergeCode_2_3",
+      "svg_sha256": "fd934d0a1cfb2d4272b7c1ecfa339b2f5411757f986e12f2d6c4d7eeeb16c829",
+      "svg_bytes": 5861,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Inherited group styles are unsupported; place styles on primitives"
+    },
+    {
+      "row": 17,
+      "task_id": "2006.08084_Figs_MergeSortTrace_2_3",
+      "svg_sha256": "a8f5f1d98bc3e13b29a8b4757339149e00ebe48794fd9c6e1f9332c646b970b7",
+      "svg_bytes": 13087,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported element: style"
+    },
+    {
+      "row": 18,
+      "task_id": "2006.13382_fig_diagram_overview_7_8",
+      "svg_sha256": "d3c472fbcbab2bf1fd71d7cc869aba198ee425777ce607028dc1be4f781ac2bc",
+      "svg_bytes": 6764,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Unsupported attribute transform; flatten SVG styles/transforms first"
+    },
+    {
+      "row": 19,
+      "task_id": "2007.00613_figures_table2_2_3",
+      "svg_sha256": "e12bffacae036bd9478aa1720bc91d8463599dce17add06b2fc34204b046441e",
+      "svg_bytes": 2499,
+      "annotation_status": "not annotated; compatibility only",
+      "supported": false,
+      "first_failure": "Inherited group styles are unsupported; place styles on primitives"
+    }
+  ]
+}

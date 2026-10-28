@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Independently reviewed diagram relationships",
+  "type": "object",
+  "required": ["schema_version", "diagram_id", "source_url", "source_sha256", "license", "split", "review", "relations"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "diagram_id": {"type": "string"},
+    "source_url": {"type": "string"},
+    "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "license": {"type": "string"},
+    "split": {"enum": ["train", "development", "test", "unassigned"]},
+    "review": {
+      "type": "object",
+      "required": ["status", "annotator_type", "annotator", "evidence"],
+      "properties": {
+        "status": {"enum": ["unreviewed", "agent-reviewed", "human-reviewed"]},
+        "annotator_type": {"enum": ["agent", "human"]},
+        "annotator": {"type": "string"},
+        "evidence": {"type": "string"}
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "objects", "status", "rationale"],
+        "properties": {
+          "kind": {"enum": ["directed_edge", "contains", "group", "align_x", "align_y", "before_x", "before_y"]},
+          "objects": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "status": {"enum": ["confirmed", "ambiguous", "unknown"]},
+          "rationale": {"type": "string"}
+        }
+      }
+    }
+  }
+}

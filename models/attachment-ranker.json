@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "features": [
+    "bias",
+    "boundary_distance",
+    "center_distance",
+    "direction_alignment",
+    "inside",
+    "x_face_distance",
+    "y_face_distance",
+    "direction_x",
+    "direction_y"
+  ],
+  "weights": [
+    1.1653329336054572e-16,
+    -0.9375602456136432,
+    -1.0057872027037855,
+    1.031266490324525,
+    0.5611247763314146,
+    -0.2600527202262909,
+    -0.46340112481260487,
+    -3.5537535675106165e-17,
+    3.810701561594203e-17
+  ],
+  "threshold": 0.8,
+  "score_kind": "Uncalibrated candidate softmax; threshold selected on validation data",
+  "training": "Synthetic endpoint scenes only; no author-intent supervision",
+  "seeds": {
+    "train": 101,
+    "validation": 202,
+    "test": 303,
+    "unseen_family": 404
+  }
+}

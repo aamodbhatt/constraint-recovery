@@ -49,7 +49,7 @@ def endpoint(p, nodes, tolerance):
     return plausible[0]
 
 
-def parse_svg(text, tolerance=8):
+def parse_svg(text, tolerance=8, attachment_model=None):
     try:
         root = SafeET.fromstring(text)
     except Exception as exc:
@@ -116,6 +116,8 @@ def parse_svg(text, tolerance=8):
             connectors.append((e.get("id", f"edge-{len(connectors)}"), pts))
     if not nodes:
         raise DiagramError("No supported rectangular nodes found")
+    # Reject invalid node geometry before any learned feature extraction.
+    Diagram(width,height,nodes,[]).validate()
     for e in texts:
         x, y = number(e.get("x")), number(e.get("y"))
         candidates = [n for n in nodes if n.x <= x <= n.x+n.width and n.y <= y <= n.y+n.height]
@@ -128,10 +130,22 @@ def parse_svg(text, tolerance=8):
         n.lines = ["".join(c.itertext()) for c in spans] if spans else ["".join(e.itertext())]
         n.label = " ".join(n.lines)
         n.font_size = number(e.get("font-size"), 16)
-    edges = [Edge(i, endpoint(p[0], nodes, tolerance), endpoint(p[-1], nodes, tolerance), p) for i,p in connectors]
+    edges = []
+    for i,p in connectors:
+        if attachment_model is None:
+            source,target = endpoint(p[0],nodes,tolerance),endpoint(p[-1],nodes,tolerance)
+        else:
+            source = attachment_model.resolve(p[0],[p[0][k]-p[1][k] for k in range(2)],nodes)
+            target = attachment_model.resolve(p[-1],[p[-1][k]-p[-2][k] for k in range(2)],nodes)
+        edge = Edge(i,source,target,p)
+        if attachment_model is not None:
+            edge.evidence = "Experimental synthetic-trained endpoint ranker; review required; scores are not correctness guarantees"
+        edges.append(edge)
     return Diagram(width, height, nodes, edges,
-                   ["Geometric baseline only. Review recovered arrow attachments before treating them as semantic constraints.",
-                    "Export normalizes typography, node styling, and connectors; this is not a lossless SVG editor."]).validate()
+                   [("Experimental learned geometric attachment recovery. Review required." if attachment_model else
+                     "Geometric baseline only. Review recovered arrow attachments before treating them as semantic constraints."),
+                    "Export normalizes typography, node styling, and connectors; this is not a lossless SVG editor."]+
+                   (["Experimental learned attachment selection enabled; synthetic validation only"] if attachment_model else [])).validate()
 
 
 def route(a, b):

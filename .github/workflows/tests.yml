@@ -16,7 +16,26 @@ jobs:
       - run: python -m pip install -e '.[test]'
       - run: python -m pytest -q
       - run: PYTHONPATH=src python benchmarks/run.py --output artifacts/benchmark.json
+      - run: PYTHONPATH=src python benchmarks/learn_attachments.py --train-scenes 300 --model artifacts/test-ranker.json --output artifacts/attachment-learning.json
       - uses: actions/upload-artifact@v4
         with:
           name: benchmark-python-${{ matrix.python }}
-          path: artifacts/benchmark.json
+          path: artifacts/*.json
+  elk-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: python -m pip install -e .
+      - run: npm ci --ignore-scripts
+      - run: PYTHONPATH=src python benchmarks/compare_elk.py --output artifacts/elk-comparison.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: elk-comparison
+          path: artifacts/elk-comparison.json

@@ -12,17 +12,23 @@
 
 ## M1 — research-grade data and evaluation
 
+First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone remains incomplete: the external compatibility audit is not a gold relationship test set.
+
 - Annotate a real, licensed SVG subset and document unsupported input frequency.
 - Separate text-to-node, endpoint, containment, alignment and ordering targets.
-- Add branch insertion without changing protected primitives.
+- [x] Add explicit branch insertion while preserving existing node/edge identities and protected labels.
 - Build independent relationship annotations; avoid scoring inferred rules against themselves.
 - Add strong heuristics + ELK and direct source-editing baselines.
+  - [x] Tangent-aware endpoint heuristic and a pinned ELK layout configuration.
+  - [ ] Direct source-editing baseline and independent real-diagram labels.
 - Evaluate edit sequences, style/composition holdouts and impossible requests.
 - Replace finite routing candidates with a robust visibility-graph router.
 - Add browser-measured font geometry and rendered visual regression coverage.
 - Add ambiguity review and minimal conflicting-constraint explanations.
 
 ## M2 — learned recovery on local hardware
+
+First component delivered: conditional-logistic endpoint ownership, trained on synthetic scenes with opt-in runtime use. It ties the stronger geometric rule, so there is no established learned advantage yet.
 
 - Generate layouts from known programs, including intentional vs incidental alignments.
 - Train a compact relation model with documented features and held-out generator families.
@@ -38,4 +44,4 @@ Before spending credits, establish a reproducible data split, a local learned ba
 
 ## Handoff
 
-Run the commands in README.md before making new claims. The first deliverable is an engineering reference, not a new AI model. Next work should begin with data annotation and stronger baselines, then a small learned relation experiment. Do not market the synthetic benchmark as comparison with contemporary AI diagram editors.
+Run the commands in README.md before making new claims. Next work should address the zero-support external audit: broader, non-destructive SVG ingestion and independently reviewed relationships. The first local learned model is available, but ties a strong rule. Do not market synthetic results as comparison with contemporary AI diagram editors. No GPU bottleneck has been demonstrated.

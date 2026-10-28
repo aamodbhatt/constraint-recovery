@@ -1,0 +1,520 @@
+{
+  "task": "Layout only with identical supplied graph and fitted text",
+  "elk_version": "0.12.1",
+  "limitations": [
+    "Generated motifs, not a real-diagram or relation-inference evaluation",
+    "MILP optimizes displacement; ELK optimizes layered layout with the declared direction",
+    "Both checked against fixed canvas; ELK natural extents are reported without scaling fonts",
+    "ELK timing includes starting a Node process; no inference-speed claim"
+  ],
+  "passes": {
+    "milp": 10,
+    "elk": 7
+  },
+  "records": [
+    {
+      "family": "chain",
+      "nodes": 4,
+      "canvas": "wide",
+      "method": "milp",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 0.0,
+      "seconds": 0.07423220796044916,
+      "layout_metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 0.0,
+        "flow": "free",
+        "gap": 24
+      }
+    },
+    {
+      "family": "chain",
+      "nodes": 4,
+      "canvas": "wide",
+      "method": "elk",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 944,
+      "seconds": 0.14632629102561623,
+      "layout_metadata": {
+        "natural_width": 704,
+        "natural_height": 130
+      }
+    },
+    {
+      "family": "chain",
+      "nodes": 4,
+      "canvas": "portrait",
+      "method": "milp",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 776.0,
+      "seconds": 0.008670916955452412,
+      "layout_metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 776.0,
+        "flow": "vertical",
+        "gap": 24
+      }
+    },
+    {
+      "family": "chain",
+      "nodes": 4,
+      "canvas": "portrait",
+      "method": "elk",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 1200,
+      "seconds": 0.13405725004849955,
+      "layout_metadata": {
+        "natural_width": 182,
+        "natural_height": 496
+      }
+    },
+    {
+      "family": "chain",
+      "nodes": 4,
+      "canvas": "tight",
+      "method": "milp",
+      "passed": false,
+      "errors": [
+        "No feasible layout found: The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is At lower/fixed bound)"
+      ],
+      "displacement_l1": null,
+      "seconds": 0.003236458986066282,
+      "layout_metadata": {}
+    },
+    {
+      "family": "chain",
+      "nodes": 4,
+      "canvas": "tight",
+      "method": "elk",
+      "passed": false,
+      "errors": [
+        "Outside canvas: n1",
+        "Outside canvas: n2",
+        "Outside canvas: n3",
+        "Connector outside canvas: e1",
+        "Connector outside canvas: e2"
+      ],
+      "displacement_l1": 944,
+      "seconds": 0.13530800002627075,
+      "layout_metadata": {
+        "natural_width": 704,
+        "natural_height": 130
+      }
+    },
+    {
+      "family": "chain",
+      "nodes": 6,
+      "canvas": "wide",
+      "method": "milp",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 0.0,
+      "seconds": 0.02000729099381715,
+      "layout_metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 0.0,
+        "flow": "free",
+        "gap": 24
+      }
+    },
+    {
+      "family": "chain",
+      "nodes": 6,
+      "canvas": "wide",
+      "method": "elk",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 2220,
+      "seconds": 0.13686258299276233,
+      "layout_metadata": {
+        "natural_width": 1052,
+        "natural_height": 130
+      }
+    },
+    {
+      "family": "chain",
+      "nodes": 6,
+      "canvas": "portrait",
+      "method": "milp",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 1768.0,
+      "seconds": 0.019096708041615784,
+      "layout_metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 1768.0,
+        "flow": "vertical",
+        "gap": 24
+      }
+    },
+    {
+      "family": "chain",
+      "nodes": 6,
+      "canvas": "portrait",
+      "method": "elk",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 2588,
+      "seconds": 0.13836720801191404,
+      "layout_metadata": {
+        "natural_width": 182,
+        "natural_height": 740
+      }
+    },
+    {
+      "family": "chain",
+      "nodes": 6,
+      "canvas": "tight",
+      "method": "milp",
+      "passed": false,
+      "errors": [
+        "No feasible layout found: The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is At lower/fixed bound)"
+      ],
+      "displacement_l1": null,
+      "seconds": 0.004379875026643276,
+      "layout_metadata": {}
+    },
+    {
+      "family": "chain",
+      "nodes": 6,
+      "canvas": "tight",
+      "method": "elk",
+      "passed": false,
+      "errors": [
+        "Outside canvas: n1",
+        "Outside canvas: n2",
+        "Outside canvas: n3",
+        "Outside canvas: n4",
+        "Outside canvas: n5",
+        "Connector outside canvas: e1",
+        "Connector outside canvas: e2",
+        "Connector outside canvas: e3",
+        "Connector outside canvas: e4"
+      ],
+      "displacement_l1": 2220,
+      "seconds": 0.3463020840426907,
+      "layout_metadata": {
+        "natural_width": 1052,
+        "natural_height": 130
+      }
+    },
+    {
+      "family": "branch",
+      "nodes": 4,
+      "canvas": "wide",
+      "method": "milp",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 0.0,
+      "seconds": 0.020372916013002396,
+      "layout_metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 0.0,
+        "flow": "free",
+        "gap": 24
+      }
+    },
+    {
+      "family": "branch",
+      "nodes": 4,
+      "canvas": "wide",
+      "method": "elk",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 969.5,
+      "seconds": 0.15647008299129084,
+      "layout_metadata": {
+        "natural_width": 362,
+        "natural_height": 374
+      }
+    },
+    {
+      "family": "branch",
+      "nodes": 4,
+      "canvas": "portrait",
+      "method": "milp",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 593.9999999999999,
+      "seconds": 0.011180500034242868,
+      "layout_metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 593.9999999999999,
+        "flow": "vertical",
+        "gap": 24
+      }
+    },
+    {
+      "family": "branch",
+      "nodes": 4,
+      "canvas": "portrait",
+      "method": "elk",
+      "passed": false,
+      "errors": [
+        "Outside canvas: n2",
+        "Connector outside canvas: e1"
+      ],
+      "displacement_l1": 451.5,
+      "seconds": 0.1455345419817604,
+      "layout_metadata": {
+        "natural_width": 530,
+        "natural_height": 258
+      }
+    },
+    {
+      "family": "branch",
+      "nodes": 4,
+      "canvas": "tight",
+      "method": "milp",
+      "passed": false,
+      "errors": [
+        "No feasible layout found: The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is At lower/fixed bound)"
+      ],
+      "displacement_l1": null,
+      "seconds": 0.0032567079761065543,
+      "layout_metadata": {}
+    },
+    {
+      "family": "branch",
+      "nodes": 4,
+      "canvas": "tight",
+      "method": "elk",
+      "passed": false,
+      "errors": [
+        "Outside canvas: n1",
+        "Outside canvas: n2",
+        "Outside canvas: n3",
+        "Connector outside canvas: e1"
+      ],
+      "displacement_l1": 969.5,
+      "seconds": 0.15134933404624462,
+      "layout_metadata": {
+        "natural_width": 362,
+        "natural_height": 374
+      }
+    },
+    {
+      "family": "branch",
+      "nodes": 6,
+      "canvas": "wide",
+      "method": "milp",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 0.0,
+      "seconds": 0.022770083975046873,
+      "layout_metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 0.0,
+        "flow": "free",
+        "gap": 24
+      }
+    },
+    {
+      "family": "branch",
+      "nodes": 6,
+      "canvas": "wide",
+      "method": "elk",
+      "passed": false,
+      "errors": [
+        "Outside canvas: n2",
+        "Connector outside canvas: e1"
+      ],
+      "displacement_l1": 1809.3333333333333,
+      "seconds": 0.2296883329981938,
+      "layout_metadata": {
+        "natural_width": 382,
+        "natural_height": 618
+      }
+    },
+    {
+      "family": "branch",
+      "nodes": 6,
+      "canvas": "portrait",
+      "method": "milp",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 1210.0000000000036,
+      "seconds": 0.2663329580100253,
+      "layout_metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 1209.9999999999968,
+        "flow": "vertical",
+        "gap": 24
+      }
+    },
+    {
+      "family": "branch",
+      "nodes": 6,
+      "canvas": "portrait",
+      "method": "elk",
+      "passed": false,
+      "errors": [
+        "Outside canvas: n1",
+        "Outside canvas: n2",
+        "Outside canvas: n5",
+        "Connector outside canvas: e0",
+        "Connector outside canvas: e1",
+        "Connector outside canvas: e4"
+      ],
+      "displacement_l1": 1116,
+      "seconds": 0.142004374996759,
+      "layout_metadata": {
+        "natural_width": 878,
+        "natural_height": 278
+      }
+    },
+    {
+      "family": "branch",
+      "nodes": 6,
+      "canvas": "tight",
+      "method": "milp",
+      "passed": false,
+      "errors": [
+        "No feasible layout found: The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is At lower/fixed bound)"
+      ],
+      "displacement_l1": null,
+      "seconds": 0.004657624987885356,
+      "layout_metadata": {}
+    },
+    {
+      "family": "branch",
+      "nodes": 6,
+      "canvas": "tight",
+      "method": "elk",
+      "passed": false,
+      "errors": [
+        "Outside canvas: n1",
+        "Outside canvas: n2",
+        "Outside canvas: n3",
+        "Outside canvas: n4",
+        "Outside canvas: n5",
+        "Connector outside canvas: e0",
+        "Connector outside canvas: e1",
+        "Connector outside canvas: e4"
+      ],
+      "displacement_l1": 1809.3333333333333,
+      "seconds": 0.14276670798426494,
+      "layout_metadata": {
+        "natural_width": 382,
+        "natural_height": 618
+      }
+    },
+    {
+      "family": "diamond",
+      "nodes": 4,
+      "canvas": "wide",
+      "method": "milp",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 0.0,
+      "seconds": 0.010840583010576665,
+      "layout_metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 0.0,
+        "flow": "free",
+        "gap": 24
+      }
+    },
+    {
+      "family": "diamond",
+      "nodes": 4,
+      "canvas": "wide",
+      "method": "elk",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 965.3333333333334,
+      "seconds": 0.14085754205007106,
+      "layout_metadata": {
+        "natural_width": 530,
+        "natural_height": 252
+      }
+    },
+    {
+      "family": "diamond",
+      "nodes": 4,
+      "canvas": "portrait",
+      "method": "milp",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 706.0,
+      "seconds": 0.012848915997892618,
+      "layout_metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 706.0,
+        "flow": "vertical",
+        "gap": 24
+      }
+    },
+    {
+      "family": "diamond",
+      "nodes": 4,
+      "canvas": "portrait",
+      "method": "elk",
+      "passed": true,
+      "errors": [],
+      "displacement_l1": 776,
+      "seconds": 0.14068741700612009,
+      "layout_metadata": {
+        "natural_width": 356,
+        "natural_height": 374
+      }
+    },
+    {
+      "family": "diamond",
+      "nodes": 4,
+      "canvas": "tight",
+      "method": "milp",
+      "passed": false,
+      "errors": [
+        "No feasible layout found: The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is At lower/fixed bound)"
+      ],
+      "displacement_l1": null,
+      "seconds": 0.0030170000391080976,
+      "layout_metadata": {}
+    },
+    {
+      "family": "diamond",
+      "nodes": 4,
+      "canvas": "tight",
+      "method": "elk",
+      "passed": false,
+      "errors": [
+        "Outside canvas: n1",
+        "Outside canvas: n2",
+        "Outside canvas: n3",
+        "Connector outside canvas: e2",
+        "Connector outside canvas: e3"
+      ],
+      "displacement_l1": 965.3333333333334,
+      "seconds": 0.2021306250244379,
+      "layout_metadata": {
+        "natural_width": 530,
+        "natural_height": 252
+      }
+    }
+  ]
+}

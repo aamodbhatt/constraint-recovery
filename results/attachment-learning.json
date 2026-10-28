@@ -1,0 +1,82 @@
+{
+  "task": "Choose the node intended by a noisy connector endpoint and visible tangent",
+  "training_scenes": 1200,
+  "training_candidates": 7200,
+  "training_seconds": 0.24657254200428724,
+  "device": "CPU",
+  "model": "Conditional logistic candidate ranker",
+  "validation_threshold": 0.8,
+  "optimization": {
+    "objective": 0.3599453221985606,
+    "iterations": 11
+  },
+  "validation": {
+    "count": 300,
+    "ranker_accuracy": 0.9966666666666667,
+    "nearest_boundary_accuracy": 0.9666666666666667,
+    "directional_heuristic_accuracy": 1.0,
+    "coverage": 0.6833333333333333,
+    "accepted_error": 0.0,
+    "top_label_ece_10_bins": 0.17113971496643385,
+    "families": {
+      "row": {
+        "count": 100,
+        "correct": 100
+      },
+      "column": {
+        "count": 100,
+        "correct": 100
+      },
+      "grid": {
+        "count": 100,
+        "correct": 99
+      }
+    }
+  },
+  "test": {
+    "count": 600,
+    "ranker_accuracy": 1.0,
+    "nearest_boundary_accuracy": 0.975,
+    "directional_heuristic_accuracy": 1.0,
+    "coverage": 0.7183333333333334,
+    "accepted_error": 0.0,
+    "top_label_ece_10_bins": 0.1592460322055426,
+    "families": {
+      "row": {
+        "count": 200,
+        "correct": 200
+      },
+      "column": {
+        "count": 200,
+        "correct": 200
+      },
+      "grid": {
+        "count": 200,
+        "correct": 200
+      }
+    }
+  },
+  "unseen_family": {
+    "count": 600,
+    "ranker_accuracy": 0.9983333333333333,
+    "nearest_boundary_accuracy": 0.93,
+    "directional_heuristic_accuracy": 0.9983333333333333,
+    "coverage": 0.585,
+    "accepted_error": 0.0,
+    "top_label_ece_10_bins": 0.19599013516093927,
+    "families": {
+      "staggered": {
+        "count": 600,
+        "correct": 599
+      }
+    }
+  },
+  "limitations": [
+    "Synthetic geometric labels, not inferred author intent",
+    "Separate seeds but same generator for in-family splits",
+    "Staggered family held out from training and threshold selection",
+    "Validation risk target is empirical, not a guarantee",
+    "No claim of improvement over external data or modern AI editors"
+  ],
+  "model_sha256": "bb10958ee68abaa2b1d11f50b1d24aa3e2e973054d0e54e3ae5d159d3671ba80"
+}

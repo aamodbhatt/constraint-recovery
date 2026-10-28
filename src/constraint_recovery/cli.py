@@ -24,11 +24,19 @@ def main():
     change.add_argument("--height",type=float)
     change.add_argument("--font-size",type=float)
     change.add_argument("--flow",choices=["free","vertical","horizontal"],default="free")
+    change.add_argument("--branch",nargs=3,action="append",metavar=("SOURCE","NEW_ID","LABEL"),
+                        help="Add a labeled node and directed edge from an existing node; repeatable")
+    for sub in [recover,change]:
+        sub.add_argument("--endpoint-model",type=Path,help="Experimental synthetic-trained endpoint ranker JSON")
     args = parser.parse_args()
     try:
         if args.input.resolve()==args.output.resolve():
             raise DiagramError("Output must differ from input; preserve the original SVG")
-        original = parse_svg(args.input.read_text())
+        model = None
+        if args.endpoint_model:
+            from .attachment import AttachmentModel
+            model = AttachmentModel.load(args.endpoint_model)
+        original = parse_svg(args.input.read_text(),attachment_model=model)
         if args.command=="recover":
             args.output.parent.mkdir(parents=True,exist_ok=True)
             args.output.write_text(json.dumps(original.to_dict(),indent=2)+"\n")
@@ -41,6 +49,10 @@ def main():
                 raise DiagramError("Reviewed graph IDs do not match the source SVG")
             # Only relationship corrections are accepted; source geometry/text remains authoritative.
             declared = Diagram(original.width,original.height,original.nodes,declared.edges,original.warnings).validate()
+        if args.branch:
+            from .operations import add_branch
+            for source,new_id,label in args.branch:
+                declared = add_branch(declared,source,new_id,label)
         labels = json.loads(args.labels.read_text()) if args.labels else {}
         if not isinstance(labels,dict):
             raise DiagramError("Labels JSON must be an object")
@@ -51,6 +63,8 @@ def main():
         if not checks["passed"]:
             raise DiagramError("Independent verification failed: "+"; ".join(checks["errors"]))
         report = {"verification":checks,"solver":solver,"warnings":result.warnings,
+                  "requested_branch_insertions":args.branch or [],
+                  "attachment_decisions":model.decisions if model else [],
                   "input":str(args.input),"node_count":len(result.nodes),"edge_count":len(result.edges)}
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(output+"\n")

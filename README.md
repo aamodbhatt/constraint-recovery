@@ -2,7 +2,7 @@
 
 Recover an inspectable graph from a simple scientific SVG, edit its layout through explicit constraints, and check the exported result.
 
-**Status: local geometric baseline.** This checkpoint contains no trained model and makes no claim of research novelty. It establishes an executable reference pipeline for later learned constraint recovery.
+**Status: geometric baseline plus a first local learning pilot.** The default engine uses explicit geometry. An optional endpoint ranker is trained on synthetic data; it currently ties a stronger hand-written heuristic. Real-diagram relationship evaluation is not complete and no research novelty is claimed.
 
 ![Local before-and-after example with verification evidence](docs/demo/preview.png)
 
@@ -38,11 +38,40 @@ Supported SVG → recovered nodes and directed edges → optional human review
 - Infer text ownership by containment and connector ownership by boundary proximity. Ambiguous endpoints are rejected.
 - Inspect the JSON graph; `edit --constraints reviewed.json` accepts corrections to source/target relationships while retaining source text and geometry. It requires matching primitive IDs.
 - Apply replacement labels, font-size changes, and new canvas dimensions. `--flow vertical` or `horizontal` explicitly requests a directed flow layout; `free` preserves only graph connectivity and geometric feasibility.
+- Insert a requested branch with `--branch SOURCE NEW_ID "Label"`; the original node/edge identities remain protected and the report records the intended graph addition.
 - Fit labels with conservative Pillow font metrics. Place nodes with SciPy/HiGHS mixed-integer optimization: minimize L1 displacement subject to canvas bounds, fixed fitted sizes, pairwise nonoverlap and optional flow constraints.
 - Route connectors using finite candidate paths, rejecting paths through nodes or outside the canvas.
 - Re-import the exported SVG and check node/edge identities, directed connectivity, labels, typography bounds, node overlaps, arrow attachments and node-crossing connectors.
 
 The checker checks compliance with the accepted graph. **It cannot prove that the recovered graph expresses the author's intended meaning.**
+
+```sh
+constraint-recovery edit examples/pipeline.svg \
+  --branch model review "Independent review" --height 450 \
+  --output artifacts/branch.svg
+```
+
+A portable [branch example](docs/demo/branch.html) is included alongside the original portrait demo.
+
+## First learning and external-data checkpoint
+
+- A CPU-trained, inspectable endpoint ranker with opt-in CLI integration and abstention. See [model card](models/README.md).
+- Separate synthetic training, validation and test seeds, plus a held-out scene family. The model improves over nearest-boundary matching but **ties the tangent-aware heuristic**.
+- A fixed 20-row external dataset audit: 19 SVGs, one missing source, and zero supported by the strict baseline parser. All rows and first rejection reasons are retained; source figures are not redistributed.
+- A pinned ELK 0.12.1 layout comparison with supplied graphs, fixed canvas checks, and case-level failures. This isolates layout from learned recovery.
+
+See [phase findings](docs/phase1-findings.md), [annotation protocol](data/README.md), and [experiment results](results/attachment-learning.json). The immediate bottleneck is real SVG ingestion and independent annotations, not GPU training.
+
+```sh
+PYTHONPATH=src python benchmarks/learn_attachments.py
+constraint-recovery recover examples/pipeline.svg \
+  --endpoint-model models/attachment-ranker.json \
+  --output artifacts/learned-recovery.json
+
+# Optional mature layout baseline (requires Node.js):
+npm ci --ignore-scripts
+PYTHONPATH=src python benchmarks/compare_elk.py
+```
 
 ## Scope and limits
 
@@ -59,7 +88,7 @@ python -m pytest -q
 PYTHONPATH=src python benchmarks/run.py --output artifacts/benchmark.json
 ```
 
-The seeded 30-case engineering benchmark covers longer labels, larger fonts and portrait conversion on generated chains. It compares the solver pipeline with a simple baseline that scales positions and fits text while keeping node placements fixed. Full case records and failures are retained. The comparison is **not** against ELK, a learned model, an LLM, or external scientific diagrams, and is not evidence of a research contribution.
+The original seeded 30-case engineering benchmark covers longer labels, larger fonts and portrait conversion on generated chains. It compares the solver pipeline with a simple baseline that scales positions and fits text while keeping node placements fixed. Full case records and failures are retained. That original comparison is **not** against ELK, a learned model, an LLM, or external scientific diagrams; the ELK and learning pilots are separate experiments, with their own limitations.
 
 ## Research direction
 

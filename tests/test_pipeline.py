@@ -103,3 +103,31 @@ def test_cli_failure_does_not_export(tmp_path,monkeypatch):
     monkeypatch.setattr("sys.argv",["constraint-recovery","edit",str(SOURCE),"--output",str(out),"--width","40"])
     assert main()==2
     assert not out.exists()
+
+
+def test_branch_preserves_original_graph_and_labels():
+    from constraint_recovery.operations import add_branch
+    original = source()
+    requested = add_branch(original,"model","review","Human review")
+    assert len(original.nodes)==3 and len(original.edges)==2
+    assert {(e.id,e.source,e.target) for e in original.edges} < {(e.id,e.source,e.target) for e in requested.edges}
+    result,_ = edit(requested,height=450)
+    assert verify(requested,parse_svg(render_svg(result)))["passed"]
+    assert {n.id:n.label for n in result.nodes if n.id!="review"}=={n.id:n.label for n in original.nodes}
+
+
+@pytest.mark.parametrize("source_id,new_id,label",[("absent","new","Text"),("data","model","Text"),("data","new","")])
+def test_invalid_branch_request_is_rejected(source_id,new_id,label):
+    from constraint_recovery.operations import add_branch
+    with pytest.raises(DiagramError):
+        add_branch(source(),source_id,new_id,label)
+
+
+def test_cli_branch_records_intended_change(tmp_path,monkeypatch):
+    out = tmp_path/"branch.svg"
+    monkeypatch.setattr("sys.argv",["constraint-recovery","edit",str(SOURCE),"--output",str(out),
+                                   "--height","450","--branch","model","review","Human review"])
+    assert main()==0
+    report = json.loads(out.with_suffix(".report.json").read_text())
+    assert report["requested_branch_insertions"]==[["model","review","Human review"]]
+    assert report["node_count"]==4 and report["edge_count"]==3

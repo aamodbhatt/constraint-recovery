@@ -1,0 +1,118 @@
+{
+  "width": 720.0,
+  "height": 450.0,
+  "nodes": [
+    {
+      "id": "data",
+      "x": 36.0,
+      "y": 95.0,
+      "width": 170.0,
+      "height": 64.0,
+      "label": "Input data",
+      "font_size": 16.0,
+      "fill": "#e1ecff",
+      "stroke": "#30445f",
+      "lines": [
+        "Input data"
+      ]
+    },
+    {
+      "id": "model",
+      "x": 275.0,
+      "y": 95.0,
+      "width": 170.0,
+      "height": 64.0,
+      "label": "Model",
+      "font_size": 16.0,
+      "fill": "#e5f2ed",
+      "stroke": "#30445f",
+      "lines": [
+        "Model"
+      ]
+    },
+    {
+      "id": "result",
+      "x": 514.0,
+      "y": 95.0,
+      "width": 170.0,
+      "height": 64.0,
+      "label": "Evaluation",
+      "font_size": 16.0,
+      "fill": "#fff0de",
+      "stroke": "#30445f",
+      "lines": [
+        "Evaluation"
+      ]
+    },
+    {
+      "id": "review",
+      "x": 275.0,
+      "y": 183.0,
+      "width": 170.0,
+      "height": 64.0,
+      "label": "Independent review",
+      "font_size": 16.0,
+      "fill": "#e5f2ed",
+      "stroke": "#30445f",
+      "lines": [
+        "Independent",
+        "review"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "data-model",
+      "source": "data",
+      "target": "model",
+      "points": [
+        [
+          206.0,
+          127.0
+        ],
+        [
+          275.0,
+          127.0
+        ]
+      ],
+      "evidence": "unambiguous boundary proximity; not author-confirmed semantics"
+    },
+    {
+      "id": "model-result",
+      "source": "model",
+      "target": "result",
+      "points": [
+        [
+          445.0,
+          127.0
+        ],
+        [
+          514.0,
+          127.0
+        ]
+      ],
+      "evidence": "unambiguous boundary proximity; not author-confirmed semantics"
+    },
+    {
+      "id": "branch-model-review",
+      "source": "model",
+      "target": "review",
+      "points": [
+        [
+          360.0,
+          159.0
+        ],
+        [
+          360.0,
+          183.0
+        ]
+      ],
+      "evidence": "Explicit user-requested branch insertion"
+    }
+  ],
+  "warnings": [
+    "Geometric baseline only. Review recovered arrow attachments before treating them as semantic constraints.",
+    "Export normalizes typography, node styling, and connectors; this is not a lossless SVG editor."
+  ],
+  "schema_version": 1
+}
