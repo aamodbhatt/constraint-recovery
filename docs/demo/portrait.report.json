@@ -1,0 +1,22 @@
+{
+  "verification": {
+    "passed": true,
+    "errors": [],
+    "scope": "Checks accepted graph, geometry and conservative font metrics; does not prove inferred author intent or pixel-perfect browser typography."
+  },
+  "solver": {
+    "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+    "solver_status": 0,
+    "optimal_within_tolerance": true,
+    "objective": 848.0,
+    "flow": "vertical",
+    "gap": 24
+  },
+  "warnings": [
+    "Geometric baseline only. Review recovered arrow attachments before treating them as semantic constraints.",
+    "Export normalizes typography, node styling, and connectors; this is not a lossless SVG editor."
+  ],
+  "input": "examples/pipeline.svg",
+  "node_count": 3,
+  "edge_count": 2
+}

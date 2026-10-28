@@ -1,0 +1,80 @@
+import argparse
+import html
+import json
+from pathlib import Path
+import sys
+from .model import Diagram, DiagramError
+from .svg import parse_svg, render_svg
+from .layout import edit
+from .check import verify
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Recover and edit a supported SVG through explicit constraints.")
+    commands = parser.add_subparsers(dest="command",required=True)
+    recover = commands.add_parser("recover",help="Export the recovered graph for inspection")
+    recover.add_argument("input",type=Path)
+    recover.add_argument("--output",type=Path,required=True)
+    change = commands.add_parser("edit",help="Edit and independently validate the serialized SVG")
+    change.add_argument("input",type=Path)
+    change.add_argument("--output",type=Path,required=True)
+    change.add_argument("--labels",type=Path,help="JSON object mapping node IDs to replacement labels")
+    change.add_argument("--constraints",type=Path,help="Reviewed recovered graph, bound to input node/edge IDs")
+    change.add_argument("--width",type=float)
+    change.add_argument("--height",type=float)
+    change.add_argument("--font-size",type=float)
+    change.add_argument("--flow",choices=["free","vertical","horizontal"],default="free")
+    args = parser.parse_args()
+    try:
+        if args.input.resolve()==args.output.resolve():
+            raise DiagramError("Output must differ from input; preserve the original SVG")
+        original = parse_svg(args.input.read_text())
+        if args.command=="recover":
+            args.output.parent.mkdir(parents=True,exist_ok=True)
+            args.output.write_text(json.dumps(original.to_dict(),indent=2)+"\n")
+            print(f"Recovered {len(original.nodes)} nodes and {len(original.edges)} directed edges; review before use.")
+            return 0
+        declared = original
+        if args.constraints:
+            declared = Diagram.from_dict(json.loads(args.constraints.read_text()))
+            if {n.id for n in declared.nodes}!={n.id for n in original.nodes} or {e.id for e in declared.edges}!={e.id for e in original.edges}:
+                raise DiagramError("Reviewed graph IDs do not match the source SVG")
+            # Only relationship corrections are accepted; source geometry/text remains authoritative.
+            declared = Diagram(original.width,original.height,original.nodes,declared.edges,original.warnings).validate()
+        labels = json.loads(args.labels.read_text()) if args.labels else {}
+        if not isinstance(labels,dict):
+            raise DiagramError("Labels JSON must be an object")
+        result,solver = edit(declared,labels,args.width,args.height,args.font_size,flow=args.flow)
+        output = render_svg(result)
+        reparsed = parse_svg(output,tolerance=.01)
+        checks = verify(declared,reparsed,labels,args.font_size or 0,flow=args.flow,gap=24)
+        if not checks["passed"]:
+            raise DiagramError("Independent verification failed: "+"; ".join(checks["errors"]))
+        report = {"verification":checks,"solver":solver,"warnings":result.warnings,
+                  "input":str(args.input),"node_count":len(result.nodes),"edge_count":len(result.edges)}
+        args.output.parent.mkdir(parents=True,exist_ok=True)
+        args.output.write_text(output+"\n")
+        args.output.with_suffix(".report.json").write_text(json.dumps(report,indent=2)+"\n")
+        args.output.with_suffix(".constraints.json").write_text(json.dumps(result.to_dict(),indent=2)+"\n")
+        # Object embeds keep source SVG separate; report is local, with no remote scripts or assets.
+        original_copy = args.output.with_suffix(".original.svg")
+        original_copy.write_text(args.input.read_text())
+        source = html.escape(original_copy.name,quote=True)
+        target = html.escape(args.output.name,quote=True)
+        page = f'''<!doctype html><meta charset="utf-8"><title>Constraint recovery · verified edit</title>
+<style>body{{font:16px system-ui;margin:40px;background:#f4f6fa;color:#172c47}}main{{max-width:1200px;margin:auto}}section{{display:grid;grid-template-columns:1fr 1fr;gap:24px}}article{{background:white;padding:24px;border:1px solid #dbe3ee;border-radius:12px}}object{{width:100%;height:540px}}pre{{white-space:pre-wrap;font-size:13px}}small{{color:#586b83}}</style>
+<main><small>LOCAL BASELINE · NO CLOUD INFERENCE</small><h1>Constraint recovery</h1>
+<p>Accepted relationships and fitted geometry passed the independent checker.</p><section>
+<article><h2>Original</h2><object data="{source}" type="image/svg+xml"></object></article>
+<article><h2>Edited</h2><object data="{target}" type="image/svg+xml"></object></article></section>
+<h2>Evidence and limitations</h2><pre>{html.escape(json.dumps(report,indent=2))}</pre></main>'''
+        args.output.with_suffix(".html").write_text(page)
+        print(json.dumps(report,indent=2))
+        return 0
+    except (DiagramError,OSError,ValueError,KeyError,TypeError) as exc:
+        print(f"constraint-recovery: {exc}",file=sys.stderr)
+        return 2
+
+
+if __name__=="__main__":
+    raise SystemExit(main())

@@ -1,0 +1,93 @@
+{
+  "width": 300.0,
+  "height": 650.0,
+  "nodes": [
+    {
+      "id": "data",
+      "x": 36.0,
+      "y": 16.0,
+      "width": 170.0,
+      "height": 98.0,
+      "label": "Independent validation dataset",
+      "font_size": 20.0,
+      "fill": "#e1ecff",
+      "stroke": "#30445f",
+      "lines": [
+        "Independent",
+        "validation",
+        "dataset"
+      ]
+    },
+    {
+      "id": "model",
+      "x": 114.0,
+      "y": 138.0,
+      "width": 170.0,
+      "height": 98.0,
+      "label": "Recovered relationship model",
+      "font_size": 20.0,
+      "fill": "#e5f2ed",
+      "stroke": "#30445f",
+      "lines": [
+        "Recovered",
+        "relationship",
+        "model"
+      ]
+    },
+    {
+      "id": "result",
+      "x": 114.0,
+      "y": 260.0,
+      "width": 170.0,
+      "height": 98.0,
+      "label": "Structural preservation evaluation",
+      "font_size": 20.0,
+      "fill": "#fff0de",
+      "stroke": "#30445f",
+      "lines": [
+        "Structural",
+        "preservation",
+        "evaluation"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "data-model",
+      "source": "data",
+      "target": "model",
+      "points": [
+        [
+          121.0,
+          114.0
+        ],
+        [
+          199.0,
+          138.0
+        ]
+      ],
+      "evidence": "unambiguous boundary proximity; not author-confirmed semantics"
+    },
+    {
+      "id": "model-result",
+      "source": "model",
+      "target": "result",
+      "points": [
+        [
+          199.0,
+          236.0
+        ],
+        [
+          199.0,
+          260.0
+        ]
+      ],
+      "evidence": "unambiguous boundary proximity; not author-confirmed semantics"
+    }
+  ],
+  "warnings": [
+    "Geometric baseline only. Review recovered arrow attachments before treating them as semantic constraints.",
+    "Export normalizes typography, node styling, and connectors; this is not a lossless SVG editor."
+  ],
+  "schema_version": 1
+}

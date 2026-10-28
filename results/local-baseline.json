@@ -1,0 +1,352 @@
+{
+  "seed": 20261029,
+  "cases": 30,
+  "kind": "synthetic engineering baseline",
+  "baseline": "fixed placements, scaled positions, text fitting; not ELK or an LLM",
+  "baseline_passes": 20,
+  "solver_passes": 30,
+  "median_solver_seconds": 0.007673999993130565,
+  "limitations": [
+    "Simple generated chains, not external SVGs",
+    "No learned model",
+    "No claim of research superiority"
+  ],
+  "records": [
+    {
+      "case": 0,
+      "task": "long-labels",
+      "nodes": 5,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.017509582976344973,
+      "errors": []
+    },
+    {
+      "case": 1,
+      "task": "larger-font",
+      "nodes": 4,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.00747058296110481,
+      "errors": []
+    },
+    {
+      "case": 2,
+      "task": "portrait",
+      "nodes": 3,
+      "baseline_passed": false,
+      "baseline_errors": [
+        "Outside canvas: n2",
+        "Nodes overlap: n0, n1",
+        "Nodes overlap: n1, n2",
+        "Connector crosses a node interior: e0",
+        "Connector crosses a node interior: e1"
+      ],
+      "solver_passed": true,
+      "seconds": 0.0027767919818870723,
+      "errors": []
+    },
+    {
+      "case": 3,
+      "task": "long-labels",
+      "nodes": 5,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.016735666955355555,
+      "errors": []
+    },
+    {
+      "case": 4,
+      "task": "larger-font",
+      "nodes": 4,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.007543499988969415,
+      "errors": []
+    },
+    {
+      "case": 5,
+      "task": "portrait",
+      "nodes": 4,
+      "baseline_passed": false,
+      "baseline_errors": [
+        "Text at (84.35064935064935, 235.94) has 2 possible owning nodes"
+      ],
+      "solver_passed": true,
+      "seconds": 0.005021959019359201,
+      "errors": []
+    },
+    {
+      "case": 6,
+      "task": "long-labels",
+      "nodes": 4,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.01172395795583725,
+      "errors": []
+    },
+    {
+      "case": 7,
+      "task": "larger-font",
+      "nodes": 3,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.003815457981545478,
+      "errors": []
+    },
+    {
+      "case": 8,
+      "task": "portrait",
+      "nodes": 5,
+      "baseline_passed": false,
+      "baseline_errors": [
+        "Text at (82.5, 282.6066666666667) has 2 possible owning nodes"
+      ],
+      "solver_passed": true,
+      "seconds": 0.008738250005990267,
+      "errors": []
+    },
+    {
+      "case": 9,
+      "task": "long-labels",
+      "nodes": 5,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.016985292022582144,
+      "errors": []
+    },
+    {
+      "case": 10,
+      "task": "larger-font",
+      "nodes": 4,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.007668333011679351,
+      "errors": []
+    },
+    {
+      "case": 11,
+      "task": "portrait",
+      "nodes": 5,
+      "baseline_passed": false,
+      "baseline_errors": [
+        "Text at (82.5, 282.6066666666667) has 2 possible owning nodes"
+      ],
+      "solver_passed": true,
+      "seconds": 0.008749500033445656,
+      "errors": []
+    },
+    {
+      "case": 12,
+      "task": "long-labels",
+      "nodes": 4,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.012165624997578561,
+      "errors": []
+    },
+    {
+      "case": 13,
+      "task": "larger-font",
+      "nodes": 3,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.0039673749706707895,
+      "errors": []
+    },
+    {
+      "case": 14,
+      "task": "portrait",
+      "nodes": 4,
+      "baseline_passed": false,
+      "baseline_errors": [
+        "Text at (84.35064935064935, 235.94) has 2 possible owning nodes"
+      ],
+      "solver_passed": true,
+      "seconds": 0.005008666019421071,
+      "errors": []
+    },
+    {
+      "case": 15,
+      "task": "long-labels",
+      "nodes": 5,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.01685737504158169,
+      "errors": []
+    },
+    {
+      "case": 16,
+      "task": "larger-font",
+      "nodes": 4,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.007679666974581778,
+      "errors": []
+    },
+    {
+      "case": 17,
+      "task": "portrait",
+      "nodes": 3,
+      "baseline_passed": false,
+      "baseline_errors": [
+        "Outside canvas: n2",
+        "Nodes overlap: n0, n1",
+        "Nodes overlap: n1, n2",
+        "Connector crosses a node interior: e0",
+        "Connector crosses a node interior: e1"
+      ],
+      "solver_passed": true,
+      "seconds": 0.002784874988719821,
+      "errors": []
+    },
+    {
+      "case": 18,
+      "task": "long-labels",
+      "nodes": 4,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.011844915978144854,
+      "errors": []
+    },
+    {
+      "case": 19,
+      "task": "larger-font",
+      "nodes": 5,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.01085933402646333,
+      "errors": []
+    },
+    {
+      "case": 20,
+      "task": "portrait",
+      "nodes": 3,
+      "baseline_passed": false,
+      "baseline_errors": [
+        "Outside canvas: n2",
+        "Nodes overlap: n0, n1",
+        "Nodes overlap: n1, n2",
+        "Connector crosses a node interior: e0",
+        "Connector crosses a node interior: e1"
+      ],
+      "solver_passed": true,
+      "seconds": 0.002776583016384393,
+      "errors": []
+    },
+    {
+      "case": 21,
+      "task": "long-labels",
+      "nodes": 5,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.01654070900985971,
+      "errors": []
+    },
+    {
+      "case": 22,
+      "task": "larger-font",
+      "nodes": 3,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.003942540963180363,
+      "errors": []
+    },
+    {
+      "case": 23,
+      "task": "portrait",
+      "nodes": 4,
+      "baseline_passed": false,
+      "baseline_errors": [
+        "Text at (84.35064935064935, 235.94) has 2 possible owning nodes"
+      ],
+      "solver_passed": true,
+      "seconds": 0.004984375031199306,
+      "errors": []
+    },
+    {
+      "case": 24,
+      "task": "long-labels",
+      "nodes": 4,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.011910166998859495,
+      "errors": []
+    },
+    {
+      "case": 25,
+      "task": "larger-font",
+      "nodes": 5,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.011296166980173439,
+      "errors": []
+    },
+    {
+      "case": 26,
+      "task": "portrait",
+      "nodes": 3,
+      "baseline_passed": false,
+      "baseline_errors": [
+        "Outside canvas: n2",
+        "Nodes overlap: n0, n1",
+        "Nodes overlap: n1, n2",
+        "Connector crosses a node interior: e0",
+        "Connector crosses a node interior: e1"
+      ],
+      "solver_passed": true,
+      "seconds": 0.0028787089977413416,
+      "errors": []
+    },
+    {
+      "case": 27,
+      "task": "long-labels",
+      "nodes": 3,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.007704457966610789,
+      "errors": []
+    },
+    {
+      "case": 28,
+      "task": "larger-font",
+      "nodes": 3,
+      "baseline_passed": true,
+      "baseline_errors": [],
+      "solver_passed": true,
+      "seconds": 0.004236417007632554,
+      "errors": []
+    },
+    {
+      "case": 29,
+      "task": "portrait",
+      "nodes": 4,
+      "baseline_passed": false,
+      "baseline_errors": [
+        "Text at (84.35064935064935, 235.94) has 2 possible owning nodes"
+      ],
+      "solver_passed": true,
+      "seconds": 0.005233042000327259,
+      "errors": []
+    }
+  ]
+}
