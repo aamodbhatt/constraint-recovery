@@ -92,6 +92,7 @@ npx playwright install chromium
 python benchmarks/run_sequences.py --elk --output artifacts/sequences-elk.json
 node benchmarks/browser_check.cjs
 node benchmarks/compound_check.cjs
+node benchmarks/presentation_check.cjs
 ```
 
 CI repeats the Python suite, synthetic experiments and browser checks. Results retain case-level failures and skipped requests. GPU use remains behind a [measured-need gate](ROADMAP.md#cloud-gpu-gate).

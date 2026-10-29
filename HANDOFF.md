@@ -29,11 +29,12 @@ Cloud GPU work was authorized after a sizeable local checkpoint, subject to a me
 
 ## Validation and results
 
-- Latest local Python suite: **159 passing tests**.
+- Latest local Python suite: **160 passing tests**.
 - Compound browser diagnostic passes two consecutive edits on rotated/bold/use artwork, review retention and hash binding, rejection without overwriting an earlier SVG, and rejection of a CSS selector activated by inserted transforms. Saved in `results/compound-integration.json`. This is an authored agent-reviewed fixture, not independent ground truth or external accuracy.
 - Browser integration passes review/download/edit, source-ID collisions, inert source text, 24-unit font scaling and text containment, affine/rotation/use measurements, blocked source scripts and requests, compound grouping/download/resume, click/lasso/zoom, and an independent pixel check of the coordinate projection.
 - Python wheel built successfully; browser bridge assets and the annotation HTML template are included as package data.
-- Earlier code CI run [40878142485](https://github.com/aamodbhatt/constraint-recovery/actions/runs/40878142485) passed. Check the newest GitHub Actions run for this checkpoint; older green runs do not validate newer code.
+- Compound checkpoint `dc097ee` passed all four CI jobs in [40890725634](https://github.com/aamodbhatt/constraint-recovery/actions/runs/40890725634). Check the newest run for subsequent diagnostic additions; older green runs do not validate newer code.
+- The expanded diagnostic rejects freshly measured damaged text, gradient definitions, rigid poses and detached endpoints; skew/nonuniform and reflected parent variants pass. The packaged wheel completes a browser-backed edit when run with the SVG extra installed. Presentation smoke checks are portable in `benchmarks/presentation_check.cjs` and run in CI.
 - Original 30-case synthetic layout benchmark: solver 30/30, fixed-placement baseline 20/30.
 - Paired routing diagnostic: visibility solves six feasible authored cases; templates solve one with the same clearance. Both reject the blocked seventh case.
 - Sequence pilot: reuse, fresh recovery, topological strip and ELK repair all complete 30/30 feasible steps across five sequences and reject five final impossible requests. ELK-only completes 12 steps before fixed-canvas overflow. This is a small synthetic diagnostic; it does not establish a reuse or learned advantage.

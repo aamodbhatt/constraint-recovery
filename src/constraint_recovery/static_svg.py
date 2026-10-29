@@ -51,7 +51,10 @@ def parse_static(source):
         raise DiagramError(f"Invalid or unsafe SVG XML: {exc}") from exc
     if root.tag!=f"{{{NS}}}svg":
         raise DiagramError("Compound editing requires an SVG namespace root")
-    import tinycss2
+    try:
+        import tinycss2
+    except ImportError as exc:
+        raise DiagramError("Compound editing requires the SVG extra: pip install 'constraint-recovery[svg]'") from exc
     def declarations(raw):
         for declaration in tinycss2.parse_declaration_list(raw,skip_whitespace=True,skip_comments=True):
             if declaration.type!="declaration" or declaration.lower_name in CSS_GEOMETRY or declaration.lower_name.startswith(("animation","transition")):

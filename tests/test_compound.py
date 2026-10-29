@@ -10,6 +10,18 @@ from constraint_recovery.static_svg import parse_static,elements
 ROOT=Path(__file__).parents[1]
 
 
+def test_missing_svg_extra_has_an_actionable_error(monkeypatch):
+    import builtins
+    original=builtins.__import__
+    def without_css(name,*args,**kwargs):
+        if name=='tinycss2':
+            raise ImportError('not installed')
+        return original(name,*args,**kwargs)
+    monkeypatch.setattr(builtins,'__import__',without_css)
+    with pytest.raises(DiagramError,match='requires the SVG extra'):
+        parse_static('<svg xmlns="http://www.w3.org/2000/svg"/>')
+
+
 @pytest.mark.parametrize("fragment",[
     '<script>alert(1)</script>','<foreignObject/>','<image href="https://example.com/a.png"/>',
     '<g onclick="bad()"/>','<g xml:base="https://example.com/"/>',

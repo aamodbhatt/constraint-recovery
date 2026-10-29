@@ -23,5 +23,15 @@
   "output_binding": true,
   "rejected_request_preserves_existing_output": true,
   "css_triggered_style_change_rejected": true,
+  "damaged_candidates_rejected": {
+    "text_change": true,
+    "definition_change": true,
+    "wrong_rigid_pose": true,
+    "detached_arrow": true
+  },
+  "affine_parent_cases": {
+    "skew_nonuniform": true,
+    "reflected": true
+  },
   "scope": "Authored agent-reviewed fixture with rotated card, symbol instance and bold text. No external recovery or human annotation claim."
 }

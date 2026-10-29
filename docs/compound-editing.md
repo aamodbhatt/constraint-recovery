@@ -43,7 +43,7 @@ For a primitive with local transform `L`, measured parent transform `P` and requ
 L' = P^-1 T P L
 ```
 
-This handles nonsingular affine ancestors without reparenting elements. Moving leaves rather than groups can activate attribute-based CSS selectors, so the checker compares computed styles across every element, including text spans and definitions. It also compares source attributes, hierarchy, text and comments, allowing only the requested transforms and connector coordinates to change.
+This handles nonsingular affine ancestors without reparenting elements. The diagnostic includes skew/nonuniform-scale and reflected parent variants as well as the rotated card. Moving leaves rather than groups can activate attribute-based CSS selectors, so the checker compares computed styles across every element, including text spans and definitions. It also compares source attributes, hierarchy, text and comments, allowing only the requested transforms and connector coordinates to change.
 
 Arrows retain their original endpoint offsets relative to the accepted objects. Measured endpoint tangents determine escape directions, and the visibility-grid router searches with eight-unit clearance. A separate serialized-segment check and fresh endpoint measurements validate the result. Bounding envelopes, affine linear parts, declared ordering/alignment/group relations and container boundaries are checked independently of the placement request.
 
@@ -61,4 +61,4 @@ Arrows retain their original endpoint offsets relative to the accepted objects. 
 PYTHON=.venv/bin/python node benchmarks/compound_check.cjs
 ```
 
-The [saved diagnostic](../results/compound-integration.json) covers two edits, original-review retention, output binding, an impossible move that preserves existing output, and a CSS-triggered styling change that must be rejected. It is an integration diagnostic on an authored fixture, not independent recovery accuracy or evidence of a learned advantage.
+The [saved diagnostic](../results/compound-integration.json) covers two edits, original-review retention, output binding, an impossible move that preserves existing output, and a CSS-triggered styling change that must be rejected. Separate damaged candidates change text, a gradient definition, a moved shape's pose or an arrow endpoint; fresh browser measurements and the checker reject each. This is an integration diagnostic on an authored fixture, not independent recovery accuracy or evidence of a learned advantage.
