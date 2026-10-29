@@ -11,6 +11,9 @@ TAGS={"svg","g","defs","marker","symbol","use","rect","circle","ellipse","line",
       "feBlend","feColorMatrix","feMerge","feMergeNode","feComposite","feFlood","feMorphology"}
 URL_ATTRIBUTES={"fill","stroke","filter","clip-path","mask","marker-start","marker-mid","marker-end","cursor","color-profile"}
 CSS_GEOMETRY={"transform","transform-origin","transform-box","d"}
+SODIPODI="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+METADATA_NAMESPACES={"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                     "http://creativecommons.org/ns#","http://purl.org/dc/elements/1.1/"}
 
 
 def elements(root):
@@ -60,10 +63,17 @@ def parse_static(source):
             if declaration.type!="declaration" or declaration.lower_name in CSS_GEOMETRY or declaration.lower_name.startswith(("animation","transition")):
                 raise DiagramError("CSS transforms/path geometry, animations and malformed declarations are outside rigid-edit scope")
             _css_tokens(declaration.value)
+    # Preserve known non-rendering editor/provenance records in their original
+    # positions. This does not admit arbitrary foreign/rendered SVG content.
+    metadata_descendants={child for e in root.iter() if isinstance(e.tag,str) and e.tag==f"{{{NS}}}metadata" for child in e.iter() if child is not e}
+    direct_children=set(root)
     ids=set()
     for path,e in elements(root).items():
         tag=local(e.tag)
-        if e.tag!=f"{{{NS}}}{tag}" or tag not in TAGS or (tag=="svg" and e is not root):
+        namespace=e.tag[1:].split('}',1)[0] if e.tag.startswith('{') else ''
+        inert_metadata=e in metadata_descendants and namespace in METADATA_NAMESPACES
+        inert_namedview=e in direct_children and e.tag==f"{{{SODIPODI}}}namedview" and not len(e)
+        if not (inert_metadata or inert_namedview) and (e.tag!=f"{{{NS}}}{tag}" or tag not in TAGS or (tag=="svg" and e is not root)):
             raise DiagramError(f"Unsupported static edit element: {tag}")
         if e.get("id"):
             if e.get("id") in ids:

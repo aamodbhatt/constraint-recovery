@@ -23,6 +23,8 @@ First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone
   - [ ] Obtain independently reviewed external labels; the authored agent-reviewed workflow fixture is not that dataset.
   - [x] Reviewed rigid compound-node adapter with affine pose preservation, original attachment offsets, derived-state provenance and fresh browser verification on an authored rich fixture. [Scope](docs/compound-editing.md).
   - [ ] Establish actual external compound-edit coverage and unsupported-case denominators.
+    - [x] Fixed five-figure author-published development pilot, retained initial failures, explicit agent-reviewed assumptions and direct-edit controls: 3/5 two-move sequences pass; unresolved context and mid-marker rerouting remain declined. [Results and limits](docs/native-pilot.md).
+    - [ ] Independent human review and an untouched authoring-origin holdout; crossing/shared-segment safety beyond node envelopes.
 - Add strong heuristics + ELK and direct source-editing baselines.
   - [x] Tangent-aware endpoint heuristic and a pinned ELK layout configuration.
   - [ ] Direct source-editing baseline and independent real-diagram labels.

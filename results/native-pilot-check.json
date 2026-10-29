@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "damaged_candidates_rejected": {
+    "separate_head_pose": true,
+    "carried_curve_geometry": true,
+    "editor_metadata": true
+  },
+  "scope": "Frozen external development regressions under agent-reviewed assumptions; not independent recovery accuracy."
+}

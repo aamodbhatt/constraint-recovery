@@ -66,6 +66,21 @@ def validate_annotation(data,source_sha256=None,measurements=None):
             raise DiagramError("Primitive parts must be nonempty, unique and disjoint across objects")
         if known is not None and set(members)-set(known):
             raise DiagramError("Unknown primitive part in annotation")
+        geometry=obj.get('connector_geometry')
+        if geometry is not None:
+            if not isinstance(geometry,dict) or obj['role']!='connector' or geometry.get('direction')!='forward' or geometry.get('shaft') not in members or set(geometry)-{'shaft','direction','end_head'}:
+                raise DiagramError("Connector geometry requires a member shaft and explicit forward source-path direction")
+            head=geometry.get('end_head')
+            expected={geometry['shaft']}
+            if head is not None:
+                if not isinstance(head,dict) or set(head)!={'part','tip'} or head.get('part') not in members or head['part']==geometry['shaft']:
+                    raise DiagramError("Invalid separate connector head member")
+                tip=head.get('tip')
+                if not isinstance(tip,list) or len(tip)!=2 or any(type(v) not in {int,float} or not math.isfinite(v) for v in tip):
+                    raise DiagramError("Connector head tip requires two finite local SVG coordinates")
+                expected.add(head['part'])
+            if set(members)!=expected:
+                raise DiagramError("Connector geometry does not cover exactly its shaft and optional end head")
         parts.update(members)
     for relation in relations:
         if not isinstance(relation,dict) or relation.get("kind") not in RELATIONS or relation.get("status") not in STATUSES or not isinstance(relation.get("rationale"),str):

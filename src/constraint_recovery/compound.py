@@ -218,26 +218,85 @@ class CompoundDocument:
                     raise DiagramError(f"Move reverses declared {kind} order")
         return boxes
 
-    def connector(self,relation):
+    def connector(self,relation,rigid=False):
         obj=self.objects[relation["connector"]]
-        if obj["status"]!="confirmed" or len(obj["parts"])!=1:
-            raise DiagramError("Rerouting currently needs a confirmed single-primitive connector; arrow-label groups are not yet supported")
-        location=obj["parts"][0]
+        geometry=obj.get('connector_geometry')
+        if obj["status"]!="confirmed" or (geometry is None and len(obj["parts"])!=1):
+            raise DiagramError("Rerouting needs a confirmed single shaft or explicit shaft/end-head geometry; arrow-label groups are unsupported")
+        location=geometry['shaft'] if geometry else obj["parts"][0]
         p=self.parts[location]
         style=p["computed_all"]
-        if p["tag"] not in {"path","polyline","line"} or "path_geometry" not in p or style.get("marker-end","none")=="none" or style.get("marker-start","none")!="none" or style.get("marker-mid","none")!="none":
-            raise DiagramError("Rerouting requires a singly marked line, polyline or open path")
-        if p["tag"]!="line" and style.get("fill")!="none":
+        marked=style.get('marker-end','none')!='none'
+        if p["tag"] not in {"path","polyline","line"} or "path_geometry" not in p or (not marked and geometry is None):
+            raise DiagramError("Rerouting requires an open shaft with one end marker or explicitly reviewed forward geometry")
+        if not rigid and (style.get('marker-start','none')!='none' or style.get('marker-mid','none')!='none'):
+            raise DiagramError('Rerouting cannot preserve start/mid-marker placement; only a whole-connector rigid move is supported')
+        if marked and geometry and geometry.get('end_head'):
+            raise DiagramError('A connector cannot have both a marker and a separate end head')
+        if not rigid and p["tag"]!="line" and style.get("fill")!="none":
             raise DiagramError("Connector paths require fill:none")
         if math.dist(p["path_geometry"]["start"],p["path_geometry"]["end"])<1e-6:
             raise DiagramError("Closed/degenerate connector paths are unsupported")
         return location,p
 
+    def end_head(self,relation):
+        geometry=self.objects[relation['connector']].get('connector_geometry',{})
+        head=geometry.get('end_head')
+        if head is None:
+            return None
+        p=self.parts[head['part']]
+        if p['tag'] not in {'path','polygon','use'} or p['computed_all'].get('fill')=='none' or any(p['computed_all'].get(k,'none')!='none' for k in ['marker-start','marker-mid','marker-end']):
+            raise DiagramError('Separate end heads need filled path, polygon or instance artwork without markers')
+        tip=point(affine(p['matrix']),*head['tip'])
+        if not contains(p['viewbox_bounds'],[*tip,*tip]):
+            raise DiagramError('Reviewed head tip is outside its measured artwork envelope')
+        return head['part'],p,tip
 
-def portals(box,anchor,outward,clearance=8):
+
+def translate_leaf(element,measurement,delta):
+    parent=affine(measurement['parent_matrix'])
+    if abs(np.linalg.det(parent[:2,:2]))<1e-8:
+        raise DiagramError('Singular parent transforms cannot support a rigid compound move')
+    translation=np.eye(3);translation[:2,2]=delta
+    result=np.linalg.inv(parent)@translation@parent@transform(element.get('transform',''),allow_affine=True)
+    a,c,e=result[0];b,d,f=result[1]
+    element.set('transform',f'matrix({a:.15g} {b:.15g} {c:.15g} {d:.15g} {e:.15g} {f:.15g})')
+
+
+def edge_changes(document,deltas):
+    """Classify accepted relationships without invoking placement or routing."""
+    rerouted={};translated={};carried=[]
+    for relation in document.edges:
+        start,end=relation['objects']
+        if deltas[start]==[0.,0.] and deltas[end]==[0.,0.]:
+            continue
+        if start==end or any(document.objects[key]['role']!='node' for key in [start,end]):
+            raise DiagramError('Affected edges require two distinct node objects')
+        location,p=document.connector(relation,rigid=deltas[start]==deltas[end])
+        head=document.end_head(relation)
+        if deltas[start]==deltas[end]:
+            for part in document.objects[relation['connector']]['parts']:
+                translated[part]=deltas[start]
+            carried.append(relation)
+        else:
+            rerouted[location]=relation
+            if head:
+                if deltas[end]!=[0.,0.]:translated[head[0]]=deltas[end]
+                gap=np.subtract(head[2],p['path_geometry']['end'])
+                tangent=p['path_geometry']['end_direction']
+                axis=int(np.argmax(np.abs(tangent)))
+                if abs(tangent[1-axis])>1e-4 or abs(gap[1-axis])>EPS or gap[axis]*tangent[axis]<=0:
+                    raise DiagramError('Rerouting a separate head currently requires an axis-aligned terminal direction and forward head gap')
+                if np.linalg.norm(gap)>2*max(head[1]['viewbox_bounds'][2]-head[1]['viewbox_bounds'][0],head[1]['viewbox_bounds'][3]-head[1]['viewbox_bounds'][1])+EPS:
+                    raise DiagramError('Reviewed shaft and separate head have an excessive gap')
+    return rerouted,translated,carried
+
+
+def portals(box,anchor,outward,clearance=8,ownership_anchor=None):
     if len(anchor)!=2 or len(outward)!=2 or not all(math.isfinite(v) for v in [*anchor,*outward]) or math.hypot(*outward)<1e-8:
         raise DiagramError("Connector needs a nondegenerate measured endpoint direction")
-    if not contains([box[0]-8,box[1]-8,box[2]+8,box[3]+8],[*anchor,*anchor]):
+    ownership=anchor if ownership_anchor is None else ownership_anchor
+    if len(ownership)!=2 or not all(math.isfinite(v) for v in ownership) or not contains([box[0]-8,box[1]-8,box[2]+8,box[3]+8],[*ownership,*ownership]):
         raise DiagramError("Reviewed connector endpoint is too far from its compound node envelope")
     largest=max(abs(v) for v in outward)
     result=[]
@@ -262,30 +321,24 @@ def prepare(source,measurements,manifest,moves):
         if delta==[0.,0.]:
             continue
         for location in document.objects[key]["parts"]:
-            p=document.parts[location]
-            parent=affine(p["parent_matrix"])
-            if abs(np.linalg.det(parent[:2,:2]))<1e-8:
-                raise DiagramError("Singular parent transforms cannot support a rigid compound move")
-            translation=np.eye(3);translation[:2,2]=delta
-            local_matrix=transform(mapped[location].get("transform",""),allow_affine=True)
-            result=np.linalg.inv(parent)@translation@parent@local_matrix
-            a,c,e=result[0];b,d,f=result[1]
-            mapped[location].set("transform",f"matrix({a:.15g} {b:.15g} {c:.15g} {d:.15g} {e:.15g} {f:.15g})")
+            translate_leaf(mapped[location],document.parts[location],delta)
             allowed[location]=["transform"]
             moved_parts[location]=delta
+    changes,translated,carried=edge_changes(document,deltas)
+    for location,delta in translated.items():
+        translate_leaf(mapped[location],document.parts[location],delta)
+        allowed[location]=['transform']
     rerouted=[]
-    for relation in document.edges:
+    for location,relation in changes.items():
         start,end=relation["objects"]
-        if deltas[start]==[0.,0.] and deltas[end]==[0.,0.]:
-            continue
-        if start==end or document.objects[start]["role"]!="node" or document.objects[end]["role"]!="node":
-            raise DiagramError("Affected edges require two distinct node objects")
-        location,p=document.connector(relation)
+        _,p=document.connector(relation)
         geometry=p["path_geometry"]
         source_anchor=np.add(geometry["start"],deltas[start]).tolist()
         target_anchor=np.add(geometry["end"],deltas[end]).tolist()
         source_ports=portals(boxes[start],source_anchor,geometry["start_direction"])
-        target_ports=portals(boxes[end],target_anchor,[-v for v in geometry["end_direction"]])
+        head=document.end_head(relation)
+        tip=np.add(head[2],deltas[end]).tolist() if head else None
+        target_ports=portals(boxes[end],target_anchor,[-v for v in geometry["end_direction"]],ownership_anchor=tip)
         obstacles=document.obstacles(boxes,(start,end))
         obstacles[start],obstacles[end]=boxes[start],boxes[end]
         router=OrthogonalRouter({key:box_node(key,b) for key,b in obstacles.items()},*measurements["canvas"],
@@ -312,7 +365,7 @@ def prepare(source,measurements,manifest,moves):
     output=ET.tostring(root,encoding="unicode")+"\n" if allowed else source
     return output,{"schema_version":1,"input_sha256":digest(source),"output_sha256":digest(output),"moves":moves,
                    "allowed_attributes":allowed,"moved_parts":moved_parts,"rerouted":rerouted,
-                   "annotation_sha256":json_digest(document.annotation)}
+                   "annotation_sha256":json_digest(document.annotation),"carried_connectors":[r['connector'] for r in carried]}
 
 
 def _same(a,b,tolerance=EPS):
@@ -370,34 +423,31 @@ def verify_compound(source,before,manifest,moves,candidate,after):
     if set(document.elements)!=set(new_elements):
         raise DiagramError("Source element hierarchy changed")
     moved={p:delta for key,delta in deltas.items() if delta!=[0.,0.] for p in document.objects[key]["parts"]}
-    rerouted={}
-    for edge in document.edges:
-        if any(deltas[key]!=[0.,0.] for key in edge["objects"]):
-            location,p=document.connector(edge)
-            rerouted[location]=edge
+    rerouted,translated,carried=edge_changes(document,deltas)
+    motions={**moved,**translated}
     allowed_changes={}
     for location,old in document.elements.items():
-        allowed={"transform"} if location in moved else {"d"} if location in rerouted and local(old.tag)=="path" else {"points"} if location in rerouted and local(old.tag)=="polyline" else {"x1","y1","x2","y2"} if location in rerouted else set()
+        allowed={"transform"} if location in motions else {"d"} if location in rerouted and local(old.tag)=="path" else {"points"} if location in rerouted and local(old.tag)=="polyline" else {"x1","y1","x2","y2"} if location in rerouted else set()
         allowed_changes[location]=allowed
     if _tree_snapshot(document.root,allowed_changes)!=_tree_snapshot(root,allowed_changes):
         raise DiagramError("Protected source hierarchy, attributes, text or comments changed")
     if set(before["document_styles"])!=set(after["document_styles"]):
         raise DiagramError("Measured document style identity set changed")
     for location,old in before["document_styles"].items():
-        ignored={"transform"} if location in moved else {"d"} if location in rerouted and document.parts[location]["tag"]=="path" else set()
+        ignored={"transform"} if location in motions else {"d"} if location in rerouted and document.parts[location]["tag"]=="path" else set()
         if {k:v for k,v in old.items() if k not in ignored}!={k:v for k,v in after["document_styles"][location].items() if k not in ignored}:
             raise DiagramError(f"Computed source/descendant/definition styling changed: {location}")
     for location,old in document.parts.items():
         new=after_parts[location]
         if (old["tag"],old.get("source_id"))!=(new["tag"],new.get("source_id")):
             raise DiagramError("Source primitive tags or IDs changed")
-        ignored={"transform"} if location in moved else {"d"} if location in rerouted and old["tag"]=="path" else set()
+        ignored={"transform"} if location in motions else {"d"} if location in rerouted and old["tag"]=="path" else set()
         if {k:v for k,v in old["computed_all"].items() if k not in ignored}!={k:v for k,v in new["computed_all"].items() if k not in ignored}:
             raise DiagramError(f"Computed source styling changed: {location}")
         if old["visible_by_display_visibility_opacity"]!=new["visible_by_display_visibility_opacity"]:
             raise DiagramError("Source visibility changed")
         if location not in rerouted:
-            delta=moved.get(location,[0.,0.])
+            delta=motions.get(location,[0.,0.])
             if not _same(new["viewbox_bounds"],shifted(old["viewbox_bounds"],delta)):
                 raise DiagramError(f"Browser envelope failed the rigid/protected pose check: {location}")
             expected=affine(old["matrix"]);expected[:2,2]+=delta
@@ -411,6 +461,12 @@ def verify_compound(source,before,manifest,moves,candidate,after):
             if not _same(new["path_geometry"][role],expected):
                 raise DiagramError("Rerouted connector detached from its original relative anchor")
         points=_polyline(new_elements[location],affine(new["matrix"]))
+        head=document.end_head(edge)
+        if head:
+            terminal=np.subtract(points[-1],points[-2]);original=p['path_geometry']['end_direction']
+            axis=int(np.argmax(np.abs(original)))
+            if abs(terminal[1-axis])>EPS or terminal[axis]*original[axis]<=0:
+                raise DiagramError('Serialized reroute reverses or rotates its separately drawn end head')
         width,height=after["canvas"]
         if any(x<-EPS or y<-EPS or x>width+EPS or y>height+EPS for x,y in points):
             raise DiagramError("Rerouted connector outside canvas")
@@ -420,16 +476,32 @@ def verify_compound(source,before,manifest,moves,candidate,after):
                     continue
                 if segment_hits_rect(p,q,box_node(key,box)):
                     raise DiagramError(f"Reroute crosses a protected/node envelope: {key}")
+    # Translated connector artwork is checked against unrelated protected
+    # envelopes as well as its exact measured rigid pose above.
+    width,height=after['canvas']
+    carried_ids={edge['connector'] for edge in carried}
+    for edge in document.edges:
+        start,end=edge['objects']
+        for location in document.objects[edge['connector']]['parts']:
+            if location not in translated:
+                continue
+            box=after_parts[location]['viewbox_bounds']
+            if not contains([0,0,width,height],box):
+                raise DiagramError('Translated connector artwork leaves the canvas')
+            for key,obstacle in document.obstacles(boxes,(start,end)).items():
+                if key not in {start,end} and overlaps(box,obstacle):
+                    raise DiagramError(f'Translated connector artwork overlaps protected envelope: {key}')
     # Unchanged arrows must not be covered by a newly moved unrelated node.
     for edge in document.edges:
-        location,p=document.connector(edge)
-        if location in rerouted:
+        location,p=document.connector(edge,rigid=True)
+        if location in rerouted or edge['connector'] in carried_ids:
             continue
         for key,delta in deltas.items():
             if delta!=[0.,0.] and key not in edge["objects"] and overlaps(boxes[key],p["viewbox_bounds"]):
                 raise DiagramError("Moved node could cover an unchanged connector; its conservative envelope overlaps")
     return {"passed":True,"moved_objects":sum(delta!=[0.,0.] for delta in deltas.values()),"moved_primitives":len(moved),
-            "rerouted_connectors":len(rerouted),"protected_primitives":len(document.parts)-len(moved)-len(rerouted),
+            "rerouted_connectors":len(rerouted),"carried_connectors":len(carried),"translated_connector_primitives":len(translated),
+            "protected_primitives":len(document.parts)-len(motions)-len(rerouted),
             "tolerance_viewbox_units":EPS,"input_sha256":digest(source),"output_sha256":digest(candidate),
             "annotation_sha256":json_digest(document.annotation),"accepted_review":document.annotation["review"],
             "scope":"Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."}

@@ -2,7 +2,7 @@
 
 `edit-compound` translates explicitly reviewed objects in a rich static SVG. A node can contain circles, text, symbol instances and rotated artwork. The adapter preserves the original hierarchy and local artwork, reroutes affected arrows, then measures the serialized candidate in a fresh browser page before exporting it.
 
-This is a rigid-edit adapter, not automatic object recovery or a general layout solver. The initial test is an authored, agent-reviewed fixture. Complete-figure editing on the external development set remains **0/19**.
+This is a rigid-edit adapter, not automatic object recovery or a general layout solver. The [native SVG development pilot](native-pilot.md) completes two frozen moves on 3/5 figures under agent-reviewed assumptions. The separate reconstructed-SVG audit remains **0/19**. Neither track establishes independent recovery accuracy.
 
 ![Authored compound-node example before and after a checked move](demo/compound-comparison.png)
 
@@ -50,10 +50,26 @@ Arrows retain their original endpoint offsets relative to the accepted objects. 
 ## Supported boundary
 
 - Only confirmed node objects move. Containers, unknown objects and unassigned parts remain protected; uncertainty touching a moved object requires review.
-- Rerouting requires a single marked line, polyline or open unfilled path per connector. A line that needs bends is rejected. Multipart arrows, arrow-label groups and shared ownership are unsupported.
+- Rerouting accepts a single marked line, polyline or open unfilled path. An unmarked shaft needs explicit forward geometry in the annotation. A separately drawn filled end head can translate with its target when its terminal direction is axis-aligned; its exact local artwork and relative tip offset are checked. A line that needs bends is rejected. Arbitrary multipart arrows, arrow-label groups and shared ownership remain unsupported.
+- When both accepted endpoint objects translate identically, the entire connector can translate rigidly. Its source curve, fill and start/mid/end markers stay unchanged. Rerouting start/mid markers is declined because new vertices could create new markers.
+- Known empty root-level Inkscape/Sodipodi named-view records and RDF/DC/CC provenance records inside SVG metadata are retained and checked. This does not admit arbitrary foreign content or remove source metadata to force compatibility.
 - Static SVG only: no scripts, events, external resources, nested viewports, dynamic CSS or unresolved clipping/filter/mask effects. Source JavaScript and secondary requests are disabled during measurement.
 - Browser measurements are limited to 500 primitives per edit. Geometry tolerance is 0.05 viewBox units. Conservative envelopes can reject visually feasible moves.
-- Text, node size, canvas and artwork are not redesigned. The checker does not establish author intent, pixel identity, stroke/marker collision bounds or absence of edge crossings.
+- Text, node size, canvas and artwork are not redesigned. The checker does not establish author intent, pixel identity, stroke/marker collision bounds or absence of edge crossings/shared segments. Multiple rerouted links can overlap visually even while their accepted endpoint identities remain correct.
+
+## Explicit non-marker geometry
+
+For reviewed connections whose meaning is not encoded by a single SVG end marker, a connector object may include:
+
+```json
+"connector_geometry": {
+  "shaft": "svg/g[29]/line[0]",
+  "direction": "forward",
+  "end_head": {"part": "svg/g[29]/path[1]", "tip": [270.67, 66.43]}
+}
+```
+
+`forward` means the source object attaches to the shaft's SVG start and the target to its end. The optional end head is a member of the same connector object; `tip` uses that head primitive's own measured SVG coordinate system. Omitting `end_head` describes a reviewed connection without a separate head. Only the listed shaft and optional head may belong to this connector. These fields are review assumptions, not recovered truth. They remain in the original annotation snapshot across edits; the local tip is transformed through fresh browser geometry each time. The annotation UI preserves this metadata on resume, while advanced geometry entry currently uses JSON.
 
 ## Reproduce the evidence
 

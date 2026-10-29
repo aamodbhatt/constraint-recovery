@@ -19,6 +19,33 @@ Freeze one meaningful rigid-translation request before running it; then attempt 
 
 Report all five figures, every request, source and annotation hashes, review provenance, movement/routing scope, checker outcomes and refusal reasons. An unavailable annotation or an unsupported arrow construction is not a successful edit. Conditional success under reviewed assumptions does not establish that those assumptions match the authors' intent.
 
+## Development results
+
+The original editor accepted **0/5 first moves**; [all initial failures](../results/native-pilot-initial.json) are retained. After adding preserved editor metadata, explicit non-marker/separate-head geometry and whole-connector translation:
+
+| Frozen figure | Accepted moves / planned | Outcome |
+|---|---:|---|
+| Basic RNN | 2/2 | Ten timestep parts move together; two state shafts update and one separate head translates |
+| External memory | 0/2 | Unresolved read/write context remains protected; second move is skipped |
+| Weighted read | 2/2 | Fourteen readout/equation parts move together; seven accepted connections reroute |
+| Graph tasks | 0/2 | Mid-marker rerouting is unsupported; second move is skipped |
+| Standard networks | 2/2 | 134 node parts and their connecting curve translate; lower row stays protected |
+
+The total is **6 accepted of 10 planned moves**, eight attempted moves, three complete sequences and three checked out-of-canvas refusals on supported sequences. Refusal on an unsupported figure is not counted as an established infeasibility result. Two authoring origins and agent-supplied relationships are substantial limits.
+
+For the first move of each figure, compare two direct source-edit controls using the same reviewed parts and translations: node-only movement is accepted on 0/5; a stronger translate-only rule that also carries connectors when both endpoints move identically is accepted on 1/5, tying the editor on the standard-network row. The latter comparison isolates endpoint repair on the two nonuniform moves. Refused controls are not all proven semantically wrong: unresolved annotations and unsupported marker behavior also prevent assessment. These are small deterministic controls, not comparisons against expert hand editing or contemporary AI diagram editors.
+
+The weighted-read output visibly exposes another limitation: independently routed connections can share segments. The current checker preserves accepted endpoint identities and conservative node/obstacle checks, but does not certify a crossing-free or visually unambiguous edge embedding. Source text uses local font fallback. Computed-style and pose checks are not a pixel-identity certificate.
+
+The [saved results](../results/native-pilot.json) include every case, planned/skipped moves, annotation/source/request hashes and implementation-file hashes. Fresh damaged candidates must be rejected when a separate head moves incorrectly, a carried curve changes geometry or editor metadata is altered.
+
+```sh
+PYTHON=.venv/bin/python node benchmarks/measure_native_pilot.cjs
+PYTHON=.venv/bin/python node benchmarks/native_pilot_check.cjs
+```
+
+The frozen source and annotation files are checked in with attribution. Full browser style measurements and intermediate controls remain under ignored `.cache/` and `artifacts/`. The external development fixtures also run as CI regressions; they are consequently not an untouched holdout.
+
 ## Separate benchmark track
 
 The existing SciDiagramRevision audit remains a different development track: 19 available reconstructed SVGs from 20 rows. The [benchmark paper, section 3](https://arxiv.org/html/2607.15272v1), describes an LLM-assisted vectorization pipeline; those SVGs should not be described as the original author-written vector sources. Their mixed source-paper rights remain unresolved for redistribution. The new pilot does not replace or improve that original audit's denominator.

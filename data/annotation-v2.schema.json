@@ -36,8 +36,23 @@
           "role": {"enum": ["node", "container", "connector", "text", "background", "decoration", "unknown"]},
           "name": {"type": "string"},
           "status": {"enum": ["confirmed", "ambiguous", "unknown"]},
-          "parts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
-        }
+          "parts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "connector_geometry": {
+            "type": "object", "required": ["shaft", "direction"], "additionalProperties": false,
+            "properties": {
+              "shaft": {"type": "string", "minLength": 1},
+              "direction": {"const": "forward"},
+              "end_head": {
+                "type": "object", "required": ["part", "tip"], "additionalProperties": false,
+                "properties": {
+                  "part": {"type": "string", "minLength": 1},
+                  "tip": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}}
+                }
+              }
+            }
+          }
+        },
+        "allOf": [{"if": {"required": ["connector_geometry"]}, "then": {"properties": {"role": {"const": "connector"}}}}]
       }
     },
     "relations": {

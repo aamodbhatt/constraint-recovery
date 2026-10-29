@@ -75,8 +75,9 @@ Placement minimizes total L1 node displacement subject to canvas bounds, nonover
 | [External SVG audit](results/browser-geometry-audit.json) | All 1,429 primitives across 19 available sources measured | Geometry acquisition; complete-figure edit support is still **0/19** |
 | [Annotation views](results/annotation-view-audit.json) | 19 private views built, zero external annotations created | Infrastructure for independent data collection |
 | [Compound edits](docs/compound-editing.md) | Two successive rigid edits pass on a rich authored fixture; invalid moves and styling changes are rejected | A checked adapter, not external recovery accuracy |
+| [Author-published SVG pilot](docs/native-pilot.md) | 3/5 fixed figures complete both moves; stronger translate-only control accepts 1/5 first moves | Conditional on agent-reviewed assumptions; two authoring origins, no independent human labels |
 
-The next research step is independent annotation and external evaluation of the compound-node adapter, followed by unseen papers and edit sequences. See the [research plan](docs/research-plan.md), [data protocol](data/README.md) and [model card](models/README.md). No paper-ready novelty claim is made.
+The next research step is independent annotation, edge-separation checks and an unseen source-paper holdout. See the [research plan](docs/research-plan.md), [data protocol](data/README.md) and [model card](models/README.md). No paper-ready novelty claim is made.
 
 Related work: [Constraint SVG](https://constraints.cs.washington.edu/web/csvg-uwtr-2000-08-04.pdf), [Mockdown](https://www.cs.cornell.edu/~jsarracino/files/mockdown-final.pdf), [Penrose](https://penrose.cs.cmu.edu/), [constraint-graph layout generation](https://arxiv.org/abs/2011.13417), [SciDiagramEdit](https://arxiv.org/abs/2607.15272), [InfoEdit](https://arxiv.org/abs/2609.33286).
 
@@ -93,6 +94,7 @@ python benchmarks/run_sequences.py --elk --output artifacts/sequences-elk.json
 node benchmarks/browser_check.cjs
 node benchmarks/compound_check.cjs
 node benchmarks/presentation_check.cjs
+node benchmarks/native_pilot_check.cjs
 ```
 
 CI repeats the Python suite, synthetic experiments and browser checks. Results retain case-level failures and skipped requests. GPU use remains behind a [measured-need gate](ROADMAP.md#cloud-gpu-gate).
@@ -101,4 +103,4 @@ CI repeats the Python suite, synthetic experiments and browser checks. Results r
 
 MIT · [License](LICENSE) · [Roadmap](ROADMAP.md) · [Saved handoff](HANDOFF.md)
 
-External figure rights remain with their source papers; private source caches and annotation pages are not redistributed with this repository.
+External figure rights remain with their creators. The [native pilot inputs](data/native-pilot/ATTRIBUTION.md) retain their CC BY 2.0/4.0 licenses and attribution. Mixed-rights benchmark source caches and private annotation pages are not redistributed.
