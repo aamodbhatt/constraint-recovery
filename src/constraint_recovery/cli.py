@@ -28,6 +28,7 @@ def main():
                         help="Add a labeled node and directed edge from an existing node; repeatable")
     for sub in [recover,change]:
         sub.add_argument("--endpoint-model",type=Path,help="Experimental synthetic-trained endpoint ranker JSON")
+        sub.add_argument("--source-preserving",action="store_true",help="Opt-in static CSS/translation/uniform-scale/Bezier subset; patch original SVG elements")
     args = parser.parse_args()
     try:
         if args.input.resolve()==args.output.resolve():
@@ -36,7 +37,11 @@ def main():
         if args.endpoint_model:
             from .attachment import AttachmentModel
             model = AttachmentModel.load(args.endpoint_model)
-        original = parse_svg(args.input.read_text(),attachment_model=model)
+        document = None
+        if args.source_preserving:
+            from .source import SourceDocument
+            document = SourceDocument(args.input.read_text(),attachment_model=model)
+        original = document.diagram if document else parse_svg(args.input.read_text(),attachment_model=model)
         if args.command=="recover":
             args.output.parent.mkdir(parents=True,exist_ok=True)
             args.output.write_text(json.dumps(original.to_dict(),indent=2)+"\n")
@@ -57,13 +62,14 @@ def main():
         if not isinstance(labels,dict):
             raise DiagramError("Labels JSON must be an object")
         result,solver = edit(declared,labels,args.width,args.height,args.font_size,flow=args.flow)
-        output = render_svg(result)
-        reparsed = parse_svg(output,tolerance=.01)
+        output = document.export(result) if document else render_svg(result)
+        reparsed = SourceDocument(output,tolerance=.01).diagram if document else parse_svg(output,tolerance=.01)
         checks = verify(declared,reparsed,labels,args.font_size or 0,flow=args.flow,gap=24)
         if not checks["passed"]:
             raise DiagramError("Independent verification failed: "+"; ".join(checks["errors"]))
         report = {"verification":checks,"solver":solver,"warnings":result.warnings,
                   "requested_branch_insertions":args.branch or [],
+                  "export_mode":"source-preserving" if document else "normalized",
                   "attachment_decisions":model.decisions if model else [],
                   "input":str(args.input),"node_count":len(result.nodes),"edge_count":len(result.edges)}
         args.output.parent.mkdir(parents=True,exist_ok=True)

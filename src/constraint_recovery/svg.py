@@ -49,7 +49,15 @@ def endpoint(p, nodes, tolerance):
     return plausible[0]
 
 
+def guard_xml(text):
+    # ElementTree discards processing instructions; check before preserving or
+    # embedding the original source, where a browser could still interpret them.
+    if re.search(r"<\?(?!xml(?:\s|\?>))",text,re.I) or "<!DOCTYPE" in text.upper():
+        raise DiagramError("SVG processing instructions and document types are unsupported")
+
+
 def parse_svg(text, tolerance=8, attachment_model=None):
+    guard_xml(text)
     try:
         root = SafeET.fromstring(text)
     except Exception as exc:

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="330.0" height="650.0" viewBox="10.0 20.0 330.0 650.0">
+  <title>Source-preserving constraint recovery example</title>
+  <metadata>Original example authored for constraint-recovery; MIT licensed.</metadata>
+  <defs>
+    <linearGradient id="node-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef5ff" />
+      <stop offset="1" stop-color="#d8e7fb" />
+    </linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L8 4 L0 8 Z" fill="#315c8f" />
+    </marker>
+  </defs>
+  <style>
+    .node { fill: url(#node-fill); stroke: #315c8f; stroke-width: 1.5; }
+    text { font-family: Arial, sans-serif; font-size: 16px; text-anchor: middle; fill: #172c47; }
+    .connector { fill: none; stroke: #315c8f; stroke-width: 2; marker-end: url(#arrow); }
+  </style>
+  <g transform="translate(40 40) scale(1.2)">
+    <path id="data-model" class="connector" d="M 140.0 31.666666666666668 L 176.66666666666669 86.66666666666667" />
+    <g data-role="input">
+      <rect id="data" class="node" x="20.0" y="-3.333333333333334" width="120.0" height="70.0" rx="9" />
+      <text id="data-label" x="80.0" y="36.94666666666667" style="font-size:16.0px !important;text-anchor:middle !important;dominant-baseline:auto !important;alignment-baseline:auto !important"><tspan x="80.0" y="36.94666666666667">Data</tspan></text></g>
+    <g data-role="model">
+      <rect id="model" class="node" x="116.66666666666669" y="86.66666666666667" width="120.0" height="70.0" rx="9" />
+      <text id="model-label" x="176.66666666666669" y="126.94666666666667" style="font-size:16.0px !important;text-anchor:middle !important;dominant-baseline:auto !important;alignment-baseline:auto !important"><tspan x="176.66666666666669" y="126.94666666666667">Model</tspan></text></g>
+  </g>
+</svg>

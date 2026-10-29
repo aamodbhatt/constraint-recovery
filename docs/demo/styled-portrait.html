@@ -1,0 +1,32 @@
+<!doctype html><meta charset="utf-8"><title>Constraint recovery · verified edit</title>
+<style>body{font:16px system-ui;margin:40px;background:#f4f6fa;color:#172c47}main{max-width:1200px;margin:auto}section{display:grid;grid-template-columns:1fr 1fr;gap:24px}article{background:white;padding:24px;border:1px solid #dbe3ee;border-radius:12px}object{width:100%;height:540px}pre{white-space:pre-wrap;font-size:13px}small{color:#586b83}</style>
+<main><small>LOCAL BASELINE · NO CLOUD INFERENCE</small><h1>Constraint recovery</h1>
+<p>Accepted relationships and fitted geometry passed the independent checker.</p><section>
+<article><h2>Original</h2><object data="styled-portrait.original.svg" type="image/svg+xml"></object></article>
+<article><h2>Edited</h2><object data="styled-portrait.svg" type="image/svg+xml"></object></article></section>
+<h2>Evidence and limitations</h2><pre>{
+  &quot;verification&quot;: {
+    &quot;passed&quot;: true,
+    &quot;errors&quot;: [],
+    &quot;scope&quot;: &quot;Checks accepted graph, geometry and conservative font metrics; does not prove inferred author intent or pixel-perfect browser typography.&quot;
+  },
+  &quot;solver&quot;: {
+    &quot;method&quot;: &quot;MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes&quot;,
+    &quot;solver_status&quot;: 0,
+    &quot;optimal_within_tolerance&quot;: true,
+    &quot;objective&quot;: 256.0,
+    &quot;flow&quot;: &quot;vertical&quot;,
+    &quot;gap&quot;: 24
+  },
+  &quot;warnings&quot;: [
+    &quot;Experimental source-bound SVG subset. Review recovered arrow ownership.&quot;,
+    &quot;Bezier recovery uses a 0.2 viewBox-unit subdivision tolerance; edits reroute connectors as straight segments.&quot;,
+    &quot;Checks cover box geometry and conservative sans-serif metrics, not pixel appearance or author intent.&quot;
+  ],
+  &quot;requested_branch_insertions&quot;: [],
+  &quot;export_mode&quot;: &quot;source-preserving&quot;,
+  &quot;attachment_decisions&quot;: [],
+  &quot;input&quot;: &quot;examples/styled-pipeline.svg&quot;,
+  &quot;node_count&quot;: 2,
+  &quot;edge_count&quot;: 1
+}</pre></main>

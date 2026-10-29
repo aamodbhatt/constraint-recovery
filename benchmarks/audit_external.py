@@ -18,20 +18,38 @@ def main():
     p.add_argument("--rows",type=int,default=20)
     p.add_argument("--output",type=Path,default=Path("results/external-compatibility.json"))
     p.add_argument("--ca-file",type=Path,help="Optional trusted CA bundle; TLS verification remains enabled")
+    p.add_argument("--offset",type=int,default=0,help="Predeclare a contiguous split range before inspecting results")
+    p.add_argument("--cache-dir",type=Path,help="Private local response cache; source SVGs must not be committed")
+    p.add_argument("--offline",action="store_true",help="Require cached responses; make no network requests")
+    p.add_argument("--extended",action="store_true",help="Also test the opt-in source-preserving importer")
     args = p.parse_args()
     if not 1 <= args.rows <= 100:
         p.error("--rows must be between 1 and 100")
+    if args.offset<0 or args.offset+args.rows>1000:
+        p.error("Requested range must be within the first 1000 rows")
+    if args.offline and not args.cache_dir:
+        p.error("--offline requires --cache-dir")
     records = []
-    for offset in range(0,args.rows,5):
-        url = "https://datasets-server.huggingface.co/rows?"+urlencode({"dataset":DATASET,"config":"default","split":"test","offset":offset,"length":min(5,args.rows-offset)})
-        context = ssl.create_default_context(cafile=str(args.ca_file) if args.ca_file else None)
-        with urllib.request.urlopen(url,timeout=60,context=context) as response:
-            raw = response.read(24_000_001)
+    for offset in range(args.offset,args.offset+args.rows,5):
+        length = min(5,args.offset+args.rows-offset)
+        url = "https://datasets-server.huggingface.co/rows?"+urlencode({"dataset":DATASET,"config":"default","split":"test","offset":offset,"length":length})
+        cache = args.cache_dir/f"SciDiagramRevision-test-{offset:04d}-{length}.json" if args.cache_dir else None
+        if cache and cache.exists():
+            raw = cache.read_bytes()
+        else:
+            if args.offline:
+                raise RuntimeError(f"Missing private cache: {cache}")
+            context = ssl.create_default_context(cafile=str(args.ca_file) if args.ca_file else None)
+            with urllib.request.urlopen(url,timeout=60,context=context) as response:
+                raw = response.read(24_000_001)
         if len(raw)>24_000_000:
             raise RuntimeError("Response exceeds the bounded audit download")
         payload = json.loads(raw)
-        if len(payload.get("rows",[])) != min(5,args.rows-offset):
+        if [r.get("row_idx") for r in payload.get("rows",[])] != list(range(offset,offset+length)):
             raise RuntimeError("Unexpected row count; do not silently change the sample")
+        if cache and not cache.exists():
+            cache.parent.mkdir(parents=True,exist_ok=True)
+            cache.write_bytes(raw)
         for item in payload["rows"]:
             row = item["row"]
             svg = row.get("input_svg")
@@ -52,14 +70,25 @@ def main():
                 record.update(supported=True,nodes=len(d.nodes),edges=len(d.edges),first_failure=None)
             except DiagramError as exc:
                 record.update(supported=False,first_failure=str(exc))
+            if args.extended:
+                from constraint_recovery.source import SourceDocument
+                try:
+                    d = SourceDocument(svg).diagram
+                    record["source_preserving"] = {"supported":True,"nodes":len(d.nodes),"edges":len(d.edges),"first_failure":None}
+                except DiagramError as exc:
+                    record["source_preserving"] = {"supported":False,"first_failure":str(exc)}
             records.append(record)
     report = {"dataset":DATASET,"source":"https://huggingface.co/datasets/"+DATASET,
-              "selection":"First N rows in published test split order; not a representative random sample",
+              "selection":f"Contiguous published test rows {args.offset}..{args.offset+args.rows-1}; not a representative random sample",
               "license":"mixed-arxiv-source; no source SVGs or images redistributed",
               "rows":len(records),"supported":sum(r["supported"] for r in records),
               "first_failure_counts":dict(collections.Counter(r["first_failure"] for r in records if not r["supported"])),
               "limitations":["Not an edit-quality evaluation", "Only first parser failure recorded", "No ground-truth relationship annotations"],
               "records":records}
+    if args.extended:
+        extended = [r.get("source_preserving",{"supported":False,"first_failure":r["first_failure"]}) for r in records]
+        report["source_preserving"] = {"supported":sum(r["supported"] for r in extended),
+            "first_failure_counts":dict(collections.Counter(r["first_failure"] for r in extended if not r["supported"]))}
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(report,indent=2)+"\n")
     print(json.dumps({k:v for k,v in report.items() if k!="records"},indent=2))

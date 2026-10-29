@@ -11,6 +11,7 @@ dependencies = ["numpy>=1.24", "scipy>=1.11", "Pillow>=10.1", "defusedxml>=0.7"]
 
 [project.optional-dependencies]
 test = ["pytest>=7"]
+svg = ["tinycss2>=1.4", "cssselect2>=0.8", "svgpathtools>=1.6"]
 
 [project.scripts]
 constraint-recovery = "constraint_recovery.cli:main"

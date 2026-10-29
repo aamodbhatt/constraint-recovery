@@ -15,6 +15,7 @@
 First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone remains incomplete: the external compatibility audit is not a gold relationship test set.
 
 - Annotate a real, licensed SVG subset and document unsupported input frequency.
+- [x] Add an opt-in source-bound importer/exporter for static CSS, uniform transforms and Bezier connectors; preserve source definitions and hierarchy. [Scope and audit](docs/source-preserving.md). External complete-figure support remains 0/19 available development SVGs.
 - Separate text-to-node, endpoint, containment, alignment and ordering targets.
 - [x] Add explicit branch insertion while preserving existing node/edge identities and protected labels.
 - Build independent relationship annotations; avoid scoring inferred rules against themselves.

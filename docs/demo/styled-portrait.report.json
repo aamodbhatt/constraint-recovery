@@ -1,0 +1,26 @@
+{
+  "verification": {
+    "passed": true,
+    "errors": [],
+    "scope": "Checks accepted graph, geometry and conservative font metrics; does not prove inferred author intent or pixel-perfect browser typography."
+  },
+  "solver": {
+    "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+    "solver_status": 0,
+    "optimal_within_tolerance": true,
+    "objective": 256.0,
+    "flow": "vertical",
+    "gap": 24
+  },
+  "warnings": [
+    "Experimental source-bound SVG subset. Review recovered arrow ownership.",
+    "Bezier recovery uses a 0.2 viewBox-unit subdivision tolerance; edits reroute connectors as straight segments.",
+    "Checks cover box geometry and conservative sans-serif metrics, not pixel appearance or author intent."
+  ],
+  "requested_branch_insertions": [],
+  "export_mode": "source-preserving",
+  "attachment_decisions": [],
+  "input": "examples/styled-pipeline.svg",
+  "node_count": 2,
+  "edge_count": 1
+}

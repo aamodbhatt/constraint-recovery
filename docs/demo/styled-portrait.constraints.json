@@ -1,0 +1,58 @@
+{
+  "width": 330.0,
+  "height": 650.0,
+  "nodes": [
+    {
+      "id": "data",
+      "x": 54.0,
+      "y": 16.0,
+      "width": 144.0,
+      "height": 84.0,
+      "label": "Data",
+      "font_size": 19.2,
+      "fill": "url(#node-fill)",
+      "stroke": "#315c8f",
+      "lines": [
+        "Data"
+      ]
+    },
+    {
+      "id": "model",
+      "x": 170.0,
+      "y": 124.0,
+      "width": 144.0,
+      "height": 84.0,
+      "label": "Model",
+      "font_size": 19.2,
+      "fill": "url(#node-fill)",
+      "stroke": "#315c8f",
+      "lines": [
+        "Model"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "data-model",
+      "source": "data",
+      "target": "model",
+      "points": [
+        [
+          198.0,
+          58.0
+        ],
+        [
+          242.0,
+          124.0
+        ]
+      ],
+      "evidence": "unambiguous boundary proximity; not author-confirmed semantics"
+    }
+  ],
+  "warnings": [
+    "Experimental source-bound SVG subset. Review recovered arrow ownership.",
+    "Bezier recovery uses a 0.2 viewBox-unit subdivision tolerance; edits reroute connectors as straight segments.",
+    "Checks cover box geometry and conservative sans-serif metrics, not pixel appearance or author intent."
+  ],
+  "schema_version": 1
+}

@@ -53,6 +53,8 @@ constraint-recovery edit examples/pipeline.svg \
 
 A portable [branch example](docs/demo/branch.html) is included alongside the original portrait demo.
 
+An opt-in [source-preserving importer](docs/source-preserving.md) now handles static CSS, translated/uniformly scaled groups and quadratic/cubic connectors while patching original elements. Install `pip install -e '.[svg,test]'` and pass `--source-preserving`. See the [styled example](docs/demo/styled-portrait.html). This remains a narrow subset: the repeated external audit still accepts zero complete figures.
+
 ## First learning and external-data checkpoint
 
 - A CPU-trained, inspectable endpoint ranker with opt-in CLI integration and abstention. See [model card](models/README.md).
@@ -75,7 +77,7 @@ PYTHONPATH=src python benchmarks/compare_elk.py
 
 ## Scope and limits
 
-This is a normalized diagram editor, not a lossless arbitrary-SVG editor. Export retains node IDs, labels, basic fills/strokes and accepted connectivity, while normalizing typography and connectors. Rich styles, transforms, nested containers, plots, raster images, text outlines, undirected lines and curved connectors are unsupported and may require normalization or are rejected. Inherited styling is not supported. Start with the supplied example or similarly simple diagrams.
+The default exporter normalizes styling and geometry. It retains node IDs, labels, basic fills/strokes and accepted connectivity. Its strict importer rejects inherited styling, transforms and curves. The optional source-preserving mode supports a broader static subset described above, but neither mode edits arbitrary SVGs. Nested containers, plots, raster images, text outlines and decorative or unmarked lines remain unsupported. Start with the supplied examples or similarly simple diagrams.
 
 Text sizing is a conservative local estimate, not browser pixel-level certification. Connector routing is a finite search and may fail even when a more sophisticated route exists. Large diagrams, dense routing and solver time limits can prevent a usable result. The baseline caps inputs at 40 nodes.
 
