@@ -20,8 +20,10 @@ def segment_hits_rect(p, q, n, eps=1e-5):
     return lo < hi
 
 
-def verify(original, actual, expected_labels=None, minimum_font=0, flow="free", gap=0):
+def verify(original, actual, expected_labels=None, minimum_font=0, flow="free", gap=0,expected_canvas=None):
     errors = []
+    if expected_canvas is not None and (abs(actual.width-expected_canvas[0])>1e-4 or abs(actual.height-expected_canvas[1])>1e-4):
+        errors.append("Serialized canvas does not match the requested dimensions")
     nodes = {n.id:n for n in actual.nodes}
     if set(nodes) != {n.id for n in original.nodes}:
         errors.append("Node identity set changed")

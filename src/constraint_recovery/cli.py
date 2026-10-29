@@ -126,7 +126,8 @@ def main():
         if not output.endswith("\n"):
             output+="\n"
         reparsed = SourceDocument(output,tolerance=.01).diagram if document else parse_svg(output,tolerance=.01)
-        checks = verify(declared,reparsed,labels,args.font_size or 0,flow=args.flow,gap=24)
+        checks = verify(declared,reparsed,labels,args.font_size or 0,flow=args.flow,gap=24,
+                        expected_canvas=(result.width,result.height))
         if not checks["passed"]:
             raise DiagramError("Independent verification failed: "+"; ".join(checks["errors"]))
         result.source_sha256=hashlib.sha256(output.encode("utf-8")).hexdigest()

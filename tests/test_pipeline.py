@@ -89,6 +89,13 @@ def test_checker_independently_rejects_wrong_flow():
     assert any("flow" in e for e in verify(d,d,flow="vertical",gap=24)["errors"])
 
 
+def test_checker_requires_requested_canvas_even_when_nodes_still_fit():
+    d=source()
+    actual=deepcopy(d)
+    actual.width+=100
+    assert any("requested dimensions" in e for e in verify(d,actual,expected_canvas=(d.width,d.height))["errors"])
+
+
 def test_cli_reports_verified_artifact(tmp_path,monkeypatch):
     out = tmp_path/"edited.svg"
     monkeypatch.setattr("sys.argv",["constraint-recovery","edit",str(SOURCE),"--output",str(out),"--width","300","--height","620","--flow","vertical"])

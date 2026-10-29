@@ -1,0 +1,461 @@
+{
+  "family": "chain",
+  "initial_nodes": 4,
+  "method": "reuse",
+  "records": [
+    {
+      "step": 1,
+      "request": {
+        "name": "longer label",
+        "labels": {
+          "n1": "Representation consistency verification"
+        },
+        "flow": "free"
+      },
+      "expected_rejection": false,
+      "attempted": true,
+      "accepted": true,
+      "errors": [],
+      "metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 0.0,
+        "flow": "free",
+        "gap": 24,
+        "router": "visibility",
+        "routing": [
+          {
+            "edge_id": "e0",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 85.2,
+            "length": 69.2,
+            "bends": 2,
+            "visited_states": 28,
+            "grid_vertices": 102
+          },
+          {
+            "edge_id": "e1",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 85.2,
+            "length": 69.2,
+            "bends": 2,
+            "visited_states": 24,
+            "grid_vertices": 102
+          },
+          {
+            "edge_id": "e2",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 436.0,
+            "length": 420.0,
+            "bends": 2,
+            "visited_states": 115,
+            "grid_vertices": 102
+          }
+        ]
+      },
+      "passed": true,
+      "input_sha256": "cb0cf517aa2ab4c7e1233c03400b4df563d2efc5e46849874a3dd93a844530cb",
+      "graph_preserved": true,
+      "displacement_l1": 0.0,
+      "output_sha256": "7a06d856113937abcab294e11377d7d397ce0abfea5c66740c91f8c72607f429",
+      "seconds": 0.009225666988641024
+    },
+    {
+      "step": 2,
+      "request": {
+        "name": "larger font",
+        "font_size": 24,
+        "flow": "free"
+      },
+      "expected_rejection": false,
+      "attempted": true,
+      "accepted": true,
+      "errors": [],
+      "metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 10.800000000000182,
+        "flow": "free",
+        "gap": 24,
+        "router": "visibility",
+        "routing": [
+          {
+            "edge_id": "e0",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 89.99999999999983,
+            "length": 73.99999999999983,
+            "bends": 2,
+            "visited_states": 28,
+            "grid_vertices": 102
+          },
+          {
+            "edge_id": "e1",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 64.80000000000018,
+            "length": 48.80000000000018,
+            "bends": 2,
+            "visited_states": 21,
+            "grid_vertices": 102
+          },
+          {
+            "edge_id": "e2",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 436.0,
+            "length": 420.0,
+            "bends": 2,
+            "visited_states": 112,
+            "grid_vertices": 102
+          }
+        ]
+      },
+      "passed": true,
+      "input_sha256": "7a06d856113937abcab294e11377d7d397ce0abfea5c66740c91f8c72607f429",
+      "graph_preserved": true,
+      "displacement_l1": 10.800000000000182,
+      "output_sha256": "02f17516d72aa8d795997b73748a4f6dc7cd5f5d9b7b2965d3fd23c30d0b0174",
+      "seconds": 0.0072988339816220105
+    },
+    {
+      "step": 3,
+      "request": {
+        "name": "portrait layout",
+        "width": 320,
+        "height": 1700,
+        "flow": "vertical"
+      },
+      "expected_rejection": false,
+      "attempted": true,
+      "accepted": true,
+      "errors": [],
+      "metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 827.1999999999998,
+        "flow": "vertical",
+        "gap": 24,
+        "router": "visibility",
+        "routing": [
+          {
+            "edge_id": "e0",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 89.6,
+            "length": 81.6,
+            "bends": 1,
+            "visited_states": 51,
+            "grid_vertices": 126
+          },
+          {
+            "edge_id": "e1",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 63.400000000000006,
+            "length": 47.400000000000006,
+            "bends": 2,
+            "visited_states": 28,
+            "grid_vertices": 126
+          },
+          {
+            "edge_id": "e2",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 113.0,
+            "length": 105.0,
+            "bends": 1,
+            "visited_states": 79,
+            "grid_vertices": 126
+          }
+        ]
+      },
+      "passed": true,
+      "input_sha256": "02f17516d72aa8d795997b73748a4f6dc7cd5f5d9b7b2965d3fd23c30d0b0174",
+      "graph_preserved": true,
+      "displacement_l1": 827.1999999999998,
+      "output_sha256": "010932cd918dda08b133d6fd0276d31f25aba39b7a31533111327f11753c03ca",
+      "seconds": 0.004190416948404163
+    },
+    {
+      "step": 4,
+      "request": {
+        "name": "explicit branch",
+        "branch": [
+          "n1",
+          "review",
+          "Independent check"
+        ],
+        "height": 2000,
+        "flow": "vertical"
+      },
+      "expected_rejection": false,
+      "attempted": true,
+      "accepted": true,
+      "errors": [],
+      "metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 176.00000000000045,
+        "flow": "vertical",
+        "gap": 24,
+        "router": "visibility",
+        "routing": [
+          {
+            "edge_id": "e0",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 89.6,
+            "length": 81.6,
+            "bends": 1,
+            "visited_states": 51,
+            "grid_vertices": 151
+          },
+          {
+            "edge_id": "e1",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 63.39999999999998,
+            "length": 47.39999999999998,
+            "bends": 2,
+            "visited_states": 27,
+            "grid_vertices": 151
+          },
+          {
+            "edge_id": "e2",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 113.0,
+            "length": 105.0,
+            "bends": 1,
+            "visited_states": 80,
+            "grid_vertices": 151
+          },
+          {
+            "edge_id": "branch-n1-review",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 345.6000000000005,
+            "length": 329.6000000000005,
+            "bends": 2,
+            "visited_states": 229,
+            "grid_vertices": 151
+          }
+        ]
+      },
+      "passed": true,
+      "input_sha256": "010932cd918dda08b133d6fd0276d31f25aba39b7a31533111327f11753c03ca",
+      "graph_preserved": true,
+      "displacement_l1": 2.842170943040401e-14,
+      "output_sha256": "d8638ab182cd325fa6b72f896b35fc962ddc68b29ef973845fb5faa4538626a6",
+      "seconds": 0.00857100001303479
+    },
+    {
+      "step": 5,
+      "request": {
+        "name": "landscape layout",
+        "width": 2000,
+        "height": 900,
+        "flow": "horizontal"
+      },
+      "expected_rejection": false,
+      "attempted": true,
+      "accepted": true,
+      "errors": [],
+      "metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 1212.0,
+        "flow": "horizontal",
+        "gap": 24,
+        "router": "visibility",
+        "routing": [
+          {
+            "edge_id": "e0",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 152.8,
+            "length": 136.8,
+            "bends": 2,
+            "visited_states": 57,
+            "grid_vertices": 262
+          },
+          {
+            "edge_id": "e1",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 152.8,
+            "length": 136.8,
+            "bends": 2,
+            "visited_states": 68,
+            "grid_vertices": 262
+          },
+          {
+            "edge_id": "e2",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 128.0,
+            "length": 112.0,
+            "bends": 2,
+            "visited_states": 85,
+            "grid_vertices": 262
+          },
+          {
+            "edge_id": "branch-n1-review",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 353.6000000000005,
+            "length": 337.6000000000005,
+            "bends": 2,
+            "visited_states": 299,
+            "grid_vertices": 262
+          }
+        ]
+      },
+      "passed": true,
+      "input_sha256": "d8638ab182cd325fa6b72f896b35fc962ddc68b29ef973845fb5faa4538626a6",
+      "graph_preserved": true,
+      "displacement_l1": 1212.0,
+      "output_sha256": "b6d8f98c257b160ac0c62e8f85bdcd35e4c7635f5d7417f7afc5497582f03f65",
+      "seconds": 0.00637787498999387
+    },
+    {
+      "step": 6,
+      "request": {
+        "name": "short label and smaller font",
+        "labels": {
+          "n1": "Checked"
+        },
+        "font_size": 18,
+        "width": 1400,
+        "height": 700,
+        "flow": "horizontal"
+      },
+      "expected_rejection": false,
+      "attempted": true,
+      "accepted": true,
+      "errors": [],
+      "metadata": {
+        "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+        "solver_status": 0,
+        "optimal_within_tolerance": true,
+        "objective": 0.0,
+        "flow": "horizontal",
+        "gap": 24,
+        "router": "visibility",
+        "routing": [
+          {
+            "edge_id": "e0",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 152.8,
+            "length": 136.8,
+            "bends": 2,
+            "visited_states": 57,
+            "grid_vertices": 262
+          },
+          {
+            "edge_id": "e1",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 152.8,
+            "length": 136.8,
+            "bends": 2,
+            "visited_states": 68,
+            "grid_vertices": 262
+          },
+          {
+            "edge_id": "e2",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 128.0,
+            "length": 112.0,
+            "bends": 2,
+            "visited_states": 85,
+            "grid_vertices": 262
+          },
+          {
+            "edge_id": "branch-n1-review",
+            "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+            "clearance": 8,
+            "bend_penalty": 8,
+            "search_cost": 353.6000000000005,
+            "length": 337.6000000000005,
+            "bends": 2,
+            "visited_states": 299,
+            "grid_vertices": 262
+          }
+        ]
+      },
+      "passed": true,
+      "input_sha256": "b6d8f98c257b160ac0c62e8f85bdcd35e4c7635f5d7417f7afc5497582f03f65",
+      "graph_preserved": true,
+      "displacement_l1": 0.0,
+      "output_sha256": "b012c86797c21831c5c37896141f00678850cada380036bc3c43c05696222660",
+      "seconds": 0.005222833016887307
+    },
+    {
+      "step": 7,
+      "request": {
+        "name": "impossible canvas",
+        "width": 80,
+        "height": 60,
+        "flow": "horizontal",
+        "expected_rejection": true
+      },
+      "expected_rejection": true,
+      "attempted": true,
+      "accepted": false,
+      "passed": true,
+      "errors": [
+        "Infeasible canvas: node n0 needs 150 units of width, but only 48 remain after padding"
+      ],
+      "conflict_witness_verified": true,
+      "conflict_witness": {
+        "schema_version": 1,
+        "subject_sha256": "2347977429422d25013ed2104e64a04eee9bc5ac7c001d5b977cfdde7c027d2d",
+        "flow": "horizontal",
+        "gap": 24,
+        "padding": 16,
+        "scope": "Necessary-condition witness for fitted rectangular geometry; not an author-intent judgment or a minimum repair",
+        "kind": "node_canvas",
+        "node_id": "n0",
+        "axis": "width",
+        "required": 150.0,
+        "available": 48,
+        "shortfall": 102.0
+      },
+      "seconds": 0.0012373750214464962
+    }
+  ],
+  "completed_feasible_sequence": true,
+  "impossible_request_rejected": true
+}

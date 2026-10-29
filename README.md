@@ -112,6 +112,8 @@ The original seeded 30-case engineering benchmark covers longer labels, larger f
 
 A separate [routing diagnostic](results/routing-comparison.json) fixes geometry and eight-unit clearance for both routers: visibility search solves all six feasible authored cases, while templates solve one. Both reject the blocked seventh case. These deliberately challenging examples are not a population accuracy estimate. [Routing details](docs/routing.md) and an [authored maze SVG](docs/demo/routing-maze.svg) are included.
 
+The [repeated-edit pilot](docs/edit-sequences.md) completes 30 feasible steps across five authored sequences and rejects five impossible requests. Fresh recovery and a simple topological strip tie graph reuse on completion, so the experiment does **not** establish a reuse advantage. A portable [sequence walkthrough](docs/demo/sequence/index.html) and all baseline records are included.
+
 ## Research direction
 
 The research target is recovering latent relationships from supported existing SVGs, distinguishing intended constraints from incidental geometry, representing uncertainty, and improving preservation over repeated edits.

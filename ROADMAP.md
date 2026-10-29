@@ -23,6 +23,8 @@ First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone
   - [x] Tangent-aware endpoint heuristic and a pinned ELK layout configuration.
   - [ ] Direct source-editing baseline and independent real-diagram labels.
 - Evaluate edit sequences, style/composition holdouts and impossible requests.
+  - [x] First fail-stop sequence pilot with fresh recovery, reuse, topological-strip, ELK and ELK-repair controls. [Findings](docs/edit-sequences.md). Reuse has no completion advantage on these motifs.
+  - [ ] Independently annotated external sequences and held-out composition/style evaluation.
 - [x] Replace finite routing candidates with a bounded orthogonal visibility-grid router; retain four center ports and explicit clearance/search limits. [Paired diagnostic](docs/routing.md).
 - Add browser-measured font geometry and rendered visual regression coverage.
   - [x] Add real-browser checks for inverse font scaling, text containment and the interactive attachment-review workflow on authored examples.
