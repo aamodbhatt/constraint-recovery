@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Source-bound compound objects and diagram relationships",
+  "description": "Review labels are self-reported metadata, not proof of annotation truth or annotator identity. Referential and coverage checks also require the Python validator.",
+  "type": "object",
+  "required": ["schema_version", "kind", "diagram_id", "source_url", "source_sha256", "license", "split", "review", "objects", "relations", "coverage"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "kind": {"const": "diagram-annotation"},
+    "diagram_id": {"type": "string", "minLength": 1},
+    "source_url": {"type": "string", "minLength": 1},
+    "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "license": {"type": "string", "minLength": 1},
+    "split": {"enum": ["train", "development", "test", "unassigned"]},
+    "review": {
+      "type": "object",
+      "required": ["status", "annotator_type", "annotator", "evidence"],
+      "properties": {
+        "status": {"enum": ["unreviewed", "agent-reviewed", "human-reviewed"]},
+        "annotator_type": {"enum": ["unspecified", "agent", "human"]},
+        "annotator": {"type": "string"},
+        "evidence": {"type": "string"}
+      },
+      "allOf": [
+        {"if": {"properties": {"status": {"const": "human-reviewed"}}}, "then": {"properties": {"annotator_type": {"const": "human"}, "annotator": {"minLength": 1}, "evidence": {"minLength": 1}}}},
+        {"if": {"properties": {"status": {"const": "agent-reviewed"}}}, "then": {"properties": {"annotator_type": {"const": "agent"}, "annotator": {"minLength": 1}, "evidence": {"minLength": 1}}}}
+      ]
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "role", "name", "status", "parts"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_.-]*$"},
+          "role": {"enum": ["node", "container", "connector", "text", "background", "decoration", "unknown"]},
+          "name": {"type": "string"},
+          "status": {"enum": ["confirmed", "ambiguous", "unknown"]},
+          "parts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "objects", "status", "rationale"],
+        "properties": {
+          "kind": {"enum": ["directed_edge", "contains", "group", "align_x", "align_y", "before_x", "before_y"]},
+          "objects": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+          "connector": {"type": ["string", "null"]},
+          "status": {"enum": ["confirmed", "ambiguous", "unknown"]},
+          "rationale": {"type": "string"}
+        },
+        "allOf": [{"if": {"properties": {"kind": {"not": {"const": "group"}}}}, "then": {"properties": {"objects": {"maxItems": 2}}}}]
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["total_primitives", "assigned_primitives", "unassigned_parts"],
+      "properties": {
+        "total_primitives": {"type": "integer", "minimum": 0},
+        "assigned_primitives": {"type": "integer", "minimum": 0},
+        "unassigned_parts": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "measurement": {
+      "type": "object",
+      "properties": {
+        "browser": {"type": "string"},
+        "blocked_reference_count": {"type": "integer", "minimum": 0},
+        "bounds_scope": {"type": "string"}
+      }
+    }
+  }
+}

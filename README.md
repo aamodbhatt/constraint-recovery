@@ -1,5 +1,7 @@
 # Constraint recovery
 
+[![Tests](https://github.com/aamodbhatt/constraint-recovery/actions/workflows/tests.yml/badge.svg)](https://github.com/aamodbhatt/constraint-recovery/actions/workflows/tests.yml)
+
 Recover an inspectable graph from a simple scientific SVG, edit its layout through explicit constraints, and check the exported result.
 
 **Status: geometric baseline plus a first local learning pilot.** The default engine uses explicit geometry. An optional endpoint ranker is trained on synthetic data; it currently ties a stronger hand-written heuristic. Real-diagram relationship evaluation is not complete and no research novelty is claimed.
@@ -70,6 +72,8 @@ For a rejected figure, `constraint-recovery inspect figure.svg --output artifact
 
 The optional [browser geometry bridge](docs/browser-geometry.md) now measures all 1,429 primitives in those 19 sources, including text, rotations and referenced instances, with source scripts disabled and secondary resources blocked. Full measurements remain private. This is annotation infrastructure; complete-figure editing coverage remains zero.
 
+The [compound annotation tool](docs/compound-annotation.md) lets a reviewer group shapes/text into nodes, containers and connectors, then record relationships and uncertainty. It provides no model suggestions and retains explicit unassigned coverage. [The authored demo](docs/demo/primitive-annotation.html) is available locally; no external annotations have been promoted to human ground truth.
+
 ## First learning and external-data checkpoint
 
 - A CPU-trained, inspectable endpoint ranker with opt-in CLI integration and abstention. See [model card](models/README.md).
@@ -123,6 +127,8 @@ The research target is recovering latent relationships from supported existing S
 Relevant prior work includes [Constraint SVG](https://constraints.cs.washington.edu/web/csvg-uwtr-2000-08-04.pdf), [Mockdown](https://www.cs.cornell.edu/~jsarracino/files/mockdown-final.pdf), [Penrose](https://penrose.cs.cmu.edu/), [constraint-graph layout generation](https://arxiv.org/abs/2011.13417), [SciDiagramEdit](https://arxiv.org/abs/2607.15272), and [InfoEdit](https://arxiv.org/abs/2609.33286). Constraint-based SVG layout and AI diagram editing are established areas; this repository does not claim to invent them.
 
 See [ROADMAP.md](ROADMAP.md) for milestones and the cloud-training gate.
+
+[The next research gate](docs/research-plan.md) specifies the independent-data, holdout and stronger-baseline requirements before making a novelty claim or spending GPU credits.
 
 ## License
 

@@ -24,5 +24,14 @@
     "source_scripts_disabled": true,
     "secondary_requests_blocked": true
   },
+  "compound_annotation": {
+    "download_roundtrip": true,
+    "source_image_context_probe": true,
+    "resume_roundtrip": true,
+    "no_prefilled_roles_or_relations": true,
+    "scripted_records_marked_agent_reviewed": true,
+    "pixel_projection_check": true,
+    "canvas_click_lasso_zoom": true
+  },
   "scope": "Authored SVGs and adversarial probes; not an external-figure rendering benchmark"
 }

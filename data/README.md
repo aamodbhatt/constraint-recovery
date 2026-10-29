@@ -31,4 +31,6 @@ If your Python installation needs an explicit trusted CA bundle, supply `--ca-fi
 6. Record annotator identity/type, evidence, review status, source hashes, license, and changes to labels. Agent annotations must not be described as human-reviewed.
 7. Freeze test annotations before selecting features, thresholds or models. Treat the present synthetic experiment as a pilot, not a final paper result.
 
-The `annotation.schema.json` file describes proposed records. An empty or unknown annotation is not scored as a confirmed relationship.
+The original `annotation.schema.json` describes the proposed relation-only version 1 records. The implemented [version 2 format](annotation-v2.schema.json) adds compound objects, source primitive locations and explicit coverage. An empty, unknown or agent-reviewed annotation is not independent human ground truth.
+
+Use the [local compound annotation workflow](../docs/compound-annotation.md) after browser measurement. It starts with no predicted role or relationship selected and supports resumable source-bound JSON downloads. `check-annotation` checks structural/provenance consistency; it does not establish semantic truth or verify who performed the annotation. The checked-in authored example is explicitly a scripted agent-reviewed workflow test. External annotation pages contain original figure bytes and must remain private until reuse rights are checked.

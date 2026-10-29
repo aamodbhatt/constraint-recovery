@@ -19,6 +19,8 @@ First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone
 - Separate text-to-node, endpoint, containment, alignment and ordering targets.
 - [x] Add explicit branch insertion while preserving existing node/edge identities and protected labels.
 - Build independent relationship annotations; avoid scoring inferred rules against themselves.
+  - [x] Resumable compound-object annotation UI, source-bound version 2 records, explicit unknown/ambiguous labels, primitive coverage and structural/provenance validation.
+  - [ ] Obtain independently reviewed external labels; the authored agent-reviewed workflow fixture is not that dataset.
 - Add strong heuristics + ELK and direct source-editing baselines.
   - [x] Tangent-aware endpoint heuristic and a pinned ELK layout configuration.
   - [ ] Direct source-editing baseline and independent real-diagram labels.

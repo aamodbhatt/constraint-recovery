@@ -15,6 +15,17 @@ def main():
     commands = parser.add_subparsers(dest="command",required=True)
     witness = commands.add_parser("check-witness",help="Verify a saved layout conflict witness without running a solver")
     witness.add_argument("input",type=Path)
+    validate_annotation = commands.add_parser("check-annotation",help="Validate annotation structure, source binding and primitive references")
+    validate_annotation.add_argument("input",type=Path)
+    validate_annotation.add_argument("--source",type=Path)
+    validate_annotation.add_argument("--measurements",type=Path)
+    annotate = commands.add_parser("annotate",help="Build a local compound-object annotation view without model suggestions")
+    annotate.add_argument("input",type=Path)
+    annotate.add_argument("--measurements",type=Path,required=True,help="JSON from benchmarks/measure_svg.cjs")
+    annotate.add_argument("--output",type=Path,required=True,help="Local HTML containing the source image; keep external figures private")
+    annotate.add_argument("--diagram-id")
+    annotate.add_argument("--source-url")
+    annotate.add_argument("--license",default="unknown")
     inventory = commands.add_parser("inspect",help="Non-rendering primitive inventory; does not promise edit support")
     inventory.add_argument("input",type=Path)
     inventory.add_argument("--output",type=Path,required=True)
@@ -42,6 +53,13 @@ def main():
         sub.add_argument("--attachments",type=Path,help="Source-hash-bound attachment choices exported by the review view")
     args = parser.parse_args()
     try:
+        if args.command=="check-annotation":
+            from .annotation import validate_annotation
+            digest=hashlib.sha256(args.source.read_bytes()).hexdigest() if args.source else None
+            measurements=json.loads(args.measurements.read_text()) if args.measurements else None
+            result=validate_annotation(json.loads(args.input.read_text()),digest,measurements)
+            print(json.dumps(result,indent=2))
+            return 0
         if args.command=="check-witness":
             from .conflicts import verify_certificate
             saved=json.loads(args.input.read_text())
@@ -64,6 +82,16 @@ def main():
             args.output.parent.mkdir(parents=True,exist_ok=True)
             args.output.write_text(json.dumps(inventory,indent=2)+"\n")
             print(json.dumps(inventory["summary"],indent=2))
+            return 0
+        if args.command=="annotate":
+            from .annotation import annotation_page
+            if args.output.suffix.lower()!=".html":
+                raise DiagramError("Annotation view output must end in .html")
+            page=annotation_page(args.input.read_bytes().decode("utf-8"),json.loads(args.measurements.read_text()),
+                                 args.diagram_id or args.input.stem,args.source_url or args.input.name,args.license)
+            args.output.parent.mkdir(parents=True,exist_ok=True)
+            args.output.write_text(page,encoding="utf-8")
+            print(f"Local annotation view: {args.output}. No annotations or human review claims created.")
             return 0
         model = None
         if args.endpoint_model:

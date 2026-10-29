@@ -1,0 +1,103 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Annotate diagram objects and relationships</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f6fa;color:#172c47;font:14px system-ui}main{max-width:1600px;margin:auto;padding:28px}h1{font-size:27px;margin:10px 0}h2{font-size:17px;margin:0 0 12px}small,.note{color:#586b83}p{line-height:1.6}.workspace{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(360px,1fr);gap:22px;margin-top:22px}.viewer,.panel{background:white;border:1px solid #dbe3ee;border-radius:10px;padding:20px}.viewer{position:sticky;top:20px;height:770px;display:flex;flex-direction:column}.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}button{border:1px solid #b9c7da;border-radius:5px;padding:8px 12px;color:#244e7d;background:white;font:600 13px system-ui;cursor:pointer}button.primary{background:#244e7d;color:white;border-color:#244e7d}input,select,textarea{font:14px system-ui;border:1px solid #b9c7da;border-radius:5px;padding:8px;width:100%;color:#172c47;background:white}input[type=checkbox],input[type=radio]{width:auto}input[type=range]{padding:0;max-width:120px}label{display:block;margin:10px 0 5px}textarea{min-height:60px;resize:vertical}.columns{display:grid;grid-template-columns:1fr 1fr;gap:10px}#canvas{width:100%;flex:1;min-height:0;border:1px solid #e2e8f1;background:white;touch-action:none;user-select:none}#canvas image{pointer-events:none}.part-box{pointer-events:none;fill:transparent;stroke:transparent;vector-effect:non-scaling-stroke}.show-bounds .part-box{stroke:#7394bc;stroke-width:.6}.part-box.assigned{stroke:#67a48c;stroke-width:1}.part-box.selected{fill:#dcaf3140;stroke:#b17f0b;stroke-width:2}#lasso[hidden],.part-row[hidden]{display:none}#lasso{fill:#466f9c18;stroke:#466f9c;stroke-width:1;vector-effect:non-scaling-stroke;pointer-events:none}.section{border-bottom:1px solid #e1e7f0;padding:18px 0}.section:first-child{padding-top:0}.part-list{max-height:200px;overflow:auto;border:1px solid #e1e7f0;border-radius:5px;margin-top:10px}.part-row{display:flex;gap:8px;align-items:start;padding:6px 8px;margin:0;border-bottom:1px solid #f0f3f7;font:12px ui-monospace;overflow-wrap:anywhere}.part-row input{margin-top:2px}.object-row,.relation-row{display:flex;justify-content:space-between;gap:10px;margin:10px 0;padding:9px;background:#f5f8fc;border-radius:5px;line-height:1.5}.object-row button,.relation-row button{align-self:start;padding:4px 8px}#message{min-height:22px;margin:10px 0;color:#9b451f;font-weight:600}#coverage{font-weight:600;margin:16px 0}.status{font-size:12px;color:#586b83;overflow-wrap:anywhere}.file-input{max-width:220px;font-size:12px}details{margin-top:12px}summary{cursor:pointer;font-weight:600}.source-note{max-width:1000px}.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}@media(max-width:950px){.workspace{grid-template-columns:1fr}.viewer{position:static;height:550px}}
+</style>
+<main>
+  <small>LOCAL COMPOUND-OBJECT ANNOTATION · NO MODEL SUGGESTIONS</small>
+  <h1>Which primitives belong together?</h1>
+  <p class="source-note">Select shapes and text to define objects, then record relationships. Click picks the smallest envelope under the pointer; Shift-click adds a part. Drag to select all envelopes inside a region. No role or relation is prefilled.</p>
+  <div class="workspace">
+    <section class="viewer">
+      <div class="toolbar">
+        <button id="fit">Fit content</button>
+        <button id="full">Full canvas</button>
+        <label style="margin:0"><input type="checkbox" id="pan"> Pan</label>
+        <label style="margin:0"><input type="checkbox" id="bounds"> Show bounds</label>
+        <label style="margin:0">Zoom <input id="zoom" type="range" min=".5" max="4" step=".1" value="1"></label>
+        <button id="clear">Clear selection</button>
+      </div>
+      <svg id="canvas" xmlns="http://www.w3.org/2000/svg" aria-label="Source image and selectable primitive envelopes">
+        <image id="source-image" href="__IMAGE_URL__" x="0" y="0" preserveAspectRatio="none"/>
+        <g id="overlays"></g><rect id="lasso" hidden/>
+      </svg>
+      <div id="selection" class="status" style="margin-top:12px"></div>
+      <p id="rendering" class="note"></p>
+    </section>
+    <section class="panel">
+      <div class="section">
+        <h2>1. Select primitive parts</h2>
+        <input id="search" aria-label="Find primitives" placeholder="Filter by shape, source ID or location">
+        <div id="parts" class="part-list"></div>
+      </div>
+      <div class="section">
+        <h2>2. Define an object</h2>
+        <div class="columns"><label>Object ID<input id="object-id" placeholder="encoder"/></label><label>Role<select id="role"><option value="">Choose a role</option><option>node</option><option>container</option><option>connector</option><option>text</option><option>background</option><option>decoration</option><option>unknown</option></select></label></div>
+        <label>Name or note<input id="object-name" placeholder="Optional descriptive name"></label>
+        <label>Object status<select id="object-status"><option>unknown</option><option>ambiguous</option><option>confirmed</option></select></label>
+        <button id="add-object">Add object from selected parts</button>
+        <div id="objects"></div>
+      </div>
+      <div class="section">
+        <h2>3. Record a relationship</h2>
+        <label>Kind<select id="kind"><option value="">Choose a relationship</option><option>directed_edge</option><option>contains</option><option>group</option><option>align_x</option><option>align_y</option><option>before_x</option><option>before_y</option></select></label>
+        <div class="columns"><label>First object / source<select id="first"></select></label><label>Second object / target<select id="second"></select></label></div>
+        <label>Connector object, if identified<select id="connector"></select></label>
+        <label>Relationship status<select id="relation-status"><option>unknown</option><option>ambiguous</option><option>confirmed</option></select></label>
+        <label>Evidence or ambiguity<textarea id="rationale" placeholder="What in the source supports this relation? Is the intended constraint observable?"></textarea></label>
+        <button id="add-relation">Add relationship</button><div id="relations"></div>
+      </div>
+      <div class="section">
+        <h2>4. Review and save</h2>
+        <div class="columns"><label>Annotator type<select id="annotator-type"><option>unspecified</option><option>human</option><option>agent</option></select></label><label>Review status<select id="review-status"><option>unreviewed</option><option>agent-reviewed</option><option>human-reviewed</option></select></label></div>
+        <label>Annotator identity<input id="annotator" placeholder="Required for reviewed records"></label>
+        <label>Review evidence<textarea id="review-evidence" placeholder="How was this reviewed? Was original artwork or an authoring program checked?"></textarea></label>
+        <label>Data split<select id="split"><option>unassigned</option><option>train</option><option>development</option><option>test</option></select></label>
+        <div id="coverage"></div><div id="message" role="status"></div>
+        <div class="buttons"><button id="download" class="primary">Download annotation</button><label style="margin:0">Resume from JSON<input class="file-input" id="resume" type="file" accept=".json,application/json"></label></div>
+        <p class="note">Downloads preserve unknown and ambiguous labels. Review metadata is self-reported; this tool does not turn annotations into independent ground truth. Save before closing.</p>
+        <details><summary>Source and measurement provenance</summary><pre id="provenance" class="status"></pre></details>
+      </div>
+    </section>
+  </div>
+</main>
+<script type="application/json" id="data">__DATA_JSON__</script>
+<script>
+'use strict';
+const data=JSON.parse(document.getElementById('data').textContent),NS='http://www.w3.org/2000/svg';
+const el=id=>document.getElementById(id),canvas=el('canvas'),parts=data.primitives;
+const selected=new Set(),boxes=new Map(),checks=new Map();
+let objects=[],relations=[],drag=null;
+const roles=new Set(['node','container','connector','text','background','decoration','unknown']);
+const kinds=new Set(['directed_edge','contains','group','align_x','align_y','before_x','before_y']);
+const statuses=new Set(['confirmed','ambiguous','unknown']);
+function say(message=''){el('message').textContent=message;}
+function project(box){if(!box)return null;const [a,b,c,d,e,f]=data.image_projection;const points=[[box[0],box[1]],[box[0],box[3]],[box[2],box[1]],[box[2],box[3]]].map(([x,y])=>[a*x+c*y+e,b*x+d*y+f]);return [Math.min(...points.map(p=>p[0])),Math.min(...points.map(p=>p[1])),Math.max(...points.map(p=>p[0])),Math.max(...points.map(p=>p[1]))];}
+function setView(box){canvas.setAttribute('viewBox',`${box[0]} ${box[1]} ${box[2]} ${box[3]}`);}
+function currentView(){return canvas.getAttribute('viewBox').split(' ').map(Number);}
+function full(){setView([0,0,...data.image_size]);el('zoom').value=1;previousZoom=1;}
+function fit(){const [w,h]=data.image_size;const usable=parts.filter(p=>p.visible_by_display_visibility_opacity&&p.viewbox_bounds).map(p=>project(p.viewbox_bounds)).filter(b=>!(b[0]<=0&&b[1]<=0&&b[2]>=w&&b[3]>=h));if(!usable.length){full();return;}const x=Math.min(...usable.map(b=>b[0]))-16,y=Math.min(...usable.map(b=>b[1]))-16;setView([x,y,Math.max(...usable.map(b=>b[2]))+16-x,Math.max(...usable.map(b=>b[3]))+16-y]);el('zoom').value=1;previousZoom=1;}
+function assigned(){return new Set(objects.flatMap(o=>o.parts));}
+function refreshSelection(){const used=assigned();for(const p of parts){const index=p.location;const rect=boxes.get(index);if(rect){rect.classList.toggle('selected',selected.has(index));rect.classList.toggle('assigned',used.has(index));}checks.get(index).checked=selected.has(index);}el('selection').textContent=`${selected.size} selected · ${parts.length} measured primitives · ${objects.length} objects`;el('coverage').textContent=`${used.size} / ${parts.length} primitives assigned; ${parts.length-used.size} remain unassigned`;}
+function refreshObjects(){el('objects').replaceChildren();for(const o of objects){const row=document.createElement('div');row.className='object-row';const text=document.createElement('span');text.textContent=`${o.id} · ${o.role} · ${o.parts.length} parts · ${o.status}`;const button=document.createElement('button');button.textContent='Remove';button.onclick=()=>{if(relations.some(r=>r.objects.includes(o.id)||r.connector===o.id)){say('Remove relationships referencing this object first.');return;}objects=objects.filter(v=>v.id!==o.id);refreshObjects();refreshSelection();};row.append(text,button);el('objects').append(row);}for(const id of ['first','second','connector']){const old=el(id).value;el(id).replaceChildren();const empty=document.createElement('option');empty.value='';empty.textContent=id==='connector'?'None / unresolved':'Choose an object';el(id).append(empty);for(const o of objects){const option=document.createElement('option');option.value=o.id;option.textContent=o.id+' · '+o.role;el(id).append(option);}el(id).value=old;}refreshSelection();}
+function refreshRelations(){el('relations').replaceChildren();relations.forEach((r,index)=>{const row=document.createElement('div');row.className='relation-row';const text=document.createElement('span');text.textContent=`${r.kind}: ${r.objects.join(' → ')} · ${r.status}`;const button=document.createElement('button');button.textContent='Remove';button.onclick=()=>{relations.splice(index,1);refreshRelations();};row.append(text,button);el('relations').append(row);});}
+for(const p of parts){const row=document.createElement('label');row.className='part-row';const check=document.createElement('input');check.type='checkbox';check.setAttribute('aria-label','Select '+p.location);check.onchange=()=>{check.checked?selected.add(p.location):selected.delete(p.location);refreshSelection();};checks.set(p.location,check);const text=document.createElement('span');text.textContent=p.tag+(p.source_id?' #'+p.source_id:'')+' · '+p.location;row.dataset.search=text.textContent.toLowerCase();row.append(check,text);el('parts').append(row);const b=project(p.viewbox_bounds);if(b){const rect=document.createElementNS(NS,'rect');rect.setAttribute('x',b[0]);rect.setAttribute('y',b[1]);rect.setAttribute('width',Math.max(.5,b[2]-b[0]));rect.setAttribute('height',Math.max(.5,b[3]-b[1]));rect.setAttribute('class','part-box');el('overlays').append(rect);boxes.set(p.location,rect);}}
+el('source-image').setAttribute('width',data.image_size[0]);el('source-image').setAttribute('height',data.image_size[1]);
+el('fit').onclick=fit;el('full').onclick=full;el('clear').onclick=()=>{selected.clear();refreshSelection();};el('bounds').onchange=()=>canvas.classList.toggle('show-bounds',el('bounds').checked);el('search').oninput=()=>{for(const row of el('parts').children)row.hidden=!row.dataset.search.includes(el('search').value.toLowerCase());};
+let previousZoom=1;el('zoom').oninput=()=>{const z=Number(el('zoom').value),[x,y,w,h]=currentView(),scale=previousZoom/z;setView([x+w*(1-scale)/2,y+h*(1-scale)/2,w*scale,h*scale]);previousZoom=z;};
+function point(event,matrix=canvas.getScreenCTM().inverse()){return new DOMPoint(event.clientX,event.clientY).matrixTransform(matrix);}
+canvas.onpointerdown=event=>{if(event.button!==0)return;const inverse=canvas.getScreenCTM().inverse();drag={start:point(event,inverse),client:[event.clientX,event.clientY],inverse,view:currentView(),pan:el('pan').checked,shift:event.shiftKey};canvas.setPointerCapture(event.pointerId);};
+canvas.onpointermove=event=>{if(!drag)return;const p=point(event,drag.inverse),dx=p.x-drag.start.x,dy=p.y-drag.start.y;if(drag.pan){setView([drag.view[0]-dx,drag.view[1]-dy,drag.view[2],drag.view[3]]);return;}const lasso=el('lasso');lasso.removeAttribute('hidden');lasso.setAttribute('x',Math.min(p.x,drag.start.x));lasso.setAttribute('y',Math.min(p.y,drag.start.y));lasso.setAttribute('width',Math.abs(dx));lasso.setAttribute('height',Math.abs(dy));};
+canvas.onpointerup=event=>{if(!drag)return;const old=drag;drag=null;el('lasso').setAttribute('hidden','');if(old.pan)return;const p=point(event,old.inverse),movement=Math.hypot(event.clientX-old.client[0],event.clientY-old.client[1]);if(!old.shift)selected.clear();if(movement>4){const box=[Math.min(p.x,old.start.x),Math.min(p.y,old.start.y),Math.max(p.x,old.start.x),Math.max(p.y,old.start.y)];for(const item of parts){const b=project(item.viewbox_bounds);if(b&&box[0]<=b[0]&&box[1]<=b[1]&&box[2]>=b[2]&&box[3]>=b[3])selected.add(item.location);}}else{const hits=parts.map(item=>({item,b:project(item.viewbox_bounds)})).filter(({b})=>b&&b[0]-2<=p.x&&b[1]-2<=p.y&&b[2]+2>=p.x&&b[3]+2>=p.y).sort((u,v)=>(u.b[2]-u.b[0])*(u.b[3]-u.b[1])-(v.b[2]-v.b[0])*(v.b[3]-v.b[1]));if(hits.length){const key=hits[0].item.location;if(old.shift&&selected.has(key))selected.delete(key);else selected.add(key);}}refreshSelection();};canvas.onpointercancel=()=>{drag=null;el('lasso').setAttribute('hidden','');};
+el('add-object').onclick=()=>{say();const id=el('object-id').value.trim(),role=el('role').value;if(!/^[A-Za-z_][\w.-]*$/.test(id)||objects.some(o=>o.id===id)){say('Choose an unused object ID with letters, digits, underscores or periods.');return;}if(!role||!selected.size){say('Select primitive parts and choose a role.');return;}const used=assigned();if([...selected].some(p=>used.has(p))){say('A selected part already belongs to an object. Remove that object before reassignment.');return;}objects.push({id,role,name:el('object-name').value,status:el('object-status').value,parts:[...selected]});selected.clear();el('object-id').value='';el('object-name').value='';el('role').value='';el('object-status').value='unknown';refreshObjects();};
+el('add-relation').onclick=()=>{say();const kind=el('kind').value,first=el('first').value,second=el('second').value;if(!kind||!first||!second){say('Choose a relationship and both objects.');return;}relations.push({kind,objects:[first,second],connector:el('connector').value||null,status:el('relation-status').value,rationale:el('rationale').value});refreshRelations();};
+function manifest(){const used=assigned();return {schema_version:2,kind:'diagram-annotation',diagram_id:data.diagram_id,source_url:data.source_url,source_sha256:data.source_sha256,license:data.license,split:el('split').value,review:{status:el('review-status').value,annotator_type:el('annotator-type').value,annotator:el('annotator').value,evidence:el('review-evidence').value},objects,relations,coverage:{total_primitives:parts.length,assigned_primitives:used.size,unassigned_parts:parts.map(p=>p.location).filter(p=>!used.has(p))},measurement:{browser:data.browser,blocked_reference_count:data.blocked_references,bounds_scope:'Browser local-envelope projection; not a pixel or semantic certificate'}};}
+function validate(value){if(value.schema_version!==2||value.kind!=='diagram-annotation'||value.source_sha256!==data.source_sha256)throw Error('Annotation belongs to another source or schema.');if(!Array.isArray(value.objects)||!Array.isArray(value.relations))throw Error('Invalid annotation arrays.');const known=new Set(parts.map(p=>p.location)),ids=new Set(),used=new Set();for(const o of value.objects){if(!/^[A-Za-z_][\w.-]*$/.test(o.id)||ids.has(o.id)||!roles.has(o.role)||!statuses.has(o.status)||typeof o.name!=='string'||!Array.isArray(o.parts)||!o.parts.length)throw Error('Invalid object record.');ids.add(o.id);for(const p of o.parts){if(!known.has(p)||used.has(p))throw Error('Unknown or duplicate primitive part.');used.add(p);}}for(const r of value.relations){if(!kinds.has(r.kind)||!statuses.has(r.status)||typeof r.rationale!=='string'||!Array.isArray(r.objects)||r.objects.length<2||(r.kind!=='group'&&r.objects.length!==2)||r.objects.some(id=>!ids.has(id))||(r.connector&&!ids.has(r.connector)))throw Error('Invalid relationship reference.');}const review=value.review;if(!review||!['unreviewed','agent-reviewed','human-reviewed'].includes(review.status)||!['unspecified','human','agent'].includes(review.annotator_type)||typeof review.annotator!=='string'||typeof review.evidence!=='string')throw Error('Invalid review metadata.');if(review.status!=='unreviewed'&&(review.annotator_type!==(review.status==='human-reviewed'?'human':'agent')||!review.annotator.trim()||!review.evidence.trim()))throw Error('Reviewed records need a consistent annotator type, identity and evidence.');if(!['unassigned','train','development','test'].includes(value.split))throw Error('Invalid data split.');const coverage=value.coverage;if(!coverage||coverage.total_primitives!==parts.length||coverage.assigned_primitives!==used.size||!Array.isArray(coverage.unassigned_parts)||coverage.unassigned_parts.length!==known.size-used.size||new Set(coverage.unassigned_parts).size!==coverage.unassigned_parts.length||coverage.unassigned_parts.some(p=>!known.has(p)||used.has(p)))throw Error('Inconsistent annotation coverage.');}
+el('download').onclick=()=>{say();try{const value=manifest();validate(value);const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)+'\n'],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=data.diagram_id.replace(/[^\w.-]/g,'_')+'.annotation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(error){say(error.message);}};
+el('resume').onchange=async()=>{say();try{const value=JSON.parse(await el('resume').files[0].text());validate(value);objects=value.objects;relations=value.relations;for(const [id,key]of [['annotator-type','annotator_type'],['review-status','status'],['annotator','annotator'],['review-evidence','evidence']])el(id).value=value.review[key];el('split').value=value.split;selected.clear();refreshObjects();refreshRelations();say('Annotation restored. Download to save further changes.');}catch(error){say(error.message);}};
+el('provenance').textContent=JSON.stringify({source:data.source_url,license:data.license,source_sha256:data.source_sha256,browser:data.browser},null,2);
+el('rendering').textContent=data.blocked_references?`${data.blocked_references} secondary resources were blocked during measurement. Check missing artwork against the original before confirming relations.`:'Source is displayed as an image; its scripts and interaction are disabled. Envelopes exclude stroke, marker and filter extents.';
+fit();refreshObjects();refreshRelations();
+</script>

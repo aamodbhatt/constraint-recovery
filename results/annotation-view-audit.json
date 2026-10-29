@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "dataset": "yashengsun/SciDiagramRevision",
+  "selection": "Published test rows 0..19, used here for development audit; not an untouched evaluation set",
+  "requested_rows": 20,
+  "views_built": 19,
+  "annotations_created": 0,
+  "secondary_references_blocked": 2,
+  "protocol": "Offline private source/measurement cache. Views start with no object or relation labels. All HTML and original SVG copies stay in ignored .cache; only build outcomes and source hashes committed.",
+  "limitations": [
+    "A built view is not a completed annotation, rendering-fidelity certificate or editable figure",
+    "2 secondary references in this range were blocked during measurement; affected views retain that warning",
+    "No independent human annotation or relationship accuracy is established",
+    "Upstream figure rights remain per source paper"
+  ],
+  "records": [
+    {
+      "row": 0,
+      "task_id": "2001.09326_pics_Model_3_4",
+      "source_sha256": "9136ba6286f6199426cbc1ecf87749800db31269107dbadc48bbfbfecc62f14a",
+      "built": true,
+      "failure": null,
+      "primitives": 65,
+      "blocked_references": 0
+    },
+    {
+      "row": 1,
+      "task_id": "2003.09044_figures_overview_1_2",
+      "source_sha256": "80f938bc5923b348fc239241dc2dc51514ed48268b4e63ca16caf88a67a9714e",
+      "built": true,
+      "failure": null,
+      "primitives": 32,
+      "blocked_references": 0
+    },
+    {
+      "row": 2,
+      "task_id": "2004.05273_figures_trace_1_2",
+      "source_sha256": "cbf7c0048b883e5cd25bcc16ea166d569c7effc183e576f79ebe0c41ff031bdb",
+      "built": true,
+      "failure": null,
+      "primitives": 156,
+      "blocked_references": 0
+    },
+    {
+      "row": 3,
+      "task_id": "2004.11145_arch_4_5",
+      "source_sha256": "bbaf02d192560c97dd989cd1f1823694c3510bdd5fa807fb0fb6f7269c05a6d4",
+      "built": true,
+      "failure": null,
+      "primitives": 122,
+      "blocked_references": 0
+    },
+    {
+      "row": 4,
+      "task_id": "2004.11588_Framework_1_2",
+      "source_sha256": "934e63611d21b88f7e69498af761082bdcfed60f254dd7c406f592fb09d7e841",
+      "built": true,
+      "failure": null,
+      "primitives": 141,
+      "blocked_references": 0
+    },
+    {
+      "row": 5,
+      "task_id": "2004.12027_fig_method_1_2",
+      "source_sha256": "7ab40c300bbeec31505318ccaae61c6ffd55d9038296af0b61ac6aba486c070d",
+      "built": true,
+      "failure": null,
+      "primitives": 49,
+      "blocked_references": 0
+    },
+    {
+      "row": 6,
+      "task_id": "2004.14257_images_add-tagger_1_2",
+      "source_sha256": "467ff20111071d124d7b906d35ec44bda01a749483fe69b4009ef52e81ae3871",
+      "built": true,
+      "failure": null,
+      "primitives": 22,
+      "blocked_references": 0
+    },
+    {
+      "row": 7,
+      "task_id": "2005.05298_figures_example_2_3",
+      "source_sha256": "2e8b24e475e8da8bd4604c166caefc223f4c520f625d7fad69446947d1dee7fb",
+      "built": true,
+      "failure": null,
+      "primitives": 99,
+      "blocked_references": 0
+    },
+    {
+      "row": 8,
+      "task_id": "2005.08083_figures_Figure-AutoML_2_3",
+      "source_sha256": "46b458c2b7d50cbe9eadcb4515d5ffb21948de594a7a3e69613f4778ae023feb",
+      "built": true,
+      "failure": null,
+      "primitives": 58,
+      "blocked_references": 0
+    },
+    {
+      "row": 9,
+      "task_id": "2005.13013_stilts_crosslingual_method_2_3",
+      "source_sha256": "5cf93fef2308bbafdede434241db4a9ccd66ae139cef382b52aa57c2a9370a5b",
+      "built": true,
+      "failure": null,
+      "primitives": 77,
+      "blocked_references": 0
+    },
+    {
+      "row": 10,
+      "task_id": "2006.02068_fig_overview_2_3",
+      "source_sha256": "81b70146ad91708290bb3c56cb05351e03a2083afbff19d87c7db33a7fb68bab",
+      "built": true,
+      "failure": null,
+      "primitives": 80,
+      "blocked_references": 1
+    },
+    {
+      "row": 11,
+      "task_id": "2006.03535_images_CoCon_2_4",
+      "source_sha256": "5b79e3c4cc1bbe36daea024f4ceec287750240866b3c5250ed7aed82c86f6ea9",
+      "built": true,
+      "failure": null,
+      "primitives": 69,
+      "blocked_references": 0
+    },
+    {
+      "row": 12,
+      "task_id": "2006.05265_fig_overview_7_8",
+      "source_sha256": "c9272ba8f39b4e4217c2049748bebcd4e03343c37c2980e4cffc62fa09e7af7b",
+      "built": true,
+      "failure": null,
+      "primitives": 143,
+      "blocked_references": 0
+    },
+    {
+      "row": 13,
+      "task_id": "2006.06648_Figure_Network_2_3",
+      "source_sha256": "36b57ff54c4b64fc1076aa9cf515988013b3133549a168511592035e7fff1f1e",
+      "built": true,
+      "failure": null,
+      "primitives": 69,
+      "blocked_references": 0
+    },
+    {
+      "row": 14,
+      "task_id": "2006.07802_figure_Qualitative_4_5",
+      "source_sha256": "5341c7a608ce320607abed4a2acaaf602853812d0799c328d0f5aabcc7849413",
+      "built": true,
+      "failure": null,
+      "primitives": 14,
+      "blocked_references": 1
+    },
+    {
+      "row": 15,
+      "task_id": "2006.07802_figure_teaser_2_3",
+      "source_sha256": null,
+      "built": false,
+      "failure": "Unavailable or truncated source"
+    },
+    {
+      "row": 16,
+      "task_id": "2006.08084_Figs_MergeCode_2_3",
+      "source_sha256": "fd934d0a1cfb2d4272b7c1ecfa339b2f5411757f986e12f2d6c4d7eeeb16c829",
+      "built": true,
+      "failure": null,
+      "primitives": 30,
+      "blocked_references": 0
+    },
+    {
+      "row": 17,
+      "task_id": "2006.08084_Figs_MergeSortTrace_2_3",
+      "source_sha256": "a8f5f1d98bc3e13b29a8b4757339149e00ebe48794fd9c6e1f9332c646b970b7",
+      "built": true,
+      "failure": null,
+      "primitives": 135,
+      "blocked_references": 0
+    },
+    {
+      "row": 18,
+      "task_id": "2006.13382_fig_diagram_overview_7_8",
+      "source_sha256": "d3c472fbcbab2bf1fd71d7cc869aba198ee425777ce607028dc1be4f781ac2bc",
+      "built": true,
+      "failure": null,
+      "primitives": 42,
+      "blocked_references": 0
+    },
+    {
+      "row": 19,
+      "task_id": "2007.00613_figures_table2_2_3",
+      "source_sha256": "e12bffacae036bd9478aa1720bc91d8463599dce17add06b2fc34204b046441e",
+      "built": true,
+      "failure": null,
+      "primitives": 26,
+      "blocked_references": 0
+    }
+  ]
+}

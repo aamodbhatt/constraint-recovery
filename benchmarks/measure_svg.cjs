@@ -119,7 +119,7 @@ if(require.main===module){
     if(path.resolve(input)===path.resolve(out))throw Error('Output must differ from input');
     const browser=await chromium.launch({headless:true});
     try{
-      const source=new TextDecoder('utf-8',{fatal:true}).decode(await fs.readFile(input));
+      const source=new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(await fs.readFile(input));
       const result=await measureSvg(browser,source,{includeText:args.includes('--include-text')});
       await fs.mkdir(path.dirname(out),{recursive:true});
       await fs.writeFile(out,JSON.stringify(result,null,2)+'\n');

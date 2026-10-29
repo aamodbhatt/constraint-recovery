@@ -1,0 +1,68 @@
+{
+  "schema_version": 2,
+  "kind": "diagram-annotation",
+  "diagram_id": "styled-pipeline",
+  "source_url": "styled-pipeline.svg",
+  "source_sha256": "253b79b916364c0f709992e79697a407ee91232335e6b5656910c9da2a433ff7",
+  "license": "MIT",
+  "split": "unassigned",
+  "review": {
+    "status": "agent-reviewed",
+    "annotator_type": "agent",
+    "annotator": "browser-check",
+    "evidence": "Scripted check of an authored fixture; no human annotation claimed."
+  },
+  "objects": [
+    {
+      "id": "input",
+      "role": "node",
+      "name": "",
+      "status": "confirmed",
+      "parts": [
+        "svg/g[4]/g[1]/rect[0]",
+        "svg/g[4]/g[1]/text[1]"
+      ]
+    },
+    {
+      "id": "model",
+      "role": "node",
+      "name": "",
+      "status": "confirmed",
+      "parts": [
+        "svg/g[4]/g[2]/rect[0]",
+        "svg/g[4]/g[2]/text[1]"
+      ]
+    },
+    {
+      "id": "arrow",
+      "role": "connector",
+      "name": "",
+      "status": "confirmed",
+      "parts": [
+        "svg/g[4]/path[0]"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "kind": "directed_edge",
+      "objects": [
+        "input",
+        "model"
+      ],
+      "connector": "arrow",
+      "status": "confirmed",
+      "rationale": "Authored fixture; scripted workflow check, not independent annotation."
+    }
+  ],
+  "coverage": {
+    "total_primitives": 5,
+    "assigned_primitives": 5,
+    "unassigned_parts": []
+  },
+  "measurement": {
+    "browser": "151.0.7922.34",
+    "blocked_reference_count": 0,
+    "bounds_scope": "Browser local-envelope projection; not a pixel or semantic certificate"
+  }
+}
