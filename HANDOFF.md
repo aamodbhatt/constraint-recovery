@@ -1,13 +1,15 @@
 # Saved checkpoint — 2026-10-29
 
 Repository: `aamodbhatt/constraint-recovery`, branch `main`.
-Latest checkpoint includes the README/workspace redesign and reviewed compound-node editing adapter. Consult `git log` for the precise code revision.
+Code checkpoint: `c7b0dce6e9dca26b3966af5176b1e904a91bb851`. Includes the README/workspace redesign, reviewed compound-node editing adapter and expanded diagnostics.
 
 ## User objective and operating constraints
 
 Build a substantial applied-AI/research tool with real mathematics and a credible GitHub/demo story. The selected project recovers inspectable structural constraints from existing scientific SVGs and preserves accepted relationships through edits. Do not claim that constraint layout or AI diagram editing is new, that a learned advantage has been established, or that a paper is ready.
 
 The user authorized ongoing work and pushes, with a stop guard at 5% remaining usage. The user explicitly answered **Continue working into the new usage window** after the earlier reset. Continue under that authorization while monitoring live usage; save, push and halt when 5% remains. Recheck usage on continuation rather than relying on historical values. No reset credit was consumed manually.
+
+Final save began with 6% of the five-hour window remaining (94% used), reserving the remainder for saving/pushing and the final report. Feature work stopped at this completed checkpoint. Weekly usage was 37% used. These are historical readings, not a promise of current availability.
 
 Cloud GPU work was authorized after a sizeable local checkpoint, subject to a measured need and bounded experiment. **No cloud resource was started and no GPU credit spent.** The existing endpoint pilot trains in a fraction of a second on CPU. Do not provision a GPU just because the infrastructure checkpoint is now large.
 
@@ -33,7 +35,7 @@ Cloud GPU work was authorized after a sizeable local checkpoint, subject to a me
 - Compound browser diagnostic passes two consecutive edits on rotated/bold/use artwork, review retention and hash binding, rejection without overwriting an earlier SVG, and rejection of a CSS selector activated by inserted transforms. Saved in `results/compound-integration.json`. This is an authored agent-reviewed fixture, not independent ground truth or external accuracy.
 - Browser integration passes review/download/edit, source-ID collisions, inert source text, 24-unit font scaling and text containment, affine/rotation/use measurements, blocked source scripts and requests, compound grouping/download/resume, click/lasso/zoom, and an independent pixel check of the coordinate projection.
 - Python wheel built successfully; browser bridge assets and the annotation HTML template are included as package data.
-- Compound checkpoint `dc097ee` passed all four CI jobs in [40890725634](https://github.com/aamodbhatt/constraint-recovery/actions/runs/40890725634). Check the newest run for subsequent diagnostic additions; older green runs do not validate newer code.
+- Final code checkpoint `c7b0dce` passed all four CI jobs in [40891334732](https://github.com/aamodbhatt/constraint-recovery/actions/runs/40891334732): Python 3.11, Python 3.12, ELK and browser integration, including the expanded compound and presentation diagnostics. Any later handoff-only commit does not change that tested code.
 - The expanded diagnostic rejects freshly measured damaged text, gradient definitions, rigid poses and detached endpoints; skew/nonuniform and reflected parent variants pass. The packaged wheel completes a browser-backed edit when run with the SVG extra installed. Presentation smoke checks are portable in `benchmarks/presentation_check.cjs` and run in CI.
 - Original 30-case synthetic layout benchmark: solver 30/30, fixed-placement baseline 20/30.
 - Paired routing diagnostic: visibility solves six feasible authored cases; templates solve one with the same clearance. Both reject the blocked seventh case.
