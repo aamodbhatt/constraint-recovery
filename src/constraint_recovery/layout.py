@@ -1,4 +1,5 @@
 from copy import deepcopy
+from dataclasses import replace
 import itertools
 import math
 import numpy as np
@@ -9,7 +10,7 @@ from .svg import route
 from .check import segment_hits_rect
 
 
-def reroute(edge, nodes, width, height):
+def reroute(edge, nodes, width, height,clearance=0):
     a,b = nodes[edge.source],nodes[edge.target]
     def ports(n):
         return [[n.x,n.y+n.height/2],[n.x+n.width,n.y+n.height/2],
@@ -25,7 +26,15 @@ def reroute(edge, nodes, width, height):
         for path in paths:
             if any(x<0 or y<0 or x>width or y>height for x,y in path):
                 continue
-            if not any(segment_hits_rect(p,q,n) for p,q in zip(path,path[1:]) for n in nodes.values()):
+            def blocked():
+                for j,(p,q) in enumerate(zip(path,path[1:])):
+                    for n in nodes.values():
+                        pad = 0 if (n.id==edge.source and j==0) or (n.id==edge.target and j==len(path)-2) else clearance
+                        box = replace(n,x=n.x-pad,y=n.y-pad,width=n.width+2*pad,height=n.height+2*pad)
+                        if segment_hits_rect(p,q,box):
+                            return True
+                return False
+            if not blocked():
                 length = sum(math.dist(p,q) for p,q in zip(path,path[1:]))
                 candidates.append((length+8*len(path),path))
     if not candidates:
@@ -33,7 +42,7 @@ def reroute(edge, nodes, width, height):
     edge.points = min(candidates,key=lambda c:c[0])[1]
 
 
-def edit(diagram, labels=None, width=None, height=None, font_size=None, gap=24, flow="free", time_limit=10):
+def edit(diagram, labels=None, width=None, height=None, font_size=None, gap=24, flow="free", time_limit=10,router="visibility"):
     diagram.validate()
     labels = labels or {}
     unknown = set(labels)-{n.id for n in diagram.nodes}
@@ -42,7 +51,7 @@ def edit(diagram, labels=None, width=None, height=None, font_size=None, gap=24, 
     d = deepcopy(diagram)
     d.width = diagram.width if width is None else width
     d.height = diagram.height if height is None else height
-    if flow not in {"free","vertical","horizontal"} or gap < 0 or time_limit <= 0:
+    if flow not in {"free","vertical","horizontal"} or gap < 0 or time_limit <= 0 or router not in {"visibility","candidates"}:
         raise DiagramError("Invalid layout options")
     for n in d.nodes:
         if n.id in labels:
@@ -109,8 +118,15 @@ def edit(diagram, labels=None, width=None, height=None, font_size=None, gap=24, 
     for i,n in enumerate(d.nodes):
         n.x,n.y = float(result.x[i]),float(result.x[count+i])
     nodes = {n.id:n for n in d.nodes}
+    from .routing import OrthogonalRouter
+    engine = OrthogonalRouter(nodes,d.width,d.height) if router=="visibility" else None
+    routing = []
     for e in d.edges:
-        reroute(e,nodes,d.width,d.height)
+        if engine:
+            e.points,evidence = engine.route(e.source,e.target)
+            routing.append({"edge_id":e.id,**evidence})
+        else:
+            reroute(e,nodes,d.width,d.height)
     return d,{"method":"MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
               "solver_status":int(result.status),"optimal_within_tolerance":result.status==0,
-              "objective":float(result.fun),"flow":flow,"gap":gap}
+              "objective":float(result.fun),"flow":flow,"gap":gap,"router":router,"routing":routing}

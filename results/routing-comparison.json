@@ -1,0 +1,205 @@
+{
+  "scope": "Seven authored fixed-geometry cases; one deliberately blocked. No learned recovery or external figure accuracy tested.",
+  "clearance": 8,
+  "shared_conditions": "Same nodes, center ports, canvas and eight-unit rectangle clearance; common post-serialization geometric checker. Source/target port escape segments may cross only their own inflated box.",
+  "results": [
+    {
+      "case": "straight",
+      "method": "templates",
+      "expected_feasible": true,
+      "passed": true,
+      "errors": [],
+      "length": 440.0,
+      "seconds": 0.003150374977849424
+    },
+    {
+      "case": "straight",
+      "method": "visibility",
+      "expected_feasible": true,
+      "search": {
+        "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+        "clearance": 8,
+        "bend_penalty": 8,
+        "search_cost": 440.0,
+        "length": 440.0,
+        "bends": 0,
+        "visited_states": 39,
+        "grid_vertices": 38
+      },
+      "passed": true,
+      "errors": [],
+      "length": 440.0,
+      "seconds": 0.0006666250410489738
+    },
+    {
+      "case": "alternating-2",
+      "method": "templates",
+      "expected_feasible": true,
+      "passed": false,
+      "errors": [
+        "No collision-free connector found for ab; no edit exported"
+      ],
+      "seconds": 0.0021766669815406203
+    },
+    {
+      "case": "alternating-2",
+      "method": "visibility",
+      "expected_feasible": true,
+      "search": {
+        "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+        "clearance": 8,
+        "bend_penalty": 8,
+        "search_cost": 564.0,
+        "length": 532.0,
+        "bends": 4,
+        "visited_states": 130,
+        "grid_vertices": 96
+      },
+      "passed": true,
+      "errors": [],
+      "length": 532.0,
+      "seconds": 0.0010098330094479024
+    },
+    {
+      "case": "alternating-3",
+      "method": "templates",
+      "expected_feasible": true,
+      "passed": false,
+      "errors": [
+        "No collision-free connector found for ab; no edit exported"
+      ],
+      "seconds": 0.002747124992311001
+    },
+    {
+      "case": "alternating-3",
+      "method": "visibility",
+      "expected_feasible": true,
+      "search": {
+        "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+        "clearance": 8,
+        "bend_penalty": 8,
+        "search_cost": 866.0,
+        "length": 818.0,
+        "bends": 6,
+        "visited_states": 184,
+        "grid_vertices": 114
+      },
+      "passed": true,
+      "errors": [],
+      "length": 818.0,
+      "seconds": 0.0009198750485666096
+    },
+    {
+      "case": "alternating-4",
+      "method": "templates",
+      "expected_feasible": true,
+      "passed": false,
+      "errors": [
+        "No collision-free connector found for ab; no edit exported"
+      ],
+      "seconds": 0.004566541989333928
+    },
+    {
+      "case": "alternating-4",
+      "method": "visibility",
+      "expected_feasible": true,
+      "search": {
+        "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+        "clearance": 8,
+        "bend_penalty": 8,
+        "search_cost": 1048.0,
+        "length": 984.0,
+        "bends": 8,
+        "visited_states": 202,
+        "grid_vertices": 132
+      },
+      "passed": true,
+      "errors": [],
+      "length": 984.0,
+      "seconds": 0.14476266701240093
+    },
+    {
+      "case": "alternating-5",
+      "method": "templates",
+      "expected_feasible": true,
+      "passed": false,
+      "errors": [
+        "No collision-free connector found for ab; no edit exported"
+      ],
+      "seconds": 0.08555108297150582
+    },
+    {
+      "case": "alternating-5",
+      "method": "visibility",
+      "expected_feasible": true,
+      "search": {
+        "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+        "clearance": 8,
+        "bend_penalty": 8,
+        "search_cost": 1350.0,
+        "length": 1270.0,
+        "bends": 10,
+        "visited_states": 256,
+        "grid_vertices": 150
+      },
+      "passed": true,
+      "errors": [],
+      "length": 1270.0,
+      "seconds": 0.002864958019927144
+    },
+    {
+      "case": "alternating-6",
+      "method": "templates",
+      "expected_feasible": true,
+      "passed": false,
+      "errors": [
+        "No collision-free connector found for ab; no edit exported"
+      ],
+      "seconds": 0.007606792030856013
+    },
+    {
+      "case": "alternating-6",
+      "method": "visibility",
+      "expected_feasible": true,
+      "search": {
+        "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+        "clearance": 8,
+        "bend_penalty": 8,
+        "search_cost": 1532.0,
+        "length": 1436.0,
+        "bends": 12,
+        "visited_states": 274,
+        "grid_vertices": 168
+      },
+      "passed": true,
+      "errors": [],
+      "length": 1436.0,
+      "seconds": 0.001512666989583522
+    },
+    {
+      "case": "blocked",
+      "method": "templates",
+      "expected_feasible": false,
+      "passed": false,
+      "errors": [
+        "No collision-free connector found for ab; no edit exported"
+      ],
+      "seconds": 0.0014823750243522227
+    },
+    {
+      "case": "blocked",
+      "method": "visibility",
+      "expected_feasible": false,
+      "passed": false,
+      "errors": [
+        "No orthogonal route on the center-port visibility grid at the requested clearance"
+      ],
+      "seconds": 0.00019629200687631965
+    }
+  ],
+  "limitations": [
+    "Small diagnostic cases selected to exercise route complexity, not a representative benchmark",
+    "Runtime is a local observation, not a speed claim",
+    "No edge-edge crossing avoidance, arrowhead bounds or stroke-width certification"
+  ]
+}

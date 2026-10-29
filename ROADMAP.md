@@ -23,7 +23,7 @@ First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone
   - [x] Tangent-aware endpoint heuristic and a pinned ELK layout configuration.
   - [ ] Direct source-editing baseline and independent real-diagram labels.
 - Evaluate edit sequences, style/composition holdouts and impossible requests.
-- Replace finite routing candidates with a robust visibility-graph router.
+- [x] Replace finite routing candidates with a bounded orthogonal visibility-grid router; retain four center ports and explicit clearance/search limits. [Paired diagnostic](docs/routing.md).
 - Add browser-measured font geometry and rendered visual regression coverage.
 - Add ambiguity review and minimal conflicting-constraint explanations.
 

@@ -40,7 +40,7 @@ Supported SVG → recovered nodes and directed edges → optional human review
 - Apply replacement labels, font-size changes, and new canvas dimensions. `--flow vertical` or `horizontal` explicitly requests a directed flow layout; `free` preserves only graph connectivity and geometric feasibility.
 - Insert a requested branch with `--branch SOURCE NEW_ID "Label"`; the original node/edge identities remain protected and the report records the intended graph addition.
 - Fit labels with conservative Pillow font metrics. Place nodes with SciPy/HiGHS mixed-integer optimization: minimize L1 displacement subject to canvas bounds, fixed fitted sizes, pairwise nonoverlap and optional flow constraints.
-- Route connectors using finite candidate paths, rejecting paths through nodes or outside the canvas.
+- Route connectors with an orthogonal visibility grid and bend-aware shortest-path search, with eight-unit rectangle clearance. The earlier finite-template router remains available through `--router candidates`.
 - Re-import the exported SVG and check node/edge identities, directed connectivity, labels, typography bounds, node overlaps, arrow attachments and node-crossing connectors.
 
 The checker checks compliance with the accepted graph. **It cannot prove that the recovered graph expresses the author's intended meaning.**
@@ -81,7 +81,7 @@ PYTHONPATH=src python benchmarks/compare_elk.py
 
 The default exporter normalizes styling and geometry. It retains node IDs, labels, basic fills/strokes and accepted connectivity. Its strict importer rejects inherited styling, transforms and curves. The optional source-preserving mode supports a broader static subset described above, but neither mode edits arbitrary SVGs. Nested containers, plots, raster images, text outlines and decorative or unmarked lines remain unsupported. Start with the supplied examples or similarly simple diagrams.
 
-Text sizing is a conservative local estimate, not browser pixel-level certification. Connector routing is a finite search and may fail even when a more sophisticated route exists. Large diagrams, dense routing and solver time limits can prevent a usable result. The baseline caps inputs at 40 nodes.
+Text sizing is a conservative local estimate, not browser pixel-level certification. Routing searches a bounded orthogonal graph with four center ports per node, not every possible curve or attachment point. Clearances, search limits, large diagrams, dense routing and solver time limits can prevent a usable result. Edge-edge crossings and marker/stroke extents are not certified. The baseline caps inputs at 40 nodes.
 
 When an edit is infeasible or fails verification, the CLI exits with code 2 and does not export a new diagram. It does not silently shrink text or remove nodes. A pre-existing file at the output path is not removed on failure: check the exit status rather than treating its presence as success. Output must differ from the input path.
 
@@ -90,9 +90,12 @@ When an edit is infeasible or fails verification, the CLI exits with code 2 and 
 ```sh
 python -m pytest -q
 PYTHONPATH=src python benchmarks/run.py --output artifacts/benchmark.json
+PYTHONPATH=src python benchmarks/compare_routing.py --output artifacts/routing-comparison.json
 ```
 
 The original seeded 30-case engineering benchmark covers longer labels, larger fonts and portrait conversion on generated chains. It compares the solver pipeline with a simple baseline that scales positions and fits text while keeping node placements fixed. Full case records and failures are retained. That original comparison is **not** against ELK, a learned model, an LLM, or external scientific diagrams; the ELK and learning pilots are separate experiments, with their own limitations.
+
+A separate [routing diagnostic](results/routing-comparison.json) fixes geometry and eight-unit clearance for both routers: visibility search solves all six feasible authored cases, while templates solve one. Both reject the blocked seventh case. These deliberately challenging examples are not a population accuracy estimate. [Routing details](docs/routing.md) and an [authored maze SVG](docs/demo/routing-maze.svg) are included.
 
 ## Research direction
 

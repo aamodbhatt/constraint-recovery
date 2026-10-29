@@ -27,6 +27,7 @@ def main():
     change.add_argument("--height",type=float)
     change.add_argument("--font-size",type=float)
     change.add_argument("--flow",choices=["free","vertical","horizontal"],default="free")
+    change.add_argument("--router",choices=["visibility","candidates"],default="visibility")
     change.add_argument("--branch",nargs=3,action="append",metavar=("SOURCE","NEW_ID","LABEL"),
                         help="Add a labeled node and directed edge from an existing node; repeatable")
     for sub in [recover,change]:
@@ -71,7 +72,7 @@ def main():
         labels = json.loads(args.labels.read_text()) if args.labels else {}
         if not isinstance(labels,dict):
             raise DiagramError("Labels JSON must be an object")
-        result,solver = edit(declared,labels,args.width,args.height,args.font_size,flow=args.flow)
+        result,solver = edit(declared,labels,args.width,args.height,args.font_size,flow=args.flow,router=args.router)
         output = document.export(result) if document else render_svg(result)
         reparsed = SourceDocument(output,tolerance=.01).diagram if document else parse_svg(output,tolerance=.01)
         checks = verify(declared,reparsed,labels,args.font_size or 0,flow=args.flow,gap=24)

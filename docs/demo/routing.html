@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><title>Orthogonal routing diagnostic</title>
+<style>body{font:16px system-ui;background:#f4f6fa;color:#172c47;margin:40px}main{max-width:1000px;margin:auto}figure{margin:28px 0;background:white;border:1px solid #dbe3ee;border-radius:12px;padding:32px}object{width:100%;height:400px}p{max-width:800px;line-height:1.6}small{color:#586b83}</style>
+<main><small>FIXED GEOMETRY · CPU ONLY · AUTHORED DIAGNOSTIC</small>
+<h1>A route beyond the old templates</h1>
+<p>The arrow connects S to T while avoiding four alternating barriers with eight units of rectangle clearance. The node geometry is fixed. Visibility-grid search finds this route; the previous finite templates reject this case.</p>
+<figure><object data="routing-maze.svg" type="image/svg+xml"></object></figure>
+<p>The paired diagnostic contains six feasible cases and one deliberately blocked case. Visibility search solves six; templates solve one. Both reject the blocked case. These selected examples demonstrate a routing capability, not external-diagram accuracy. Edge-edge crossings, stroke widths and arrowhead bounds are outside this check.</p>
+<p><a href="../../results/routing-comparison.json">Case-level measurements</a> · <a href="../routing.md">Method and limits</a></p></main>
