@@ -1,13 +1,13 @@
 # Saved checkpoint — 2026-10-30
 
 Repository: `aamodbhatt/constraint-recovery`, branch `main`.
-Latest feature checkpoint: `c6e329b5a78b8e8796eafe4245c565b8448dae3f` (source-bound annotation previews). A following checkpoint strengthens the public-state audit and saves this handoff; consult `git log` for its exact revision.
+Tested code checkpoint: `f9fb3b49d5cfb229c7b5c96dcc53b93b3d36b650` (source-bound annotation previews and complete public-state verification). A following documentation-only commit records the final CI result in this handoff.
 
 ## User objective and operating constraints
 
 Build a substantial applied-AI/research tool with inspectable mathematics and a credible GitHub/demo story. Recover structural constraints from scientific SVGs and preserve accepted relationships through edits. Do not present classical routing/layout, scripted labels, or a fixture demonstration as research novelty, independent ground truth or a learned advantage.
 
-The user authorized autonomous work and pushes, with a stop guard at 5% remaining usage, and explicitly authorized continuing into a new usage window after a reset. Check live usage on continuation. Historical latest reading during this save: 86% of the five-hour window used, 14% weekly used. These are historical values, not current availability. No reset credit was consumed manually.
+The user authorized autonomous work and pushes, with a stop guard at 5% remaining usage, and explicitly authorized continuing into a new usage window after a reset. Check live usage on continuation. Historical latest reading during this save: 89% of the five-hour window used (11% remaining), 14% weekly used. These are historical values, not current availability. No reset credit was consumed manually.
 
 No Runpod/cloud resource was started and no GPU credit spent. The small endpoint pilot still ties a strong tangent-aware heuristic. Its training is trivial on CPU. GPU work needs a measured bottleneck and a bounded experiment.
 
@@ -62,7 +62,7 @@ Synthetic results remain diagnostics: layout30/30 vs fixed placement20/30; routi
 
 Latest local suite: **219 passing Python tests**. Includes annotation metric edge cases, source binding/coverage, routing families, independent segment contacts, malformed snapshot/digest/size failures and conservative SVG guards. Browser annotation, native editing, damaged-candidate rejection, native workspace/mobile/pixel probes, comparison controls and all eight public SVG exports pass locally. A wheel builds and its new modules/browser assets import in isolation.
 
-Feature CI: <https://github.com/aamodbhatt/constraint-recovery/actions/runs/40946373419> for `c6e329b`; check its live conclusion and the following commit's run before claiming final CI success. Earlier comparison checkpoint `bf0accf` passed all four jobs in40943787354.
+Final code CI: all four jobs passed for `f9fb3b4` in <https://github.com/aamodbhatt/constraint-recovery/actions/runs/40946859211>. The preceding preview checkpoint `c6e329b` also passed all four jobs in40946373419. This subsequent handoff-only edit changes no tested code. The phase is complete before the usage guard; independent human labels remain an external research input, not something to fabricate to keep working.
 
 ```sh
 .venv/bin/python -m pytest -q
