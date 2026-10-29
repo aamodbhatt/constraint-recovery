@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "figure": "distill-graph-tasks",
+  "steps": [
+    {
+      "input_graph": [
+        0,
+        6
+      ]
+    },
+    {
+      "input_graph": [
+        -4,
+        0
+      ]
+    }
+  ],
+  "impossible": {
+    "input_graph": [
+      -10000,
+      0
+    ]
+  },
+  "scope": "Frozen explicit translations selected before execution. Preserve uncertainty and every failed case; do not replace requests for success."
+}

@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "selection": "data/native-pilot-selection.json",
+  "browser": "151.0.7922.34",
+  "figures": 5,
+  "sources_measured": 5,
+  "static_guard_passes": 3,
+  "scope": "Read-only acquisition audit of five author-published SVGs. No annotations, editing success, recovery accuracy or independent human review established.",
+  "records": [
+    {
+      "id": "distill-rnn-basic",
+      "source_sha256": "45495b3cb50e1bbe260f5ccb5d6cc1abf233c3bae091741da0ba500dbfc6a940",
+      "original_git_blob_verified": true,
+      "license": "CC-BY-2.0",
+      "static_edit_guard": {
+        "passed": true,
+        "reason": null
+      },
+      "geometry": {
+        "measured": true,
+        "canvas": [
+          648,
+          144
+        ],
+        "primitives": 65,
+        "unmeasured": 0,
+        "primitives_with_effects": 0,
+        "marked_arrows": 0,
+        "blocked_secondary_references": 0
+      }
+    },
+    {
+      "id": "distill-rnn-memory",
+      "source_sha256": "c81ed722d5bee6e02681c0b934c6ab2fef72c7649ecc7fefb35767eba92af5b7",
+      "original_git_blob_verified": true,
+      "license": "CC-BY-2.0",
+      "static_edit_guard": {
+        "passed": true,
+        "reason": null
+      },
+      "geometry": {
+        "measured": true,
+        "canvas": [
+          744,
+          312
+        ],
+        "primitives": 143,
+        "unmeasured": 0,
+        "primitives_with_effects": 0,
+        "marked_arrows": 0,
+        "blocked_secondary_references": 0
+      }
+    },
+    {
+      "id": "distill-rnn-read",
+      "source_sha256": "36dc327998c717ab14f234288cc8ddf6544669e9acc222c0c6be9e10f55159ad",
+      "original_git_blob_verified": true,
+      "license": "CC-BY-2.0",
+      "static_edit_guard": {
+        "passed": true,
+        "reason": null
+      },
+      "geometry": {
+        "measured": true,
+        "canvas": [
+          744,
+          252
+        ],
+        "primitives": 41,
+        "unmeasured": 0,
+        "primitives_with_effects": 0,
+        "marked_arrows": 0,
+        "blocked_secondary_references": 0
+      }
+    },
+    {
+      "id": "distill-graph-tasks",
+      "source_sha256": "c55beae1c402cd430eba7a369d5afaf99395713bf6a3be0696bd4ccf17cfc617",
+      "original_git_blob_verified": true,
+      "license": "CC-BY-4.0",
+      "static_edit_guard": {
+        "passed": false,
+        "reason": "Unsupported static edit element: namedview"
+      },
+      "geometry": {
+        "measured": true,
+        "canvas": [
+          212.45164489746094,
+          288.4052429199219
+        ],
+        "primitives": 130,
+        "unmeasured": 0,
+        "primitives_with_effects": 0,
+        "marked_arrows": 1,
+        "blocked_secondary_references": 0
+      }
+    },
+    {
+      "id": "distill-standard-networks",
+      "source_sha256": "7c6c02f31025c964d62aa5254b41c2e12d85bf6868cc85007535f68d9504292a",
+      "original_git_blob_verified": true,
+      "license": "CC-BY-4.0",
+      "static_edit_guard": {
+        "passed": false,
+        "reason": "Unsupported static edit element: namedview"
+      },
+      "geometry": {
+        "measured": true,
+        "canvas": [
+          118.58820343017578,
+          96.48491668701172
+        ],
+        "primitives": 269,
+        "unmeasured": 0,
+        "primitives_with_effects": 0,
+        "marked_arrows": 2,
+        "blocked_secondary_references": 0
+      }
+    }
+  ]
+}

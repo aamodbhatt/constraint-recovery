@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "figure": "distill-standard-networks",
+  "steps": [
+    {
+      "top_input": [
+        0,
+        4
+      ],
+      "top_mlp": [
+        0,
+        4
+      ]
+    },
+    {
+      "top_input": [
+        0,
+        -2
+      ],
+      "top_mlp": [
+        0,
+        -2
+      ]
+    }
+  ],
+  "impossible": {
+    "top_input": [
+      -10000,
+      0
+    ]
+  },
+  "scope": "Frozen explicit translations selected before execution. Preserve uncertainty and every failed case; do not replace requests for success."
+}

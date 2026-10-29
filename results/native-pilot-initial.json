@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "checkpoint": "c7b0dce",
+  "selection": "data/native-pilot-selection.json",
+  "annotator_type": "agent",
+  "human_annotations": 0,
+  "figures": 5,
+  "first_moves_accepted": 0,
+  "scope": "Initial compound editor on fixed explicit agent-reviewed requests, before native-source feature additions. Not automatic recovery accuracy.",
+  "records": [
+    {
+      "id": "distill-rnn-basic",
+      "returncode": 2,
+      "accepted": false,
+      "first_failure": "constraint-recovery: compound-edit: Rerouting currently needs a confirmed single-primitive connector; arrow-label groups are not yet supported"
+    },
+    {
+      "id": "distill-rnn-memory",
+      "returncode": 2,
+      "accepted": false,
+      "first_failure": "constraint-recovery: compound-edit: Moved node overlaps protected object/envelope: memory1, context"
+    },
+    {
+      "id": "distill-rnn-read",
+      "returncode": 2,
+      "accepted": false,
+      "first_failure": "constraint-recovery: compound-edit: Rerouting requires a singly marked line, polyline or open path"
+    },
+    {
+      "id": "distill-graph-tasks",
+      "returncode": 2,
+      "accepted": false,
+      "first_failure": "constraint-recovery: compound-edit: Unsupported static edit element: namedview"
+    },
+    {
+      "id": "distill-standard-networks",
+      "returncode": 2,
+      "accepted": false,
+      "first_failure": "constraint-recovery: compound-edit: Unsupported static edit element: namedview"
+    }
+  ]
+}

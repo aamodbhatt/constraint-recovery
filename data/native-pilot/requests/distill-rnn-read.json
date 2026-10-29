@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "figure": "distill-rnn-read",
+  "steps": [
+    {
+      "readout": [
+        24,
+        8
+      ]
+    },
+    {
+      "readout": [
+        -12,
+        -4
+      ]
+    }
+  ],
+  "impossible": {
+    "readout": [
+      -10000,
+      0
+    ]
+  },
+  "scope": "Frozen explicit translations selected before execution. Preserve uncertainty and every failed case; do not replace requests for success."
+}

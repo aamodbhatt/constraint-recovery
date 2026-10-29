@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "figure": "distill-rnn-basic",
+  "steps": [
+    {
+      "step2": [
+        12,
+        0
+      ]
+    },
+    {
+      "step2": [
+        -6,
+        0
+      ]
+    }
+  ],
+  "impossible": {
+    "step2": [
+      -10000,
+      0
+    ]
+  },
+  "scope": "Frozen explicit translations selected before execution. Preserve uncertainty and every failed case; do not replace requests for success."
+}
