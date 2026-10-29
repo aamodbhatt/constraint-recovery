@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "kind": "compound-constraints",
+  "source_sha256": "500f762d406d41f031eee286ff895a17b8822b582d6f64685b07f717039d5faf",
+  "annotation": {
+    "schema_version": 2,
+    "kind": "diagram-annotation",
+    "diagram_id": "distill-rnn-read",
+    "source_url": "https://raw.githubusercontent.com/distillpub/post--augmented-rnns/fdc3526167133f5a97cee9e7cb48af293e67d66d/public/assets/rnn_read.svg",
+    "source_sha256": "36dc327998c717ab14f234288cc8ddf6544669e9acc222c0c6be9e10f55159ad",
+    "license": "CC-BY-2.0",
+    "split": "development",
+    "review": {
+      "status": "agent-reviewed",
+      "annotator_type": "agent",
+      "annotator": "Codex native-pilot development review",
+      "evidence": "Agent visually inspected the original render and source on 2026-10-30. Scripted selectors transcribe that interpretation; no author approval, independent human labels or automatic recovery claim."
+    },
+    "objects": [
+      {
+        "id": "inputs",
+        "name": "Attention and memory arrays, with their labels",
+        "parts": [
+          "svg/use[3]",
+          "svg/use[4]",
+          "svg/g[6]/text[0]",
+          "svg/g[7]/text[0]",
+          "svg/g[9]/use[0]",
+          "svg/g[9]/use[1]",
+          "svg/g[9]/use[2]",
+          "svg/g[9]/use[3]",
+          "svg/g[9]/use[4]",
+          "svg/g[9]/use[5]",
+          "svg/g[9]/use[6]",
+          "svg/g[10]/use[0]",
+          "svg/g[10]/use[1]",
+          "svg/g[10]/use[2]",
+          "svg/g[10]/use[3]",
+          "svg/g[10]/use[4]",
+          "svg/g[10]/use[5]",
+          "svg/g[10]/use[6]"
+        ],
+        "role": "node",
+        "status": "confirmed"
+      },
+      {
+        "id": "readout",
+        "name": "Read result, equation, leader and explanatory label",
+        "parts": [
+          "svg/use[5]",
+          "svg/g[8]/use[0]",
+          "svg/g[13]/text[0]",
+          "svg/g[14]/g[0]/line[0]",
+          "svg/g[14]/g[0]/line[1]",
+          "svg/g[14]/g[0]/line[2]",
+          "svg/g[15]/path[0]",
+          "svg/g[15]/path[1]",
+          "svg/g[15]/path[2]",
+          "svg/g[15]/path[3]",
+          "svg/g[15]/path[4]",
+          "svg/g[15]/path[5]",
+          "svg/g[15]/path[6]",
+          "svg/g[15]/path[7]"
+        ],
+        "role": "node",
+        "status": "confirmed"
+      },
+      {
+        "id": "pointer",
+        "name": "Unchanged attention pointer",
+        "parts": [
+          "svg/use[11]"
+        ],
+        "role": "decoration",
+        "status": "confirmed"
+      },
+      {
+        "id": "explanation",
+        "name": "Unchanged explanation paragraph",
+        "parts": [
+          "svg/g[12]/text[0]"
+        ],
+        "role": "text",
+        "status": "confirmed"
+      },
+      {
+        "id": "weight0",
+        "name": "weight0",
+        "parts": [
+          "svg/g[2]/path[0]"
+        ],
+        "role": "connector",
+        "status": "confirmed",
+        "connector_geometry": {
+          "shaft": "svg/g[2]/path[0]",
+          "direction": "forward"
+        }
+      },
+      {
+        "id": "weight1",
+        "name": "weight1",
+        "parts": [
+          "svg/g[2]/path[1]"
+        ],
+        "role": "connector",
+        "status": "confirmed",
+        "connector_geometry": {
+          "shaft": "svg/g[2]/path[1]",
+          "direction": "forward"
+        }
+      },
+      {
+        "id": "weight2",
+        "name": "weight2",
+        "parts": [
+          "svg/g[2]/path[2]"
+        ],
+        "role": "connector",
+        "status": "confirmed",
+        "connector_geometry": {
+          "shaft": "svg/g[2]/path[2]",
+          "direction": "forward"
+        }
+      },
+      {
+        "id": "weight3",
+        "name": "weight3",
+        "parts": [
+          "svg/g[2]/path[3]"
+        ],
+        "role": "connector",
+        "status": "confirmed",
+        "connector_geometry": {
+          "shaft": "svg/g[2]/path[3]",
+          "direction": "forward"
+        }
+      },
+      {
+        "id": "weight4",
+        "name": "weight4",
+        "parts": [
+          "svg/g[2]/path[4]"
+        ],
+        "role": "connector",
+        "status": "confirmed",
+        "connector_geometry": {
+          "shaft": "svg/g[2]/path[4]",
+          "direction": "forward"
+        }
+      },
+      {
+        "id": "weight5",
+        "name": "weight5",
+        "parts": [
+          "svg/g[2]/path[5]"
+        ],
+        "role": "connector",
+        "status": "confirmed",
+        "connector_geometry": {
+          "shaft": "svg/g[2]/path[5]",
+          "direction": "forward"
+        }
+      },
+      {
+        "id": "weight6",
+        "name": "weight6",
+        "parts": [
+          "svg/g[2]/path[6]"
+        ],
+        "role": "connector",
+        "status": "confirmed",
+        "connector_geometry": {
+          "shaft": "svg/g[2]/path[6]",
+          "direction": "forward"
+        }
+      }
+    ],
+    "relations": [
+      {
+        "kind": "directed_edge",
+        "objects": [
+          "inputs",
+          "readout"
+        ],
+        "connector": "weight0",
+        "status": "confirmed",
+        "rationale": "Agent interpretation of the original rendered connection and source geometry; not independently verified author intent."
+      },
+      {
+        "kind": "directed_edge",
+        "objects": [
+          "inputs",
+          "readout"
+        ],
+        "connector": "weight1",
+        "status": "confirmed",
+        "rationale": "Agent interpretation of the original rendered connection and source geometry; not independently verified author intent."
+      },
+      {
+        "kind": "directed_edge",
+        "objects": [
+          "inputs",
+          "readout"
+        ],
+        "connector": "weight2",
+        "status": "confirmed",
+        "rationale": "Agent interpretation of the original rendered connection and source geometry; not independently verified author intent."
+      },
+      {
+        "kind": "directed_edge",
+        "objects": [
+          "inputs",
+          "readout"
+        ],
+        "connector": "weight3",
+        "status": "confirmed",
+        "rationale": "Agent interpretation of the original rendered connection and source geometry; not independently verified author intent."
+      },
+      {
+        "kind": "directed_edge",
+        "objects": [
+          "inputs",
+          "readout"
+        ],
+        "connector": "weight4",
+        "status": "confirmed",
+        "rationale": "Agent interpretation of the original rendered connection and source geometry; not independently verified author intent."
+      },
+      {
+        "kind": "directed_edge",
+        "objects": [
+          "inputs",
+          "readout"
+        ],
+        "connector": "weight5",
+        "status": "confirmed",
+        "rationale": "Agent interpretation of the original rendered connection and source geometry; not independently verified author intent."
+      },
+      {
+        "kind": "directed_edge",
+        "objects": [
+          "inputs",
+          "readout"
+        ],
+        "connector": "weight6",
+        "status": "confirmed",
+        "rationale": "Agent interpretation of the original rendered connection and source geometry; not independently verified author intent."
+      }
+    ],
+    "coverage": {
+      "total_primitives": 41,
+      "assigned_primitives": 41,
+      "unassigned_parts": []
+    }
+  },
+  "annotation_sha256": "668f2dcb55d00f789b8afbc71023a2ae87f3be3ab9abe8b0103754cc246cb5a4",
+  "history": [
+    {
+      "input_sha256": "36dc327998c717ab14f234288cc8ddf6544669e9acc222c0c6be9e10f55159ad",
+      "output_sha256": "500f762d406d41f031eee286ff895a17b8822b582d6f64685b07f717039d5faf",
+      "moves": {
+        "readout": [
+          24,
+          8
+        ]
+      }
+    }
+  ],
+  "scope": "Derived editing state inherits accepted assumptions; original annotation and review provenance remain unchanged. This is not a newly human-reviewed annotation."
+}

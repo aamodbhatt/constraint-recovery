@@ -20,7 +20,9 @@ Recover inspectable relationships from scientific SVGs, make structural edits, a
 | Six accepted edits, followed by an impossible request with a checkable explanation. | Inspect ambiguous endpoint candidates and save source-bound choices. | Group shapes and text into objects; record relationships and uncertainty. |
 | [Edit-sequence workspace →](docs/demo/sequence/index.html) | [Attachment review →](docs/demo/attachment-review.html) | [Compound annotation →](docs/demo/primitive-annotation.html) |
 
-These are local HTML tools. Clone the repository, run `python -m http.server 8765`, then open [the workspace](http://127.0.0.1:8765/docs/demo/sequence/index.html). The public demos use examples authored for this project.
+Also inspect the [five-figure native SVG pilot](docs/demo/native-pilot/index.html), including both declined requests and credited original artwork. Its [unlabelled review packet](docs/demo/native-pilot/review/index.html) starts without suggested objects or relations.
+
+These are local HTML tools. Clone the repository, run `python -m http.server 8765`, then open [the workspace](http://127.0.0.1:8765/docs/demo/sequence/index.html). Introductory demos use authored examples; the native pilot retains its creators' Creative Commons attribution.
 
 ## Quickstart
 
@@ -95,6 +97,7 @@ node benchmarks/browser_check.cjs
 node benchmarks/compound_check.cjs
 node benchmarks/presentation_check.cjs
 node benchmarks/native_pilot_check.cjs
+node benchmarks/native_presentation_check.cjs
 ```
 
 CI repeats the Python suite, synthetic experiments and browser checks. Results retain case-level failures and skipped requests. GPU use remains behind a [measured-need gate](ROADMAP.md#cloud-gpu-gate).

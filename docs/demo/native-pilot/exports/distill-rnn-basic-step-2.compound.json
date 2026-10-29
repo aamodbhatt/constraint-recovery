@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "kind": "compound-constraints",
+  "source_sha256": "b1967ba24d745d64288bacf0bece9348abc848166a37f1ba599638aa788506a9",
+  "annotation": {
+    "schema_version": 2,
+    "kind": "diagram-annotation",
+    "diagram_id": "distill-rnn-basic",
+    "source_url": "https://raw.githubusercontent.com/distillpub/post--augmented-rnns/fdc3526167133f5a97cee9e7cb48af293e67d66d/public/assets/rnn_basic_rnn.svg",
+    "source_sha256": "45495b3cb50e1bbe260f5ccb5d6cc1abf233c3bae091741da0ba500dbfc6a940",
+    "license": "CC-BY-2.0",
+    "split": "development",
+    "review": {
+      "status": "agent-reviewed",
+      "annotator_type": "agent",
+      "annotator": "Codex native-pilot development review",
+      "evidence": "Agent visually inspected the original render and source on 2026-10-30. Scripted selectors transcribe that interpretation; no author approval, independent human labels or automatic recovery claim."
+    },
+    "objects": [
+      {
+        "id": "band",
+        "name": "Repeated-cell background band",
+        "parts": [
+          "svg/g[2]/rect[0]",
+          "svg/g[2]/g[1]/rect[0]"
+        ],
+        "role": "background",
+        "status": "confirmed"
+      },
+      {
+        "id": "step0",
+        "name": "Timestep 0, including input/output labels and internal ports",
+        "parts": [
+          "svg/g[3]/g[0]/rect[0]",
+          "svg/g[3]/g[0]/rect[1]",
+          "svg/g[3]/g[0]/path[2]",
+          "svg/g[3]/use[1]",
+          "svg/text[8]",
+          "svg/text[9]",
+          "svg/g[21]/line[0]",
+          "svg/g[21]/path[1]",
+          "svg/g[22]/line[0]",
+          "svg/g[22]/path[1]"
+        ],
+        "role": "node",
+        "status": "confirmed"
+      },
+      {
+        "id": "step1",
+        "name": "Timestep 1, including input/output labels and internal ports",
+        "parts": [
+          "svg/g[4]/g[0]/rect[0]",
+          "svg/g[4]/g[0]/rect[1]",
+          "svg/g[4]/g[0]/path[2]",
+          "svg/g[4]/use[1]",
+          "svg/text[10]",
+          "svg/text[11]",
+          "svg/g[23]/line[0]",
+          "svg/g[23]/path[1]",
+          "svg/g[24]/line[0]",
+          "svg/g[24]/path[1]"
+        ],
+        "role": "node",
+        "status": "confirmed"
+      },
+      {
+        "id": "step2",
+        "name": "Timestep 2, including input/output labels and internal ports",
+        "parts": [
+          "svg/g[5]/g[0]/rect[0]",
+          "svg/g[5]/g[0]/rect[1]",
+          "svg/g[5]/g[0]/path[2]",
+          "svg/g[5]/use[1]",
+          "svg/text[12]",
+          "svg/text[13]",
+          "svg/g[25]/line[0]",
+          "svg/g[25]/path[1]",
+          "svg/g[26]/line[0]",
+          "svg/g[26]/path[1]"
+        ],
+        "role": "node",
+        "status": "confirmed"
+      },
+      {
+        "id": "step3",
+        "name": "Timestep 3, including input/output labels and internal ports",
+        "parts": [
+          "svg/g[6]/g[0]/rect[0]",
+          "svg/g[6]/g[0]/rect[1]",
+          "svg/g[6]/g[0]/path[2]",
+          "svg/g[6]/use[1]",
+          "svg/text[14]",
+          "svg/text[15]",
+          "svg/g[27]/line[0]",
+          "svg/g[27]/path[1]",
+          "svg/g[28]/line[0]",
+          "svg/g[28]/path[1]"
+        ],
+        "role": "node",
+        "status": "confirmed"
+      },
+      {
+        "id": "step4",
+        "name": "Timestep 4, including input/output labels and internal ports",
+        "parts": [
+          "svg/g[7]/g[0]/rect[0]",
+          "svg/g[7]/g[0]/rect[1]",
+          "svg/g[7]/g[0]/path[2]",
+          "svg/g[7]/use[1]",
+          "svg/text[31]",
+          "svg/text[32]",
+          "svg/g[34]/line[0]",
+          "svg/g[34]/path[1]",
+          "svg/g[35]/line[0]",
+          "svg/g[35]/path[1]"
+        ],
+        "role": "node",
+        "status": "confirmed"
+      },
+      {
+        "id": "commentary",
+        "name": "Unchanged explanatory headings",
+        "parts": [
+          "svg/g[16]/text[0]",
+          "svg/g[17]/text[0]",
+          "svg/g[18]/text[0]",
+          "svg/g[19]/text[0]",
+          "svg/g[33]/text[0]"
+        ],
+        "role": "text",
+        "status": "confirmed"
+      },
+      {
+        "id": "state0",
+        "name": "state0",
+        "parts": [
+          "svg/g[20]/line[0]",
+          "svg/g[20]/path[1]"
+        ],
+        "role": "connector",
+        "status": "confirmed",
+        "connector_geometry": {
+          "shaft": "svg/g[20]/line[0]",
+          "direction": "forward",
+          "end_head": {
+            "part": "svg/g[20]/path[1]",
+            "tip": [
+              138.67,
+              66.43
+            ]
+          }
+        }
+      },
+      {
+        "id": "state1",
+        "name": "state1",
+        "parts": [
+          "svg/g[29]/line[0]",
+          "svg/g[29]/path[1]"
+        ],
+        "role": "connector",
+        "status": "confirmed",
+        "connector_geometry": {
+          "shaft": "svg/g[29]/line[0]",
+          "direction": "forward",
+          "end_head": {
+            "part": "svg/g[29]/path[1]",
+            "tip": [
+              270.67,
+              66.43
+            ]
+          }
+        }
+      },
+      {
+        "id": "state2",
+        "name": "state2",
+        "parts": [
+          "svg/g[30]/line[0]",
+          "svg/g[30]/path[1]"
+        ],
+        "role": "connector",
+        "status": "confirmed",
+        "connector_geometry": {
+          "shaft": "svg/g[30]/line[0]",
+          "direction": "forward",
+          "end_head": {
+            "part": "svg/g[30]/path[1]",
+            "tip": [
+              402.67,
+              66.43
+            ]
+          }
+        }
+      },
+      {
+        "id": "state3",
+        "name": "state3",
+        "parts": [
+          "svg/g[36]/line[0]",
+          "svg/g[36]/path[1]"
+        ],
+        "role": "connector",
+        "status": "confirmed",
+        "connector_geometry": {
+          "shaft": "svg/g[36]/line[0]",
+          "direction": "forward",
+          "end_head": {
+            "part": "svg/g[36]/path[1]",
+            "tip": [
+              533.92,
+              66.43
+            ]
+          }
+        }
+      }
+    ],
+    "relations": [
+      {
+        "kind": "directed_edge",
+        "objects": [
+          "step0",
+          "step1"
+        ],
+        "connector": "state0",
+        "status": "confirmed",
+        "rationale": "Agent interpretation of the original rendered connection and source geometry; not independently verified author intent."
+      },
+      {
+        "kind": "directed_edge",
+        "objects": [
+          "step1",
+          "step2"
+        ],
+        "connector": "state1",
+        "status": "confirmed",
+        "rationale": "Agent interpretation of the original rendered connection and source geometry; not independently verified author intent."
+      },
+      {
+        "kind": "directed_edge",
+        "objects": [
+          "step2",
+          "step3"
+        ],
+        "connector": "state2",
+        "status": "confirmed",
+        "rationale": "Agent interpretation of the original rendered connection and source geometry; not independently verified author intent."
+      },
+      {
+        "kind": "directed_edge",
+        "objects": [
+          "step3",
+          "step4"
+        ],
+        "connector": "state3",
+        "status": "confirmed",
+        "rationale": "Agent interpretation of the original rendered connection and source geometry; not independently verified author intent."
+      }
+    ],
+    "coverage": {
+      "total_primitives": 65,
+      "assigned_primitives": 65,
+      "unassigned_parts": []
+    }
+  },
+  "annotation_sha256": "b41bb69be0e82eb94331e5cffef677aefcd1b416310eee2790e26f9208fdb75f",
+  "history": [
+    {
+      "input_sha256": "45495b3cb50e1bbe260f5ccb5d6cc1abf233c3bae091741da0ba500dbfc6a940",
+      "output_sha256": "9c4247b2562b01cf2c7b2b21d1ff763d7769f03863c6e1c81a46de47adc07be9",
+      "moves": {
+        "step2": [
+          12,
+          0
+        ]
+      }
+    },
+    {
+      "input_sha256": "9c4247b2562b01cf2c7b2b21d1ff763d7769f03863c6e1c81a46de47adc07be9",
+      "output_sha256": "b1967ba24d745d64288bacf0bece9348abc848166a37f1ba599638aa788506a9",
+      "moves": {
+        "step2": [
+          -6,
+          0
+        ]
+      }
+    }
+  ],
+  "scope": "Derived editing state inherits accepted assumptions; original annotation and review provenance remain unchanged. This is not a newly human-reviewed annotation."
+}

@@ -59,6 +59,7 @@ def test_inert_metadata_allowance_does_not_admit_active_or_misplaced_foreign_con
     lambda o:o['connector_geometry']['end_head'].update(tip=[float('inf'),0]),
     lambda o:o['connector_geometry']['end_head'].update(tip=[True,0]),
     lambda o:o['connector_geometry'].update(extra='unrecognized'),
+    lambda o:o['connector_geometry'].update(end_head=None),
     lambda o:o.update(role='node'),
     lambda o:o['parts'].append('unaccounted-part'),
 ])

@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "moved_objects": 2,
+  "moved_primitives": 134,
+  "rerouted_connectors": 0,
+  "carried_connectors": 1,
+  "translated_connector_primitives": 1,
+  "protected_primitives": 134,
+  "tolerance_viewbox_units": 0.05,
+  "input_sha256": "7c6c02f31025c964d62aa5254b41c2e12d85bf6868cc85007535f68d9504292a",
+  "output_sha256": "167a52bcc20b0227421dba63c7b6ea9271c332e003ccd806dc412a415605dda5",
+  "annotation_sha256": "7414d953f56160278b2c35c43fcadc691c1e9d171e286ea3ac88912e3fd20fa1",
+  "accepted_review": {
+    "status": "agent-reviewed",
+    "annotator_type": "agent",
+    "annotator": "Codex native-pilot development review",
+    "evidence": "Agent visually inspected the original render and source on 2026-10-30. Scripted selectors transcribe that interpretation; no author approval, independent human labels or automatic recovery claim."
+  },
+  "scope": "Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."
+}

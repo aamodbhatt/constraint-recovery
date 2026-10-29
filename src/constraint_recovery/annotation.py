@@ -72,7 +72,7 @@ def validate_annotation(data,source_sha256=None,measurements=None):
                 raise DiagramError("Connector geometry requires a member shaft and explicit forward source-path direction")
             head=geometry.get('end_head')
             expected={geometry['shaft']}
-            if head is not None:
+            if 'end_head' in geometry:
                 if not isinstance(head,dict) or set(head)!={'part','tip'} or head.get('part') not in members or head['part']==geometry['shaft']:
                     raise DiagramError("Invalid separate connector head member")
                 tip=head.get('tip')

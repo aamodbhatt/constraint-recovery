@@ -60,6 +60,7 @@ jobs:
       - run: node benchmarks/compound_check.cjs
       - run: node benchmarks/presentation_check.cjs
       - run: node benchmarks/native_pilot_check.cjs
+      - run: node benchmarks/native_presentation_check.cjs
       - uses: actions/upload-artifact@v4
         with:
           name: browser-integration
@@ -69,3 +70,4 @@ jobs:
             artifacts/presentation-*
             artifacts/native-pilot/report.json
             artifacts/native-pilot-check.json
+            artifacts/native-presentation-check.json

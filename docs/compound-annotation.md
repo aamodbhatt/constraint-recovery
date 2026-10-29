@@ -1,5 +1,9 @@
 # Compound-object and relationship annotation
 
+A [five-source unlabelled review packet](demo/native-pilot/review/index.html) is available for the fixed native-SVG development pilot. It contains no suggested objects or relations and creates no human-review claims.
+
+Advanced imported `connector_geometry` fields identify a forward shaft and optional separately drawn end head/local tip. Resume displays these assumptions and retains them on download; entering them currently requires JSON. See the [editing contract](compound-editing.md#explicit-non-marker-geometry). A reviewer should inspect these assumptions before accepting a resumed annotation. Viewing existing agent labels is not an independent blind annotation.
+
 The external figures contain backgrounds, frames, labels, icons and shapes that cannot all be treated as independent rectangular graph nodes. The new `annotate` command groups measured SVG primitives into explicitly labeled objects and records relationships without model suggestions.
 
 ```sh

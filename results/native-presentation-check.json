@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "all_five_comparisons": true,
+  "refused_request_retains_source": true,
+  "focus_controls": true,
+  "mobile": {
+    "viewport": 390,
+    "content": 390
+  },
+  "unlabelled_review_views": 5,
+  "connector_geometry_exposed_and_retained": true,
+  "no_review_promotion": true,
+  "errors": []
+}

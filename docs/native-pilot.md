@@ -21,6 +21,8 @@ Report all five figures, every request, source and annotation hashes, review pro
 
 ## Development results
 
+Open the [comparison workspace](demo/native-pilot/index.html) to inspect all five cases and both checked moves. The [separate unlabelled review packet](demo/native-pilot/review/index.html) contains original sources and primitive-selection tools without role or relation suggestions. It creates no completed human labels; independent reviewers should save their own records before consulting the agent-labelled comparison.
+
 The original editor accepted **0/5 first moves**; [all initial failures](../results/native-pilot-initial.json) are retained. After adding preserved editor metadata, explicit non-marker/separate-head geometry and whole-connector translation:
 
 | Frozen figure | Accepted moves / planned | Outcome |
@@ -42,6 +44,8 @@ The [saved results](../results/native-pilot.json) include every case, planned/sk
 ```sh
 PYTHON=.venv/bin/python node benchmarks/measure_native_pilot.cjs
 PYTHON=.venv/bin/python node benchmarks/native_pilot_check.cjs
+node benchmarks/native_presentation_check.cjs
+python benchmarks/build_native_pilot_demo.py
 ```
 
 The frozen source and annotation files are checked in with attribution. Full browser style measurements and intermediate controls remain under ignored `.cache/` and `artifacts/`. The external development fixtures also run as CI regressions; they are consequently not an untouched holdout.
