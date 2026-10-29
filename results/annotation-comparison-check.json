@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "scripted_authored_fixture": true,
+  "independent_human_annotations": 0,
+  "part_highlights": true,
+  "common_focus_crop": true,
+  "unmatched_objects_retained": true,
+  "partial_coverage_visible": true,
+  "unscorable_relations_not_promoted": true,
+  "mobile": {
+    "viewport": 390,
+    "content": 390
+  },
+  "errors": []
+}

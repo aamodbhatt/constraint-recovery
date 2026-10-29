@@ -23,6 +23,13 @@ def main():
     compound.add_argument("--output",type=Path,required=True)
     compound.add_argument("--node",default="node")
     compound.add_argument('--routing',choices=['channel','visibility'],default='channel',help='Prefer ordered channel tracks for supported parallel groups, otherwise use visibility routing')
+    agreement=commands.add_parser('compare-annotations',help='Compare two source-bound annotations without choosing a gold reviewer')
+    agreement.add_argument('left',type=Path)
+    agreement.add_argument('right',type=Path)
+    agreement.add_argument('--source',type=Path,help='Optional exact source SVG to verify both hashes')
+    agreement.add_argument('--measurements',type=Path,help='Optional browser primitive inventory to validate both records')
+    agreement.add_argument('--output',type=Path,required=True)
+    agreement.add_argument('--html',action='store_true',help='Also write a portable adjudication HTML beside the JSON; source overlays require --source and --measurements')
     witness = commands.add_parser("check-witness",help="Verify a saved layout conflict witness without running a solver")
     witness.add_argument("input",type=Path)
     validate_annotation = commands.add_parser("check-annotation",help="Validate annotation structure, source binding and primitive references")
@@ -63,6 +70,27 @@ def main():
         sub.add_argument("--attachments",type=Path,help="Source-hash-bound attachment choices exported by the review view")
     args = parser.parse_args()
     try:
+        if args.command=='compare-annotations':
+            from .agreement import compare_annotations
+            inputs=[args.left,args.right,*([args.source] if args.source else []),*([args.measurements] if args.measurements else [])]
+            outputs=[args.output,*([args.output.with_suffix('.html')] if args.html else [])]
+            if any(p.resolve() in {v.resolve() for v in inputs} for p in outputs):
+                raise DiagramError('Comparison output must not overwrite source, annotation or measurement files')
+            if args.html and args.output.suffix.lower()!='.json':
+                raise DiagramError('HTML comparison needs a .json output path')
+            left=json.loads(args.left.read_text());right=json.loads(args.right.read_text())
+            source=args.source.read_bytes().decode('utf-8') if args.source else None
+            measured=json.loads(args.measurements.read_text()) if args.measurements else None
+            result=compare_annotations(left,right,source,measured)
+            page=None
+            if args.html:
+                from .agreement_view import comparison_page
+                page=comparison_page(result,left,right,source,measured)
+            args.output.parent.mkdir(parents=True,exist_ok=True)
+            args.output.write_text(json.dumps(result,indent=2)+'\n')
+            if page is not None:args.output.with_suffix('.html').write_text(page)
+            print(json.dumps({key:result[key] for key in ['coverage','roles','grouping']},indent=2))
+            return 0
         if args.command=="edit-compound":
             if args.output.suffix.lower()!=".svg":
                 raise DiagramError("Compound output must end in .svg")

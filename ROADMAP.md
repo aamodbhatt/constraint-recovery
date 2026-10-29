@@ -21,6 +21,7 @@ First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone
 - Build independent relationship annotations; avoid scoring inferred rules against themselves.
   - [x] Resumable compound-object annotation UI, source-bound version 2 records, explicit unknown/ambiguous labels, primitive coverage and structural/provenance validation.
   - [ ] Obtain independently reviewed external labels; the authored agent-reviewed workflow fixture is not that dataset.
+  - [x] Coverage-aware comparison/adjudication tool with permutation-invariant grouping, full-part matching and explicit unscorable relationships; scripted diagnostics do not establish human agreement. [Workflow](docs/annotation-comparison.md).
   - [x] Reviewed rigid compound-node adapter with affine pose preservation, original attachment offsets, derived-state provenance and fresh browser verification on an authored rich fixture. [Scope](docs/compound-editing.md).
   - [ ] Establish actual external compound-edit coverage and unsupported-case denominators.
     - [x] Fixed five-figure author-published development pilot, retained initial failures, explicit agent-reviewed assumptions and direct-edit controls: 3/5 two-move sequences pass; unresolved context and mid-marker rerouting remain declined. [Results and limits](docs/native-pilot.md).

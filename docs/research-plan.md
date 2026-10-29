@@ -37,4 +37,6 @@ Proceed only if a method improves the declared correction/coverage tradeoff on t
 
 The reviewed rigid-object adapter now works on authored rich fixtures and three native pilot figures, retaining original hierarchy/styles and remeasuring serialized poses. Unresolved read/write context and mid-marker rerouting remain explicit failures. Obtain independent object/relationship annotations and freeze a new authoring-origin holdout before treating these development results as evidence about recovery. Broaden topology checks beyond rerouted parallel shafts, with explicit junction semantics rather than assuming that every contact is wrong.
 
+The [comparison/adjudication tool](annotation-comparison.md) is available for those future independent records. It retains joint coverage alongside partition metrics and only compares relation labels after exact object grounding. Its scripted split/abstention fixtures do not establish actual inter-annotator agreement. Independent reviewers should save labels before viewing agent annotations or adjudication suggestions.
+
 Only then train a small contextual relation/role model locally. Cloud compute is justified by a measured training or accuracy bottleneck, a frozen split and a bounded saved-output experiment. No GPU resource has been started or credit spent. The present endpoint pilot trains in a fraction of a second on CPU.

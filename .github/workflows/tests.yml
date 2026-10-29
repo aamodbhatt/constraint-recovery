@@ -62,6 +62,7 @@ jobs:
       - run: node benchmarks/native_pilot_check.cjs
       - run: node benchmarks/compare_parallel_routing.cjs
       - run: node benchmarks/native_presentation_check.cjs
+      - run: node benchmarks/annotation_comparison_check.cjs
       - uses: actions/upload-artifact@v4
         with:
           name: browser-integration
@@ -73,3 +74,4 @@ jobs:
             artifacts/native-pilot-check.json
             artifacts/native-presentation-check.json
             artifacts/parallel-routing/report.json
+            artifacts/annotation-comparison-check.json

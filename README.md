@@ -54,6 +54,7 @@ Open `artifacts/edited.html` for the comparison and evidence. The command also s
 | **Explain a contradiction** | Independently checkable node-size, area, path-span or cycle witnesses | [Math and witnesses](docs/conflict-witnesses.md) |
 | **Inspect complex figures** | Browser-derived text/shape envelopes and compound-object annotations | [Geometry](docs/browser-geometry.md) · [Annotation](docs/compound-annotation.md) |
 | **Move reviewed compound nodes** | Local artwork, hierarchy, styles and relative arrow anchors through checked rigid edits | [Compound editing](docs/compound-editing.md) |
+| **Compare annotations** | Coverage, ID-invariant grouping, object correspondences and unresolved relation labels | [Comparison workflow](docs/annotation-comparison.md) · [Scripted demo](docs/demo/annotation-comparison.html) |
 
 The default exporter normalizes styling. `--source-preserving` supports a broader static subset, including CSS, uniform transforms and Bezier connector recovery. The separate `edit-compound` adapter moves reviewed rich objects with browser verification. These are bounded static subsets; neither edits arbitrary SVGs.
 
@@ -102,6 +103,7 @@ node benchmarks/presentation_check.cjs
 node benchmarks/native_pilot_check.cjs
 node benchmarks/native_presentation_check.cjs
 node benchmarks/compare_parallel_routing.cjs
+node benchmarks/annotation_comparison_check.cjs
 ```
 
 CI repeats the Python suite, synthetic experiments and browser checks. Results retain case-level failures and skipped requests. GPU use remains behind a [measured-need gate](ROADMAP.md#cloud-gpu-gate).

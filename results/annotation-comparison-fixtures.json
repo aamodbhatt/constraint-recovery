@@ -1,0 +1,551 @@
+{
+  "schema_version": 1,
+  "demonstration_scope": "Scripted perturbations of one authored program annotation. No independent reviewers, real inter-annotator agreement study or human ground truth.",
+  "source": "examples/compound.svg",
+  "independent_human_annotations": 0,
+  "cases": {
+    "renamed": {
+      "schema_version": 1,
+      "source_sha256": "a9a027cb0d0ab4948b79b3fa8abbf4f7a9e40ad36d308c2f97d5795803fa295c",
+      "annotation_sha256": {
+        "left": "cb4e51b1cf456cb6f425920fdc91bcd24a3deaa6e227ccd4e64729af099fea79",
+        "right": "c106e953159aa15d05a965843e1b13a53fbd3877bb3d1375d05ce854cfc4ab16"
+      },
+      "source_hash_checked": true,
+      "primitive_inventory_checked": true,
+      "reviews": {
+        "left": {
+          "status": "agent-reviewed",
+          "annotator_type": "agent",
+          "annotator": "authored-program-fixture",
+          "evidence": "Objects and edge defined by the authored example program; scripted agent fixture, not human ground truth."
+        },
+        "right": {
+          "status": "agent-reviewed",
+          "annotator_type": "agent",
+          "annotator": "scripted annotation perturbation",
+          "evidence": "Constructed variation of the same authored program annotation to exercise comparison behavior. Not a second independent reviewer or human ground truth."
+        },
+        "independence_verified": false
+      },
+      "coverage": {
+        "total_primitives": 10,
+        "left_confirmed": 10,
+        "right_confirmed": 10,
+        "joint_confirmed": 10,
+        "joint_fraction": 1.0,
+        "left_only_confirmed": 0,
+        "right_only_confirmed": 0,
+        "neither_confirmed": 0
+      },
+      "roles": {
+        "comparable_primitives": 10,
+        "equal": 10,
+        "agreement_on_joint_domain": 1.0,
+        "disagreements": []
+      },
+      "grouping": {
+        "primitives": 10,
+        "primitive_pairs": 45,
+        "left_same_pairs": 9,
+        "right_same_pairs": 9,
+        "both_same_pairs": 9,
+        "adjusted_rand": 1.0,
+        "rand": 1.0,
+        "variation_of_information_bits": 0.0,
+        "scope": "Jointly confirmed primitive domain only; report joint coverage alongside these grouping metrics"
+      },
+      "object_correspondence": {
+        "left_objects": 5,
+        "right_objects": 5,
+        "matches": [
+          {
+            "left": "connection",
+            "right": "variant_connection",
+            "iou": 1.0,
+            "intersection_parts": 1,
+            "union_parts": 1,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          },
+          {
+            "left": "decoder",
+            "right": "variant_decoder",
+            "iou": 1.0,
+            "intersection_parts": 3,
+            "union_parts": 3,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          },
+          {
+            "left": "encoder",
+            "right": "variant_encoder",
+            "iou": 1.0,
+            "intersection_parts": 4,
+            "union_parts": 4,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          },
+          {
+            "left": "note",
+            "right": "variant_note",
+            "iou": 1.0,
+            "intersection_parts": 1,
+            "union_parts": 1,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          },
+          {
+            "left": "paper",
+            "right": "variant_paper",
+            "iou": 1.0,
+            "intersection_parts": 1,
+            "union_parts": 1,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          }
+        ],
+        "unmatched_left": [],
+        "unmatched_right": [],
+        "overlap_sum": 5.0,
+        "overlap_per_larger_object_count": 1.0,
+        "scope": "Maximum-total-IoU correspondence on full confirmed part sets, ignoring role for assignment. Tied assignments are not semantic adjudication; unmatched objects remain in the denominator"
+      },
+      "exact_part_and_role_correspondences": [
+        {
+          "left": "connection",
+          "right": "variant_connection"
+        },
+        {
+          "left": "decoder",
+          "right": "variant_decoder"
+        },
+        {
+          "left": "encoder",
+          "right": "variant_encoder"
+        },
+        {
+          "left": "note",
+          "right": "variant_note"
+        },
+        {
+          "left": "paper",
+          "right": "variant_paper"
+        }
+      ],
+      "relations": {
+        "left": {
+          "declared_confirmed": 1,
+          "comparable_declarations": 1,
+          "unscorable_confirmed": 0,
+          "duplicate_comparable_declarations": 0,
+          "unscorable_connector_bindings": 0,
+          "ambiguous_relations": 0,
+          "unknown_relations": 0
+        },
+        "right": {
+          "declared_confirmed": 1,
+          "comparable_declarations": 1,
+          "unscorable_confirmed": 0,
+          "duplicate_comparable_declarations": 0,
+          "unscorable_connector_bindings": 0,
+          "ambiguous_relations": 0,
+          "unknown_relations": 0
+        },
+        "positive_labels": {
+          "intersection": 1,
+          "union": 1,
+          "left_only": [],
+          "right_only": [],
+          "positive_label_jaccard": 1.0,
+          "scope": "Overlap of declared comparable positive labels. Missing/one-sided labels are omissions or disagreements to review, not established false positives or negatives"
+        },
+        "connector_bindings": {
+          "intersection": 1,
+          "union": 1,
+          "left_only": [],
+          "right_only": [],
+          "positive_label_jaccard": 1.0,
+          "scope": "Only jointly declared edge labels with exact grounded connector objects on both sides. Missing/unmatched bindings remain unscorable, not false.",
+          "joint_grounded_edge_labels": 1,
+          "left_excluded_grounded_labels": 0,
+          "right_excluded_grounded_labels": 0
+        }
+      },
+      "explicit_connector_geometry": [],
+      "limitations": [
+        "No reviewer is treated as gold and annotator identity/independence is not verified",
+        "Unknown, ambiguous and unassigned primitive roles are excluded with coverage reported",
+        "IoU matching is a diagnostic; relation comparison requires exact full-part and role correspondence",
+        "Positive-label overlap is not relation accuracy; unlisted relations are not established negatives",
+        "Empty/unscorable denominators return null rather than perfect agreement"
+      ]
+    },
+    "split": {
+      "schema_version": 1,
+      "source_sha256": "a9a027cb0d0ab4948b79b3fa8abbf4f7a9e40ad36d308c2f97d5795803fa295c",
+      "annotation_sha256": {
+        "left": "cb4e51b1cf456cb6f425920fdc91bcd24a3deaa6e227ccd4e64729af099fea79",
+        "right": "a509fdb8770d79ab6e4725b22209f3d6ec69716d678899e83904b294fce03124"
+      },
+      "source_hash_checked": true,
+      "primitive_inventory_checked": true,
+      "reviews": {
+        "left": {
+          "status": "agent-reviewed",
+          "annotator_type": "agent",
+          "annotator": "authored-program-fixture",
+          "evidence": "Objects and edge defined by the authored example program; scripted agent fixture, not human ground truth."
+        },
+        "right": {
+          "status": "agent-reviewed",
+          "annotator_type": "agent",
+          "annotator": "scripted annotation perturbation",
+          "evidence": "Constructed variation of the same authored program annotation to exercise comparison behavior. Not a second independent reviewer or human ground truth."
+        },
+        "independence_verified": false
+      },
+      "coverage": {
+        "total_primitives": 10,
+        "left_confirmed": 10,
+        "right_confirmed": 10,
+        "joint_confirmed": 10,
+        "joint_fraction": 1.0,
+        "left_only_confirmed": 0,
+        "right_only_confirmed": 0,
+        "neither_confirmed": 0
+      },
+      "roles": {
+        "comparable_primitives": 10,
+        "equal": 8,
+        "agreement_on_joint_domain": 0.8,
+        "disagreements": [
+          {
+            "part": "svg/g[5]/text[1]",
+            "left_role": "node",
+            "right_role": "text"
+          },
+          {
+            "part": "svg/g[5]/text[2]",
+            "left_role": "node",
+            "right_role": "text"
+          }
+        ]
+      },
+      "grouping": {
+        "primitives": 10,
+        "primitive_pairs": 45,
+        "left_same_pairs": 9,
+        "right_same_pairs": 7,
+        "both_same_pairs": 7,
+        "adjusted_rand": 0.8484848484848485,
+        "rand": 0.9555555555555556,
+        "variation_of_information_bits": 0.2754887502163469,
+        "scope": "Jointly confirmed primitive domain only; report joint coverage alongside these grouping metrics"
+      },
+      "object_correspondence": {
+        "left_objects": 5,
+        "right_objects": 6,
+        "matches": [
+          {
+            "left": "connection",
+            "right": "variant_connection",
+            "iou": 1.0,
+            "intersection_parts": 1,
+            "union_parts": 1,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          },
+          {
+            "left": "decoder",
+            "right": "variant_decoder_labels",
+            "iou": 0.6666666666666666,
+            "intersection_parts": 2,
+            "union_parts": 3,
+            "exact_parts": false,
+            "roles_equal": false,
+            "local_iou_tie": false
+          },
+          {
+            "left": "encoder",
+            "right": "variant_encoder",
+            "iou": 1.0,
+            "intersection_parts": 4,
+            "union_parts": 4,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          },
+          {
+            "left": "note",
+            "right": "variant_note",
+            "iou": 1.0,
+            "intersection_parts": 1,
+            "union_parts": 1,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          },
+          {
+            "left": "paper",
+            "right": "variant_paper",
+            "iou": 1.0,
+            "intersection_parts": 1,
+            "union_parts": 1,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          }
+        ],
+        "unmatched_left": [],
+        "unmatched_right": [
+          "variant_decoder"
+        ],
+        "overlap_sum": 4.666666666666667,
+        "overlap_per_larger_object_count": 0.7777777777777778,
+        "scope": "Maximum-total-IoU correspondence on full confirmed part sets, ignoring role for assignment. Tied assignments are not semantic adjudication; unmatched objects remain in the denominator"
+      },
+      "exact_part_and_role_correspondences": [
+        {
+          "left": "connection",
+          "right": "variant_connection"
+        },
+        {
+          "left": "encoder",
+          "right": "variant_encoder"
+        },
+        {
+          "left": "note",
+          "right": "variant_note"
+        },
+        {
+          "left": "paper",
+          "right": "variant_paper"
+        }
+      ],
+      "relations": {
+        "left": {
+          "declared_confirmed": 1,
+          "comparable_declarations": 0,
+          "unscorable_confirmed": 1,
+          "duplicate_comparable_declarations": 0,
+          "unscorable_connector_bindings": 0,
+          "ambiguous_relations": 0,
+          "unknown_relations": 0
+        },
+        "right": {
+          "declared_confirmed": 1,
+          "comparable_declarations": 0,
+          "unscorable_confirmed": 1,
+          "duplicate_comparable_declarations": 0,
+          "unscorable_connector_bindings": 0,
+          "ambiguous_relations": 0,
+          "unknown_relations": 0
+        },
+        "positive_labels": {
+          "intersection": 0,
+          "union": 0,
+          "left_only": [],
+          "right_only": [],
+          "positive_label_jaccard": null,
+          "scope": "Overlap of declared comparable positive labels. Missing/one-sided labels are omissions or disagreements to review, not established false positives or negatives"
+        },
+        "connector_bindings": {
+          "intersection": 0,
+          "union": 0,
+          "left_only": [],
+          "right_only": [],
+          "positive_label_jaccard": null,
+          "scope": "Only jointly declared edge labels with exact grounded connector objects on both sides. Missing/unmatched bindings remain unscorable, not false.",
+          "joint_grounded_edge_labels": 0,
+          "left_excluded_grounded_labels": 0,
+          "right_excluded_grounded_labels": 0
+        }
+      },
+      "explicit_connector_geometry": [],
+      "limitations": [
+        "No reviewer is treated as gold and annotator identity/independence is not verified",
+        "Unknown, ambiguous and unassigned primitive roles are excluded with coverage reported",
+        "IoU matching is a diagnostic; relation comparison requires exact full-part and role correspondence",
+        "Positive-label overlap is not relation accuracy; unlisted relations are not established negatives",
+        "Empty/unscorable denominators return null rather than perfect agreement"
+      ]
+    },
+    "partial": {
+      "schema_version": 1,
+      "source_sha256": "a9a027cb0d0ab4948b79b3fa8abbf4f7a9e40ad36d308c2f97d5795803fa295c",
+      "annotation_sha256": {
+        "left": "cb4e51b1cf456cb6f425920fdc91bcd24a3deaa6e227ccd4e64729af099fea79",
+        "right": "7437fde57db1f712f0581943c03fb549676a1d3a2e412c0e8d42d407eb72ffad"
+      },
+      "source_hash_checked": true,
+      "primitive_inventory_checked": true,
+      "reviews": {
+        "left": {
+          "status": "agent-reviewed",
+          "annotator_type": "agent",
+          "annotator": "authored-program-fixture",
+          "evidence": "Objects and edge defined by the authored example program; scripted agent fixture, not human ground truth."
+        },
+        "right": {
+          "status": "agent-reviewed",
+          "annotator_type": "agent",
+          "annotator": "scripted annotation perturbation",
+          "evidence": "Constructed variation of the same authored program annotation to exercise comparison behavior. Not a second independent reviewer or human ground truth."
+        },
+        "independence_verified": false
+      },
+      "coverage": {
+        "total_primitives": 10,
+        "left_confirmed": 10,
+        "right_confirmed": 7,
+        "joint_confirmed": 7,
+        "joint_fraction": 0.7,
+        "left_only_confirmed": 3,
+        "right_only_confirmed": 0,
+        "neither_confirmed": 0
+      },
+      "roles": {
+        "comparable_primitives": 7,
+        "equal": 7,
+        "agreement_on_joint_domain": 1.0,
+        "disagreements": []
+      },
+      "grouping": {
+        "primitives": 7,
+        "primitive_pairs": 21,
+        "left_same_pairs": 6,
+        "right_same_pairs": 6,
+        "both_same_pairs": 6,
+        "adjusted_rand": 1.0,
+        "rand": 1.0,
+        "variation_of_information_bits": 0.0,
+        "scope": "Jointly confirmed primitive domain only; report joint coverage alongside these grouping metrics"
+      },
+      "object_correspondence": {
+        "left_objects": 5,
+        "right_objects": 4,
+        "matches": [
+          {
+            "left": "connection",
+            "right": "variant_connection",
+            "iou": 1.0,
+            "intersection_parts": 1,
+            "union_parts": 1,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          },
+          {
+            "left": "encoder",
+            "right": "variant_encoder",
+            "iou": 1.0,
+            "intersection_parts": 4,
+            "union_parts": 4,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          },
+          {
+            "left": "note",
+            "right": "variant_note",
+            "iou": 1.0,
+            "intersection_parts": 1,
+            "union_parts": 1,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          },
+          {
+            "left": "paper",
+            "right": "variant_paper",
+            "iou": 1.0,
+            "intersection_parts": 1,
+            "union_parts": 1,
+            "exact_parts": true,
+            "roles_equal": true,
+            "local_iou_tie": false
+          }
+        ],
+        "unmatched_left": [
+          "decoder"
+        ],
+        "unmatched_right": [],
+        "overlap_sum": 4.0,
+        "overlap_per_larger_object_count": 0.8,
+        "scope": "Maximum-total-IoU correspondence on full confirmed part sets, ignoring role for assignment. Tied assignments are not semantic adjudication; unmatched objects remain in the denominator"
+      },
+      "exact_part_and_role_correspondences": [
+        {
+          "left": "connection",
+          "right": "variant_connection"
+        },
+        {
+          "left": "encoder",
+          "right": "variant_encoder"
+        },
+        {
+          "left": "note",
+          "right": "variant_note"
+        },
+        {
+          "left": "paper",
+          "right": "variant_paper"
+        }
+      ],
+      "relations": {
+        "left": {
+          "declared_confirmed": 1,
+          "comparable_declarations": 0,
+          "unscorable_confirmed": 1,
+          "duplicate_comparable_declarations": 0,
+          "unscorable_connector_bindings": 0,
+          "ambiguous_relations": 0,
+          "unknown_relations": 0
+        },
+        "right": {
+          "declared_confirmed": 1,
+          "comparable_declarations": 0,
+          "unscorable_confirmed": 1,
+          "duplicate_comparable_declarations": 0,
+          "unscorable_connector_bindings": 0,
+          "ambiguous_relations": 0,
+          "unknown_relations": 0
+        },
+        "positive_labels": {
+          "intersection": 0,
+          "union": 0,
+          "left_only": [],
+          "right_only": [],
+          "positive_label_jaccard": null,
+          "scope": "Overlap of declared comparable positive labels. Missing/one-sided labels are omissions or disagreements to review, not established false positives or negatives"
+        },
+        "connector_bindings": {
+          "intersection": 0,
+          "union": 0,
+          "left_only": [],
+          "right_only": [],
+          "positive_label_jaccard": null,
+          "scope": "Only jointly declared edge labels with exact grounded connector objects on both sides. Missing/unmatched bindings remain unscorable, not false.",
+          "joint_grounded_edge_labels": 0,
+          "left_excluded_grounded_labels": 0,
+          "right_excluded_grounded_labels": 0
+        }
+      },
+      "explicit_connector_geometry": [],
+      "limitations": [
+        "No reviewer is treated as gold and annotator identity/independence is not verified",
+        "Unknown, ambiguous and unassigned primitive roles are excluded with coverage reported",
+        "IoU matching is a diagnostic; relation comparison requires exact full-part and role correspondence",
+        "Positive-label overlap is not relation accuracy; unlisted relations are not established negatives",
+        "Empty/unscorable denominators return null rather than perfect agreement"
+      ]
+    }
+  }
+}
