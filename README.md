@@ -68,6 +68,8 @@ An opt-in [source-preserving importer](docs/source-preserving.md) now handles st
 
 For a rejected figure, `constraint-recovery inspect figure.svg --output artifacts/inventory.json` produces a non-rendering inventory of primitives, bounds where available, text anchors and reference signals. It does not turn unsupported artwork into an editable graph. The 19 available external development SVGs contain 1,429 visible-tree primitives and 136 text anchors inside multiple non-background rectangles, motivating explicit container/role recovery. These are source observations, not gold semantic labels.
 
+The optional [browser geometry bridge](docs/browser-geometry.md) now measures all 1,429 primitives in those 19 sources, including text, rotations and referenced instances, with source scripts disabled and secondary resources blocked. Full measurements remain private. This is annotation infrastructure; complete-figure editing coverage remains zero.
+
 ## First learning and external-data checkpoint
 
 - A CPU-trained, inspectable endpoint ranker with opt-in CLI integration and abstention. See [model card](models/README.md).

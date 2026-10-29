@@ -5,6 +5,7 @@
 - `results/external-compatibility.json`: first 20 test rows from SciDiagramRevision, selected before measuring support. No source images or SVGs are redistributed.
 - `benchmarks/learn_attachments.py`: programmatically labeled endpoint scenes. Train/validation/test use seeds 101/202/303; staggered layouts use seed 404 and are excluded from training and threshold selection.
 - No independently annotated real-diagram relationship test set exists yet. A compatibility audit is not that test set.
+- `results/browser-geometry-audit.json`: offline browser envelopes for all 19 available development sources, with full measurements kept privately in `.cache/`. This is geometry, not gold node/edge annotation. See [measurement scope](../docs/browser-geometry.md).
 
 ## External audit findings
 

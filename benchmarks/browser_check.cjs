@@ -7,6 +7,7 @@ const {pathToFileURL}=require('node:url');
 const {spawnSync}=require('node:child_process');
 const crypto=require('node:crypto');
 const assert=require('node:assert/strict');
+const {measureSvg}=require('./measure_svg.cjs');
 const root=path.resolve(__dirname,'..');
 function cli(args,expected=0){
   const result=spawnSync(process.env.PYTHON||'python3',['-m','constraint_recovery',...args],{
@@ -76,11 +77,30 @@ function cli(args,expected=0){
       });
     });
     assert(measured.every(r=>r.global_font_size>=23.999&&r.text_inside_node),JSON.stringify(measured));
+    const geometry=await measureSvg(browser,await fs.readFile(path.join(root,'examples/styled-pipeline.svg'),'utf8'));
+    const recovered=geometry.primitives.find(r=>r.source_id==='data').viewbox_bounds;
+    assert(recovered.every((v,i)=>Math.abs(v-[54,92,198,176][i])<1e-4),JSON.stringify(recovered));
+    const probe=`<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+      <defs><g id="glyph"><rect width="20" height="10"/></g></defs>
+      <rect id="guard" x="10" y="10" width="20" height="10"/>
+      <g transform="rotate(90 100 100)"><rect id="rotated" x="20" y="30" width="40" height="10"/></g>
+      <use id="instance" href="#glyph" x="120" y="140"/>
+      <image href="https://example.invalid/pixel.png" width="10" height="10"/>
+      <script><![CDATA[document.getElementById('guard').setAttribute('x','999');fetch('https://example.invalid/active');]]></script>
+    </svg>`;
+    const guarded=await measureSvg(browser,probe);
+    assert.equal(guarded.primitives.find(r=>r.source_id==='guard').viewbox_bounds[0],10);
+    for(const [id,wanted] of [['rotated',[160,20,170,60]],['instance',[120,140,140,150]]]){
+      const actual=guarded.primitives.find(r=>r.source_id===id).viewbox_bounds;
+      assert(actual.every((v,i)=>Math.abs(v-wanted[i])<1e-4),JSON.stringify({id,actual}));
+    }
+    assert.deepEqual(guarded.blocked_references,['https://example.invalid/pixel.png']);
     assert.deepEqual(errors,[]);
     assert.deepEqual(remote,[]);
     const report={passed:true,browser:browser.version(),review_download_roundtrip:true,self_attachment_blocked:true,
       source_id_collision_test:true,inert_source_text_test:true,unexpected_remote_requests:remote,typography:measured,
-      scope:'Two authored SVGs and one adversarial variation; not an external-figure rendering benchmark'};
+      browser_geometry:{normalized_transform_test:true,rotation_and_use_test:true,source_scripts_disabled:true,secondary_requests_blocked:true},
+      scope:'Authored SVGs and adversarial probes; not an external-figure rendering benchmark'};
     await fs.writeFile(path.join(root,'artifacts/browser-check.json'),JSON.stringify(report,null,2)+'\n');
     console.log(JSON.stringify(report,null,2));
   }finally{

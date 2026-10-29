@@ -18,5 +18,11 @@
       "text_inside_node": true
     }
   ],
-  "scope": "Two authored SVGs and one adversarial variation; not an external-figure rendering benchmark"
+  "browser_geometry": {
+    "normalized_transform_test": true,
+    "rotation_and_use_test": true,
+    "source_scripts_disabled": true,
+    "secondary_requests_blocked": true
+  },
+  "scope": "Authored SVGs and adversarial probes; not an external-figure rendering benchmark"
 }
