@@ -10,7 +10,7 @@ NS="http://www.w3.org/2000/svg"
 
 def cover():
     ET.register_namespace("",NS)
-    root=ET.Element(f"{{{NS}}}svg",{"viewBox":"0 0 1280 640","width":"1280","height":"640","role":"img","aria-label":"An authored source diagram and its verified portrait edit with an explicit branch"})
+    root=ET.Element(f"{{{NS}}}svg",{"viewBox":"0 0 1280 640","width":"1280","height":"640","role":"img","aria-label":"An author-published attention diagram and its checked rigid edit under agent-reviewed assumptions"})
     def element(tag,**attrs):
         return ET.SubElement(root,f"{{{NS}}}{tag}",{k.replace("_","-"):str(v) for k,v in attrs.items()})
     def text(value,x,y,size=16,fill="#50625b",weight=400):
@@ -18,29 +18,32 @@ def cover():
     element("rect",width=1280,height=640,rx=22,fill="#f3f6f2")
     element("rect",x=1,y=1,width=1278,height=638,rx=21,fill="none",stroke="#dce4db")
     text("Constraint recovery",40,61,32,"#19382c",600)
-    text("Structural edits to scientific SVGs",40,92,17)
+    text("Edit the structure. Keep the original artwork.",40,92,17)
     text("LOCAL RESEARCH PROTOTYPE",982,57,12,"#668073",600)
     for x,heading,sub,file,prefix in [
-        (36,"01  /  SOURCE","Four stages, three directed relationships","00-original.preview.svg","source-"),
-        (652,"02  /  ACCEPTED EDIT","Portrait layout and an explicit branch","04-edited.preview.svg","edited-")]:
-        element("rect",x=x,y=124,width=592,height=444,rx=15,fill="#fff",stroke="#dce4db")
+        (36,"01  /  AUTHOR-PUBLISHED SOURCE","Attention and a weighted memory read",ROOT/"data/native-pilot/original/distill-rnn-read.svg","source-"),
+        (652,"02  /  CHECKED EDIT","14 parts moved. Seven connections rerouted.",ROOT/"docs/demo/native-pilot/exports/distill-rnn-read-step-1.svg","edited-")]:
+        element("rect",x=x,y=124,width=592,height=400,rx=15,fill="#fff",stroke="#dce4db")
         text(heading,x+24,158,13,"#28684d",600)
         text(sub,x+24,185,16,"#293f35")
-        nested=ET.parse(ROOT/"docs/demo/sequence"/file).getroot()
+        nested=ET.parse(file).getroot()
         ids={e.get("id"):prefix+e.get("id") for e in nested.iter() if e.get("id")}
         for e in nested.iter():
             for key,value in list(e.attrib.items()):
                 if key=="id":
                     e.set(key,ids[value])
                 else:
+                    if value.startswith("#") and value[1:] in ids:
+                        value="#"+ids[value[1:]]
                     for old,new in ids.items():
                         value=value.replace("url(#"+old+")","url(#"+new+")")
                     e.set(key,value)
-        nested.attrib.update({"x":str(x+24),"y":"206","width":"544","height":"336","preserveAspectRatio":"xMidYMid meet"})
+        nested.attrib.update({"x":str(x+24),"y":"206","width":"544","height":"270","preserveAspectRatio":"xMidYMid meet"})
         root.append(nested)
     for value,x in [("SVG",48),("→",104),("Reviewed relationships",144),("→",340),("Constrained edit",380),("→",530),("Independent checks",570)]:
-        text(value,x,610,13,"#19382c" if value=="SVG" else "#50625b",600 if value=="SVG" else 400)
-    text("Authored example · accepted graph, not inferred intent",903,610,11)
+        text(value,x,566,13,"#19382c" if value=="SVG" else "#50625b",600 if value=="SVG" else 400)
+    text("Native pilot: 3/5 sequences complete · agent-reviewed assumptions · no independent human labels",40,602,12)
+    text("Artwork: Olah & Carter, Distill (2016) · CC BY 2.0. Right panel modified by this project; no author endorsement.",40,622,11)
     (ROOT/"docs/assets/readme-cover.svg").write_text(ET.tostring(root,encoding="unicode")+"\n")
 
 

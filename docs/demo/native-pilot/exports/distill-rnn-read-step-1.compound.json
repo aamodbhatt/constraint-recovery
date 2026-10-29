@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "kind": "compound-constraints",
-  "source_sha256": "500f762d406d41f031eee286ff895a17b8822b582d6f64685b07f717039d5faf",
+  "source_sha256": "23352468622a68fb6268f2066180fa02550ad34f926146de734d250cb3c77f10",
   "annotation": {
     "schema_version": 2,
     "kind": "diagram-annotation",
@@ -257,13 +257,14 @@
   "history": [
     {
       "input_sha256": "36dc327998c717ab14f234288cc8ddf6544669e9acc222c0c6be9e10f55159ad",
-      "output_sha256": "500f762d406d41f031eee286ff895a17b8822b582d6f64685b07f717039d5faf",
+      "output_sha256": "23352468622a68fb6268f2066180fa02550ad34f926146de734d250cb3c77f10",
       "moves": {
         "readout": [
           24,
           8
         ]
-      }
+      },
+      "routing_mode": "channel"
     }
   ],
   "scope": "Derived editing state inherits accepted assumptions; original annotation and review provenance remain unchanged. This is not a newly human-reviewed annotation."

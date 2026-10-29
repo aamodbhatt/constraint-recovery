@@ -9,7 +9,9 @@ Recover inspectable relationships from scientific SVGs, make structural edits, a
 
 [Demos](#demos) · [Quickstart](#quickstart) · [How it works](#how-it-works) · [Research status](#research-status) · [Roadmap](ROADMAP.md)
 
-![An actual source diagram and its checked portrait edit with an explicit branch](docs/assets/readme-cover.svg)
+![An author-published attention diagram and its checked rigid edit under agent-reviewed assumptions](docs/assets/readme-cover.svg)
+
+Illustration: Olah & Carter, [Distill, 2016](https://distill.pub/2016/augmented-rnns/), [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/). Right panel modified by this project. [Sources and checking scope](docs/native-pilot.md).
 
 **Local research prototype.** The current system combines geometric recovery, optional learned endpoint ranking, explicit review and constrained editing. Broad real-figure editing and a learned advantage remain open research goals.
 
@@ -78,8 +80,9 @@ Placement minimizes total L1 node displacement subject to canvas bounds, nonover
 | [Annotation views](results/annotation-view-audit.json) | 19 private views built, zero external annotations created | Infrastructure for independent data collection |
 | [Compound edits](docs/compound-editing.md) | Two successive rigid edits pass on a rich authored fixture; invalid moves and styling changes are rejected | A checked adapter, not external recovery accuracy |
 | [Author-published SVG pilot](docs/native-pilot.md) | 3/5 fixed figures complete both moves; stronger translate-only control accepts 1/5 first moves | Conditional on agent-reviewed assumptions; two authoring origins, no independent human labels |
+| [Parallel-shaft routing](docs/channel-routing.md) | Ordered tracks remove observed contacts on both seven-link native edits; the checker reads exported segments | A bounded classical routing refinement, not a learned or novel-routing claim |
 
-The next research step is independent annotation, edge-separation checks and an unseen source-paper holdout. See the [research plan](docs/research-plan.md), [data protocol](data/README.md) and [model card](models/README.md). No paper-ready novelty claim is made.
+The next research step is independent annotation, broader edge-topology checks and an unseen source-paper holdout. See the [research plan](docs/research-plan.md), [data protocol](data/README.md) and [model card](models/README.md). No paper-ready novelty claim is made.
 
 Related work: [Constraint SVG](https://constraints.cs.washington.edu/web/csvg-uwtr-2000-08-04.pdf), [Mockdown](https://www.cs.cornell.edu/~jsarracino/files/mockdown-final.pdf), [Penrose](https://penrose.cs.cmu.edu/), [constraint-graph layout generation](https://arxiv.org/abs/2011.13417), [SciDiagramEdit](https://arxiv.org/abs/2607.15272), [InfoEdit](https://arxiv.org/abs/2609.33286).
 
@@ -98,6 +101,7 @@ node benchmarks/compound_check.cjs
 node benchmarks/presentation_check.cjs
 node benchmarks/native_pilot_check.cjs
 node benchmarks/native_presentation_check.cjs
+node benchmarks/compare_parallel_routing.cjs
 ```
 
 CI repeats the Python suite, synthetic experiments and browser checks. Results retain case-level failures and skipped requests. GPU use remains behind a [measured-need gate](ROADMAP.md#cloud-gpu-gate).

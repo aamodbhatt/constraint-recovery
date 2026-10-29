@@ -16,5 +16,8 @@
     "annotator": "Codex native-pilot development review",
     "evidence": "Agent visually inspected the original render and source on 2026-10-30. Scripted selectors transcribe that interpretation; no author approval, independent human labels or automatic recovery claim."
   },
+  "routing_mode": "channel",
+  "parallel_shaft_checks": [],
+  "warnings": [],
   "scope": "Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."
 }

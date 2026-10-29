@@ -5,6 +5,8 @@
     "moved_objects": 1,
     "moved_primitives": 3,
     "rerouted_connectors": 1,
+    "carried_connectors": 0,
+    "translated_connector_primitives": 0,
     "protected_primitives": 6,
     "tolerance_viewbox_units": 0.05,
     "input_sha256": "a9a027cb0d0ab4948b79b3fa8abbf4f7a9e40ad36d308c2f97d5795803fa295c",
@@ -16,6 +18,9 @@
       "annotator": "authored-program-fixture",
       "evidence": "Objects and edge defined by the authored example program; scripted agent fixture, not human ground truth."
     },
+    "routing_mode": "channel",
+    "parallel_shaft_checks": [],
+    "warnings": [],
     "scope": "Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."
   },
   "repeated_edit": true,

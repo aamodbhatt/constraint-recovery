@@ -37,7 +37,9 @@ The total is **6 accepted of 10 planned moves**, eight attempted moves, three co
 
 For the first move of each figure, compare two direct source-edit controls using the same reviewed parts and translations: node-only movement is accepted on 0/5; a stronger translate-only rule that also carries connectors when both endpoints move identically is accepted on 1/5, tying the editor on the standard-network row. The latter comparison isolates endpoint repair on the two nonuniform moves. Refused controls are not all proven semantically wrong: unresolved annotations and unsupported marker behavior also prevent assessment. These are small deterministic controls, not comparisons against expert hand editing or contemporary AI diagram editors.
 
-The weighted-read output visibly exposes another limitation: independently routed connections can share segments. The current checker preserves accepted endpoint identities and conservative node/obstacle checks, but does not certify a crossing-free or visually unambiguous edge embedding. Source text uses local font fallback. Computed-style and pose checks are not a pixel-identity certificate.
+The weighted-read output exposed a routing limitation: independent connections shared segments. The [retained visibility-only checkpoint](../results/native-pilot-visibility.json) records the earlier behavior. The editor now prefers ordered channel tracks where supported. A [paired comparison](../results/parallel-routing.json) keeps the same source, relationships and two moves fixed: both routing modes complete both moves, while the new routes have zero contacting pairs outside the accepted endpoint envelopes. The comparison workspace lets you switch between them. [Mathematical derivation and checking boundary](channel-routing.md).
+
+This local shaft check does not certify every edge, stroke/head clearance, or topology hidden inside logical-object envelopes. Visibility fallback may still produce contacts, which are reported as warnings. Source text uses local font fallback; computed-style and pose checks are not a pixel-identity certificate.
 
 The [saved results](../results/native-pilot.json) include every case, planned/skipped moves, annotation/source/request hashes and implementation-file hashes. Fresh damaged candidates must be rejected when a separate head moves incorrectly, a carried curve changes geometry or editor metadata is altered.
 
@@ -45,6 +47,7 @@ The [saved results](../results/native-pilot.json) include every case, planned/sk
 PYTHON=.venv/bin/python node benchmarks/measure_native_pilot.cjs
 PYTHON=.venv/bin/python node benchmarks/native_pilot_check.cjs
 node benchmarks/native_presentation_check.cjs
+PYTHON=.venv/bin/python node benchmarks/compare_parallel_routing.cjs
 python benchmarks/build_native_pilot_demo.py
 ```
 

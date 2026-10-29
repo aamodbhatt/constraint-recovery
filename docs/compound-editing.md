@@ -47,6 +47,8 @@ This handles nonsingular affine ancestors without reparenting elements. The diag
 
 Arrows retain their original endpoint offsets relative to the accepted objects. Measured endpoint tangents determine escape directions, and the visibility-grid router searches with eight-unit clearance. A separate serialized-segment check and fresh endpoint measurements validate the result. Bounding envelopes, affine linear parts, declared ordering/alignment/group relations and container boundaries are checked independently of the placement request.
 
+By default, `--routing channel` first tries ordered tracks for supported parallel groups, then falls back to visibility search. `--routing visibility` retains the independent-search control. The [channel notes](channel-routing.md) derive the track constraints and describe a separate check of actual serialized shaft contacts. `parallel_shaft_checks` and `warnings` expose nonzero contacts; a routing preference alone does not certify separation. These checks do not cover every edge in a figure or stroke/head extents.
+
 ## Supported boundary
 
 - Only confirmed node objects move. Containers, unknown objects and unassigned parts remain protected; uncertainty touching a moved object requires review.

@@ -17,7 +17,7 @@ process.stdin.on('end',async()=>{
     const report=path.join(temp,'report.json'),state=path.join(temp,'state.json'),after=path.join(temp,'after.json');
     function worker(action,extra=[]){
       const result=spawnSync(request.python,['-m','constraint_recovery.compound',action,'--source',input,'--measurements',before,
-        '--manifest',request.manifest,'--moves',request.moves,'--candidate',candidate,'--report',report,...extra],
+        '--manifest',request.manifest,'--moves',request.moves,'--candidate',candidate,'--report',report,'--routing',request.routing||'channel',...extra],
         {encoding:'utf8',env:process.env,timeout:30000,maxBuffer:2000000});
       if(result.status!==0)throw Error(result.stderr||result.error?.message||'Compound worker failed');
     }

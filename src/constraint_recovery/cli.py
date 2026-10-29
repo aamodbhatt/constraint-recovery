@@ -22,6 +22,7 @@ def main():
     compound.add_argument("--moves",type=Path,required=True,help="JSON object mapping node object IDs to [dx,dy] in viewBox units")
     compound.add_argument("--output",type=Path,required=True)
     compound.add_argument("--node",default="node")
+    compound.add_argument('--routing',choices=['channel','visibility'],default='channel',help='Prefer ordered channel tracks for supported parallel groups, otherwise use visibility routing')
     witness = commands.add_parser("check-witness",help="Verify a saved layout conflict witness without running a solver")
     witness.add_argument("input",type=Path)
     validate_annotation = commands.add_parser("check-annotation",help="Validate annotation structure, source binding and primitive references")
@@ -71,7 +72,7 @@ def main():
             if inputs.intersection(p.resolve() for p in targets):
                 raise DiagramError("Compound output artifacts must not overwrite source or request files")
             request={"input":str(args.input.resolve()),"manifest":str(manifest.resolve()),"moves":str(args.moves.resolve()),
-                     "output":str(args.output.resolve()),"python":sys.executable}
+                     "output":str(args.output.resolve()),"python":sys.executable,"routing":args.routing}
             call=subprocess.run([args.node,str(Path(__file__).parent/"assets/compound_edit.cjs")],input=json.dumps(request),
                                 text=True,capture_output=True,timeout=90)
             if call.returncode:

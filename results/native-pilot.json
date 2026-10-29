@@ -4,15 +4,17 @@
   "selection_sha256": "e82ca93ccd82421fb37fac1e6248ddef8d9c1c9b469b9b92db11e6109d443a23",
   "browser": "151.0.7922.34",
   "implementation_files": {
-    "src/constraint_recovery/compound.py": "acfcf409a7b0a038e2744d9a6faffd6b4d02a8ef579bf8126c2b51ba47d7ab09",
+    "src/constraint_recovery/compound.py": "5f848f15f7d414a1befd62a8ca2267e6f86acea1c66ca5300fdcb5cddd417e8a",
     "src/constraint_recovery/static_svg.py": "af32e17be5701dc7d2caa58921fdc49ddf9a0ee3fa55bc8224e2b0666b1405d7",
-    "src/constraint_recovery/annotation.py": "2747b7a9572b367c56c9b92822d0c3940147274c05ea7d3e74ebe848c77a9263",
+    "src/constraint_recovery/annotation.py": "e3ccacbf7a8fcbecc3d39dab337157e0f3096771b57342ee9cc7b4c47954857c",
     "src/constraint_recovery/routing.py": "b5fd891986e63325ee3413b757622aef17bbef8511cb9340fd33f4d418e28100",
     "src/constraint_recovery/check.py": "9fcb355d35235fbc37e57c8d53bcd6319d27f16c1bd1c7e58c535acbd99380db",
+    "src/constraint_recovery/channel.py": "9e319635e70c8dd6313f2768ee14c8dad43b7b48382747ca18301568f3656e1d",
+    "src/constraint_recovery/edge_check.py": "d51f6e2702c0c6476fe0f3830b082de11b3a547e9c0a2e6a54e37b42e1424f99",
     "src/constraint_recovery/assets/browser_geometry.cjs": "3f39a17ec822de6c0cd7cc515de1928b408eeff29432b314223533b6a287505f",
-    "src/constraint_recovery/assets/compound_edit.cjs": "39bdc2ad86295abf5b2213d222e6d7585c185c9b50d174965b67a60365d88bd3",
+    "src/constraint_recovery/assets/compound_edit.cjs": "e575c07377c6ee1e84a7e90b1de95fe6f5a659d305e8f3c354234f4fa180a2c1",
     "benchmarks/native_direct_move.py": "82bfd4bc3b7e69135df91401a5e7d98f4c08ce7cd22b1065b89ce96aef59d242",
-    "benchmarks/run_native_pilot.cjs": "4bc285b01bf34c6e0a973e84484a7b2911a81c7b6a54e606810bc1c81218643a"
+    "benchmarks/run_native_pilot.cjs": "af70eb07fbe1a62df125102a735d68f66294afcbb4393c58e2797b776f82682a"
   },
   "figures": 5,
   "authoring_origin_clusters": 2,
@@ -69,6 +71,9 @@
               "annotator": "Codex native-pilot development review",
               "evidence": "Agent visually inspected the original render and source on 2026-10-30. Scripted selectors transcribe that interpretation; no author approval, independent human labels or automatic recovery claim."
             },
+            "routing_mode": "channel",
+            "parallel_shaft_checks": [],
+            "warnings": [],
             "scope": "Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."
           }
         },
@@ -96,6 +101,9 @@
               "annotator": "Codex native-pilot development review",
               "evidence": "Agent visually inspected the original render and source on 2026-10-30. Scripted selectors transcribe that interpretation; no author approval, independent human labels or automatic recovery claim."
             },
+            "routing_mode": "channel",
+            "parallel_shaft_checks": [],
+            "warnings": [],
             "scope": "Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."
           }
         }
@@ -204,7 +212,7 @@
             "protected_primitives": 20,
             "tolerance_viewbox_units": 0.05,
             "input_sha256": "36dc327998c717ab14f234288cc8ddf6544669e9acc222c0c6be9e10f55159ad",
-            "output_sha256": "500f762d406d41f031eee286ff895a17b8822b582d6f64685b07f717039d5faf",
+            "output_sha256": "23352468622a68fb6268f2066180fa02550ad34f926146de734d250cb3c77f10",
             "annotation_sha256": "668f2dcb55d00f789b8afbc71023a2ae87f3be3ab9abe8b0103754cc246cb5a4",
             "accepted_review": {
               "status": "agent-reviewed",
@@ -212,6 +220,21 @@
               "annotator": "Codex native-pilot development review",
               "evidence": "Agent visually inspected the original render and source on 2026-10-30. Scripted selectors transcribe that interpretation; no author approval, independent human labels or automatic recovery claim."
             },
+            "routing_mode": "channel",
+            "parallel_shaft_checks": [
+              {
+                "source": "inputs",
+                "target": "readout",
+                "connectors": 7,
+                "contact_pairs": 0,
+                "segment_pair_comparisons": 189,
+                "shared_segment_pairs": 0,
+                "pairwise_shared_length": 0,
+                "pairs": [],
+                "scope": "Serialized shaft centerlines outside the two accepted endpoint envelopes; excludes strokes, heads, unchanged edges and contacts inside those envelopes"
+              }
+            ],
+            "warnings": [],
             "scope": "Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."
           }
         },
@@ -230,8 +253,8 @@
             "translated_connector_primitives": 0,
             "protected_primitives": 20,
             "tolerance_viewbox_units": 0.05,
-            "input_sha256": "500f762d406d41f031eee286ff895a17b8822b582d6f64685b07f717039d5faf",
-            "output_sha256": "e527cd44280cf523bbb7c98384bec7d512f400fbed1bc64d14dde3423487061a",
+            "input_sha256": "23352468622a68fb6268f2066180fa02550ad34f926146de734d250cb3c77f10",
+            "output_sha256": "4b599719235595a106d6fc3a59cb1e4dad1467668768f4c78d06d8b66970f871",
             "annotation_sha256": "668f2dcb55d00f789b8afbc71023a2ae87f3be3ab9abe8b0103754cc246cb5a4",
             "accepted_review": {
               "status": "agent-reviewed",
@@ -239,6 +262,21 @@
               "annotator": "Codex native-pilot development review",
               "evidence": "Agent visually inspected the original render and source on 2026-10-30. Scripted selectors transcribe that interpretation; no author approval, independent human labels or automatic recovery claim."
             },
+            "routing_mode": "channel",
+            "parallel_shaft_checks": [
+              {
+                "source": "inputs",
+                "target": "readout",
+                "connectors": 7,
+                "contact_pairs": 0,
+                "segment_pair_comparisons": 189,
+                "shared_segment_pairs": 0,
+                "pairwise_shared_length": 0,
+                "pairs": [],
+                "scope": "Serialized shaft centerlines outside the two accepted endpoint envelopes; excludes strokes, heads, unchanged edges and contacts inside those envelopes"
+              }
+            ],
+            "warnings": [],
             "scope": "Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."
           }
         }
@@ -355,6 +393,9 @@
               "annotator": "Codex native-pilot development review",
               "evidence": "Agent visually inspected the original render and source on 2026-10-30. Scripted selectors transcribe that interpretation; no author approval, independent human labels or automatic recovery claim."
             },
+            "routing_mode": "channel",
+            "parallel_shaft_checks": [],
+            "warnings": [],
             "scope": "Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."
           }
         },
@@ -382,6 +423,9 @@
               "annotator": "Codex native-pilot development review",
               "evidence": "Agent visually inspected the original render and source on 2026-10-30. Scripted selectors transcribe that interpretation; no author approval, independent human labels or automatic recovery claim."
             },
+            "routing_mode": "channel",
+            "parallel_shaft_checks": [],
+            "warnings": [],
             "scope": "Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."
           }
         }

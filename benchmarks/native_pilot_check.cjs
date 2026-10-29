@@ -11,6 +11,8 @@ function check(ok,message){if(!ok)throw Error(message);}
   check(report.figures===5&&report.planned_move_requests===10,'Pilot denominator changed');
   check(report.complete_sequences===3&&report.accepted_move_requests===6&&report.checked_bounds_refusals===3,'Native development behavior regressed');
   check(report.controls.node_only.accepted===0&&report.controls.translate_only.accepted===1,'Direct-control behavior changed');
+  const weighted=report.records.find(r=>r.id==='distill-rnn-read');
+  check(weighted.steps.every(s=>s.checks.parallel_shaft_checks.length===1&&s.checks.parallel_shaft_checks[0].connectors===7&&s.checks.parallel_shaft_checks[0].contact_pairs===0),'Parallel shaft separation regressed');
   check(/protected object|uncertain relation/.test(report.records.find(r=>r.id==='distill-rnn-memory').steps[0].reason),'Unresolved memory interpretation was silently accepted');
   check(/mid-marker/.test(report.records.find(r=>r.id==='distill-graph-tasks').steps[0].reason),'Mid-marker rerouting was silently accepted');
   const temp=await fs.mkdtemp(path.join(os.tmpdir(),'native-pilot-check-')),browser=await chromium.launch({headless:true});

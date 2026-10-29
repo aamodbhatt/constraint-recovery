@@ -10,5 +10,6 @@
   "unlabelled_review_views": 5,
   "connector_geometry_exposed_and_retained": true,
   "no_review_promotion": true,
+  "routing_comparison_and_warning": true,
   "errors": []
 }

@@ -43,13 +43,13 @@
   </defs>
   <title>rnn</title>
   <g id="paths">
-    <path id="edge0" d="M 66 47 L 66 115 L 180 115 L 180 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
-    <path id="edge1" d="M 102 47 L 102 115 L 182 115 L 182 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
-    <path id="edge2" d="M 138.070007324219 47 L 138.070007324219 157.184997558594 L 184 157.184997558594 L 184 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
-    <path id="edge3" d="M 174 47 L 174 157.184997558594 L 186 157.184997558594 L 186 195" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
-    <path id="edge4" d="M 210 47 L 210 157.184997558594 L 188 157.184997558594 L 188 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
-    <path id="edge5" d="M 246 47 L 246 157.184997558594 L 190 157.184997558594 L 190 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
-    <path id="edge6" d="M 282 47 L 282 157.184997558594 L 192 157.184997558594 L 192 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
+    <path id="edge0" d="M 66 47 L 66 148.092498779297 L 180 148.092498779297 L 180 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
+    <path id="edge1" d="M 102 47 L 102 140.092498779297 L 182 140.092498779297 L 182 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
+    <path id="edge2" d="M 138.070007324219 47 L 138.070007324219 132.092498779297 L 184 132.092498779297 L 184 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
+    <path id="edge3" d="M 174 47 L 174 124.092498779297 L 186 124.092498779297 L 186 195" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
+    <path id="edge4" d="M 210 47 L 210 124.092498779297 L 188 124.092498779297 L 188 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
+    <path id="edge5" d="M 246 47 L 246 132.092498779297 L 190 132.092498779297 L 190 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
+    <path id="edge6" d="M 282 47 L 282 140.092498779297 L 192 140.092498779297 L 192 194" fill="none" stroke="#2a71d8" stroke-miterlimit="10" stroke-width="1.5" />
   </g>
   <use id="array-7-3" data-name="array-7" width="253.5" height="37.5" transform="translate(47.75 10.75)" ns1:href="#array-7" />
   <use id="array-7-6" data-name="array-7" width="253.5" height="37.5" transform="translate(47.75 69.75)" ns1:href="#array-7" />

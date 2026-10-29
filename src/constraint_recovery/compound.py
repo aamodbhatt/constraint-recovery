@@ -14,6 +14,8 @@ from .check import segment_hits_rect
 from .geometry import numbers,transform,point
 from .model import Node,DiagramError
 from .routing import OrthogonalRouter
+from .channel import route_parallel_channel
+from .edge_check import parallel_contacts
 from .static_svg import parse_static,elements
 from .svg import NS,local
 
@@ -309,7 +311,9 @@ def portals(box,anchor,outward,clearance=8,ownership_anchor=None):
     return result
 
 
-def prepare(source,measurements,manifest,moves):
+def prepare(source,measurements,manifest,moves,routing='channel'):
+    if routing not in {'visibility','channel'}:
+        raise DiagramError('Unknown compound routing preference')
     document=CompoundDocument(source,measurements,manifest)
     deltas=document.deltas(moves)
     boxes=document.check_positions(deltas)
@@ -328,6 +332,31 @@ def prepare(source,measurements,manifest,moves):
     for location,delta in translated.items():
         translate_leaf(mapped[location],document.parts[location],delta)
         allowed[location]=['transform']
+    # Build all parallel terminal columns before choosing any individual route.
+    # This exposes channel-order constraints that independent searches cannot see.
+    ports={};groups={};channel_routes={};channel_evidence={}
+    for location,relation in changes.items():
+        start,end=relation['objects'];_,p=document.connector(relation);geometry=p['path_geometry']
+        source_anchor=np.add(geometry['start'],deltas[start]).tolist()
+        target_anchor=np.add(geometry['end'],deltas[end]).tolist()
+        source_ports=portals(boxes[start],source_anchor,geometry['start_direction'])
+        head=document.end_head(relation)
+        tip=np.add(head[2],deltas[end]).tolist() if head else None
+        target_ports=portals(boxes[end],target_anchor,[-v for v in geometry['end_direction']],ownership_anchor=tip)
+        ports[location]=(source_ports,target_ports)
+        groups.setdefault((start,end),[]).append(location)
+    if routing=='channel':
+        for (start,end),locations in groups.items():
+            if len(locations)<2 or any(len(a)!=1 or len(b)!=1 for a,b in [ports[k] for k in locations]):
+                continue
+            nets={k:{'start':ports[k][0][0][0],'end':ports[k][1][0][0],
+                     'source_stub':ports[k][0][0][1],'target_stub':ports[k][1][0][1],
+                     'axis':ports[k][0][0][2],'target_axis':ports[k][1][0][2]} for k in locations}
+            obstacles=document.obstacles(boxes,(start,end));obstacles[start]=boxes[start];obstacles[end]=boxes[end]
+            candidates,evidence=route_parallel_channel(nets,obstacles,measurements['canvas'],start,end)
+            if candidates:
+                channel_routes.update(candidates)
+                channel_evidence.update({k:evidence for k in locations})
     rerouted=[]
     for location,relation in changes.items():
         start,end=relation["objects"]
@@ -335,15 +364,15 @@ def prepare(source,measurements,manifest,moves):
         geometry=p["path_geometry"]
         source_anchor=np.add(geometry["start"],deltas[start]).tolist()
         target_anchor=np.add(geometry["end"],deltas[end]).tolist()
-        source_ports=portals(boxes[start],source_anchor,geometry["start_direction"])
-        head=document.end_head(relation)
-        tip=np.add(head[2],deltas[end]).tolist() if head else None
-        target_ports=portals(boxes[end],target_anchor,[-v for v in geometry["end_direction"]],ownership_anchor=tip)
+        source_ports,target_ports=ports[location]
         obstacles=document.obstacles(boxes,(start,end))
         obstacles[start],obstacles[end]=boxes[start],boxes[end]
-        router=OrthogonalRouter({key:box_node(key,b) for key,b in obstacles.items()},*measurements["canvas"],
-                                extra_points=[v[1] for v in source_ports+target_ports])
-        points,evidence=router.route(start,end,source_ports,target_ports)
+        if location in channel_routes:
+            points,evidence=channel_routes[location],channel_evidence[location]
+        else:
+            router=OrthogonalRouter({key:box_node(key,b) for key,b in obstacles.items()},*measurements["canvas"],
+                                    extra_points=[v[1] for v in source_ports+target_ports])
+            points,evidence=router.route(start,end,source_ports,target_ports)
         inverse=np.linalg.inv(affine(p["matrix"]))
         local_points=[point(inverse,*v) for v in points]
         e=mapped[location]
@@ -365,7 +394,8 @@ def prepare(source,measurements,manifest,moves):
     output=ET.tostring(root,encoding="unicode")+"\n" if allowed else source
     return output,{"schema_version":1,"input_sha256":digest(source),"output_sha256":digest(output),"moves":moves,
                    "allowed_attributes":allowed,"moved_parts":moved_parts,"rerouted":rerouted,
-                   "annotation_sha256":json_digest(document.annotation),"carried_connectors":[r['connector'] for r in carried]}
+                   "annotation_sha256":json_digest(document.annotation),"carried_connectors":[r['connector'] for r in carried],
+                   "routing_mode":routing}
 
 
 def _same(a,b,tolerance=EPS):
@@ -407,8 +437,10 @@ def _polyline(e,matrix):
     return [point(matrix,*p) for p in pts]
 
 
-def verify_compound(source,before,manifest,moves,candidate,after):
+def verify_compound(source,before,manifest,moves,candidate,after,routing='channel'):
     """Check requested world translations and protected source state; no router call."""
+    if routing not in {'visibility','channel'}:
+        raise DiagramError('Unknown compound routing preference')
     document=CompoundDocument(source,before,manifest)
     deltas=document.deltas(moves)
     boxes=document.check_positions(deltas)
@@ -453,6 +485,7 @@ def verify_compound(source,before,manifest,moves,candidate,after):
             expected=affine(old["matrix"]);expected[:2,2]+=delta
             if not _same(affine(new["matrix"]),expected):
                 raise DiagramError(f"Browser transform changed local shape or relative pose: {location}")
+    serialized_groups={}
     for location,edge in rerouted.items():
         start,end=edge["objects"]
         p=document.parts[location];new=after_parts[location]
@@ -461,6 +494,7 @@ def verify_compound(source,before,manifest,moves,candidate,after):
             if not _same(new["path_geometry"][role],expected):
                 raise DiagramError("Rerouted connector detached from its original relative anchor")
         points=_polyline(new_elements[location],affine(new["matrix"]))
+        serialized_groups.setdefault((start,end),{})[edge['connector']]=points
         head=document.end_head(edge)
         if head:
             terminal=np.subtract(points[-1],points[-2]);original=p['path_geometry']['end_direction']
@@ -499,18 +533,28 @@ def verify_compound(source,before,manifest,moves,candidate,after):
         for key,delta in deltas.items():
             if delta!=[0.,0.] and key not in edge["objects"] and overlaps(boxes[key],p["viewbox_bounds"]):
                 raise DiagramError("Moved node could cover an unchanged connector; its conservative envelope overlaps")
+    quality=[];remaining_comparisons=2_000_000
+    for (start,end),paths in serialized_groups.items():
+        if len(paths)>=2:
+            contacts=parallel_contacts(paths,[boxes[start],boxes[end]],remaining_comparisons)
+            remaining_comparisons-=contacts['segment_pair_comparisons']
+            quality.append({'source':start,'target':end,**contacts})
     return {"passed":True,"moved_objects":sum(delta!=[0.,0.] for delta in deltas.values()),"moved_primitives":len(moved),
             "rerouted_connectors":len(rerouted),"carried_connectors":len(carried),"translated_connector_primitives":len(translated),
             "protected_primitives":len(document.parts)-len(motions)-len(rerouted),
             "tolerance_viewbox_units":EPS,"input_sha256":digest(source),"output_sha256":digest(candidate),
             "annotation_sha256":json_digest(document.annotation),"accepted_review":document.annotation["review"],
+            "routing_mode":routing,"parallel_shaft_checks":quality,
+            "warnings":[{'kind':'parallel-shaft-contact','source':g['source'],'target':g['target'],'contact_pairs':g['contact_pairs'],
+                         'message':'Accepted attachments and node geometry pass, but these rerouted shaft centerlines contact outside their endpoint envelopes.'} for g in quality if g['contact_pairs']],
             "scope":"Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."}
 
 
 def next_state(manifest,report,moves):
     annotation=manifest["annotation"] if manifest.get("kind")=="compound-constraints" else manifest
     history=list(manifest.get("history",[])) if manifest.get("kind")=="compound-constraints" else []
-    history.append({"input_sha256":report["input_sha256"],"output_sha256":report["output_sha256"],"moves":moves})
+    history.append({"input_sha256":report["input_sha256"],"output_sha256":report["output_sha256"],"moves":moves,
+                    "routing_mode":report.get('routing_mode','visibility')})
     return {"schema_version":1,"kind":"compound-constraints","source_sha256":report["output_sha256"],
             "annotation":annotation,"annotation_sha256":json_digest(annotation),"history":history,
             "scope":"Derived editing state inherits accepted assumptions; original annotation and review provenance remain unchanged. This is not a newly human-reviewed annotation."}
@@ -525,17 +569,18 @@ def main():
     parser.add_argument("--after",type=Path)
     parser.add_argument("--report",type=Path,required=True)
     parser.add_argument("--state",type=Path)
+    parser.add_argument('--routing',choices=['visibility','channel'],default='channel')
     args=parser.parse_args()
     try:
         source=args.source.read_bytes().decode("utf-8")
         before=json.loads(args.measurements.read_text());manifest=json.loads(args.manifest.read_text());moves=json.loads(args.moves.read_text())
         if args.action=="prepare":
-            output,report=prepare(source,before,manifest,moves)
+            output,report=prepare(source,before,manifest,moves,args.routing)
             args.candidate.write_bytes(output.encode("utf-8"))
         else:
             if not args.after or not args.state:
                 raise DiagramError("Verification requires after measurements and state destination")
-            report=verify_compound(source,before,manifest,moves,args.candidate.read_bytes().decode("utf-8"),json.loads(args.after.read_text()))
+            report=verify_compound(source,before,manifest,moves,args.candidate.read_bytes().decode("utf-8"),json.loads(args.after.read_text()),args.routing)
             args.state.write_text(json.dumps(next_state(manifest,report,moves),indent=2)+"\n")
         args.report.write_text(json.dumps(report,indent=2)+"\n")
         return 0

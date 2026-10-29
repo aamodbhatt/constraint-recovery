@@ -8,7 +8,7 @@
   "protected_primitives": 20,
   "tolerance_viewbox_units": 0.05,
   "input_sha256": "36dc327998c717ab14f234288cc8ddf6544669e9acc222c0c6be9e10f55159ad",
-  "output_sha256": "500f762d406d41f031eee286ff895a17b8822b582d6f64685b07f717039d5faf",
+  "output_sha256": "23352468622a68fb6268f2066180fa02550ad34f926146de734d250cb3c77f10",
   "annotation_sha256": "668f2dcb55d00f789b8afbc71023a2ae87f3be3ab9abe8b0103754cc246cb5a4",
   "accepted_review": {
     "status": "agent-reviewed",
@@ -16,5 +16,20 @@
     "annotator": "Codex native-pilot development review",
     "evidence": "Agent visually inspected the original render and source on 2026-10-30. Scripted selectors transcribe that interpretation; no author approval, independent human labels or automatic recovery claim."
   },
+  "routing_mode": "channel",
+  "parallel_shaft_checks": [
+    {
+      "source": "inputs",
+      "target": "readout",
+      "connectors": 7,
+      "contact_pairs": 0,
+      "segment_pair_comparisons": 189,
+      "shared_segment_pairs": 0,
+      "pairwise_shared_length": 0,
+      "pairs": [],
+      "scope": "Serialized shaft centerlines outside the two accepted endpoint envelopes; excludes strokes, heads, unchanged edges and contacts inside those envelopes"
+    }
+  ],
+  "warnings": [],
   "scope": "Checks source hierarchy/text/attributes, computed styles, rigid affine poses, declared relationships and connector anchors/envelopes. Does not prove author intent, pixel identity, or stroke/marker collision bounds."
 }

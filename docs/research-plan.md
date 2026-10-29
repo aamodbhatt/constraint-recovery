@@ -6,7 +6,8 @@ The repository now has a working geometric editor, source-bound review, failure 
 
 - The synthetic endpoint ranker improves over nearest-boundary matching but ties the tangent-aware heuristic. Scores are uncalibrated.
 - Reuse and fresh geometric recovery both complete all 30 feasible authored sequence steps. A topological strip and ELK plus the same repair engine also complete them. These motifs do not demonstrate that latent-constraint reuse is necessary.
-- The external development prefix contains 19 available SVGs. Browser geometry and unlabelled annotation views cover all 19; complete-figure editing still covers zero. No independent human relationship annotations exist.
+- The original development prefix contains 19 available reconstructed benchmark SVGs; its complete-figure editing coverage remains zero. A separate rights-checked native SVG pilot completes two frozen moves on 3/5 figures under agent-reviewed assumptions, with direct-edit controls and all failures retained. It has two authoring origins and no independent human relationship labels.
+- A bounded classical channel-routing preference and independent serialized-contact checks remove the observed parallel-shaft contacts in the native weighted-read diagnostic. This is a routing refinement on one figure, not recovery novelty or complete-figure topology verification.
 - Arithmetic witnesses certify specific contradictions of the accepted fitted geometry. They do not certify inferred intent, a minimum repair, arbitrary curved-path safety or pixel-perfect typography.
 
 ## Narrow research question
@@ -34,6 +35,6 @@ Proceed only if a method improves the declared correction/coverage tradeoff on t
 
 ## Next implementation checkpoint
 
-Use reviewed compound objects to implement a conservative source-preserving adapter: move selected primitive groups as rigid objects, protect unselected artwork, retain source hierarchy/style, and independently measure the serialized result. First demonstrate this on authored rich fixtures and a rights-checked external subset. Keep unsupported style, effects, shared-part ownership and inconsistent manifests as explicit failures. The annotation format is not yet an editing adapter.
+The reviewed rigid-object adapter now works on authored rich fixtures and three native pilot figures, retaining original hierarchy/styles and remeasuring serialized poses. Unresolved read/write context and mid-marker rerouting remain explicit failures. Obtain independent object/relationship annotations and freeze a new authoring-origin holdout before treating these development results as evidence about recovery. Broaden topology checks beyond rerouted parallel shafts, with explicit junction semantics rather than assuming that every contact is wrong.
 
 Only then train a small contextual relation/role model locally. Cloud compute is justified by a measured training or accuracy bottleneck, a frozen split and a bounded saved-output experiment. No GPU resource has been started or credit spent. The present endpoint pilot trains in a fraction of a second on CPU.

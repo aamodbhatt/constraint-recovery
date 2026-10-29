@@ -15,7 +15,13 @@ function check(ok,message){if(!ok)throw Error(message);}
     if(accepted){await page.locator('#step2').click();await page.locator('#result').evaluate(img=>img.decode());check((await page.locator('#result').getAttribute('src')).includes('step-2'),'Second edit not shown');}
     else check(await page.locator('#result').getAttribute('src')===await page.locator('#source').getAttribute('src'),'Declined edit replaced source');
   }
-  await page.locator('#case-2').click();await page.locator('#view-result').click();
+  await page.locator('#case-2').click();
+  await page.locator('#routing-visibility').click();await page.locator('#result').evaluate(img=>img.decode());
+  check((await page.locator('#result').getAttribute('src')).includes('visibility'),'Independent-route comparison missing');
+  check((await page.locator('#note-heading').textContent())==='SHAFT CONTACTS DETECTED','Shared-route warning missing');
+  await page.locator('#routing-channel').click();await page.locator('#result').evaluate(img=>img.decode());
+  check((await page.locator('#note-heading').textContent())==='PARALLEL SHAFT CHECK','Measured separation evidence missing');
+  await page.locator('#view-result').click();
   check(await page.locator('#source-card').isHidden()&&await page.locator('#result-card').isVisible(),'Enlarge-result control failed');
   await page.screenshot({path:path.join(root,'artifacts/native-pilot-focused.png'),fullPage:true});
   await page.locator('#view-source').click();check(await page.locator('#result-card').isHidden(),'Enlarge-source control failed');
@@ -47,7 +53,7 @@ function check(ok,message){if(!ok)throw Error(message);}
   check(downloaded.review.status==='agent-reviewed','Resume promoted agent annotations to human review');
   check(!errors.length,errors.join(';'));
   const report={passed:true,all_five_comparisons:true,refused_request_retains_source:true,focus_controls:true,mobile,
-    unlabelled_review_views:5,connector_geometry_exposed_and_retained:true,no_review_promotion:true,errors};
+    unlabelled_review_views:5,connector_geometry_exposed_and_retained:true,no_review_promotion:true,routing_comparison_and_warning:true,errors};
   await fs.writeFile(path.join(root,'artifacts/native-presentation-check.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify(report));
 }finally{await browser.close();}})().catch(e=>{console.error(e.message);process.exit(1);});

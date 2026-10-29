@@ -74,7 +74,7 @@ async function main(){
     }
     const implementation_files={};
     for(const file of ['src/constraint_recovery/compound.py','src/constraint_recovery/static_svg.py','src/constraint_recovery/annotation.py',
-      'src/constraint_recovery/routing.py','src/constraint_recovery/check.py','src/constraint_recovery/assets/browser_geometry.cjs',
+      'src/constraint_recovery/routing.py','src/constraint_recovery/check.py','src/constraint_recovery/channel.py','src/constraint_recovery/edge_check.py','src/constraint_recovery/assets/browser_geometry.cjs',
       'src/constraint_recovery/assets/compound_edit.cjs','benchmarks/native_direct_move.py','benchmarks/run_native_pilot.cjs']){
       implementation_files[file]=sha(await fs.readFile(path.join(root,file)));
     }

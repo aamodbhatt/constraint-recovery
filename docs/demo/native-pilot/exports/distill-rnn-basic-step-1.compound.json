@@ -273,7 +273,8 @@
           12,
           0
         ]
-      }
+      },
+      "routing_mode": "channel"
     }
   ],
   "scope": "Derived editing state inherits accepted assumptions; original annotation and review provenance remain unchanged. This is not a newly human-reviewed annotation."

@@ -60,6 +60,7 @@ jobs:
       - run: node benchmarks/compound_check.cjs
       - run: node benchmarks/presentation_check.cjs
       - run: node benchmarks/native_pilot_check.cjs
+      - run: node benchmarks/compare_parallel_routing.cjs
       - run: node benchmarks/native_presentation_check.cjs
       - uses: actions/upload-artifact@v4
         with:
@@ -71,3 +72,4 @@ jobs:
             artifacts/native-pilot/report.json
             artifacts/native-pilot-check.json
             artifacts/native-presentation-check.json
+            artifacts/parallel-routing/report.json
