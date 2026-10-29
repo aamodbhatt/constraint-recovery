@@ -49,8 +49,9 @@ Open `artifacts/edited.html` for the comparison and evidence. The command also s
 | **Resolve ambiguity** | Candidate evidence and choices bound to the exact source | [Review workflow](docs/attachment-review.md) |
 | **Explain a contradiction** | Independently checkable node-size, area, path-span or cycle witnesses | [Math and witnesses](docs/conflict-witnesses.md) |
 | **Inspect complex figures** | Browser-derived text/shape envelopes and compound-object annotations | [Geometry](docs/browser-geometry.md) · [Annotation](docs/compound-annotation.md) |
+| **Move reviewed compound nodes** | Local artwork, hierarchy, styles and relative arrow anchors through checked rigid edits | [Compound editing](docs/compound-editing.md) |
 
-The default exporter normalizes styling. `--source-preserving` supports a broader static subset, including CSS, uniform transforms and Bezier connector recovery. Neither mode edits arbitrary SVGs. Compound annotations are not yet a general editing adapter.
+The default exporter normalizes styling. `--source-preserving` supports a broader static subset, including CSS, uniform transforms and Bezier connector recovery. The separate `edit-compound` adapter moves reviewed rich objects with browser verification. These are bounded static subsets; neither edits arbitrary SVGs.
 
 ## How it works
 
@@ -73,8 +74,9 @@ Placement minimizes total L1 node displacement subject to canvas bounds, nonover
 | [Routing](docs/routing.md) | Visibility search solves all six feasible diagnostic cases; templates solve one | A specific routing capability on authored cases |
 | [External SVG audit](results/browser-geometry-audit.json) | All 1,429 primitives across 19 available sources measured | Geometry acquisition; complete-figure edit support is still **0/19** |
 | [Annotation views](results/annotation-view-audit.json) | 19 private views built, zero external annotations created | Infrastructure for independent data collection |
+| [Compound edits](docs/compound-editing.md) | Two successive rigid edits pass on a rich authored fixture; invalid moves and styling changes are rejected | A checked adapter, not external recovery accuracy |
 
-The next research step is independent annotation and a conservative compound-node adapter, followed by evaluation on unseen papers and edit sequences. See the [research plan](docs/research-plan.md), [data protocol](data/README.md) and [model card](models/README.md). No paper-ready novelty claim is made.
+The next research step is independent annotation and external evaluation of the compound-node adapter, followed by unseen papers and edit sequences. See the [research plan](docs/research-plan.md), [data protocol](data/README.md) and [model card](models/README.md). No paper-ready novelty claim is made.
 
 Related work: [Constraint SVG](https://constraints.cs.washington.edu/web/csvg-uwtr-2000-08-04.pdf), [Mockdown](https://www.cs.cornell.edu/~jsarracino/files/mockdown-final.pdf), [Penrose](https://penrose.cs.cmu.edu/), [constraint-graph layout generation](https://arxiv.org/abs/2011.13417), [SciDiagramEdit](https://arxiv.org/abs/2607.15272), [InfoEdit](https://arxiv.org/abs/2609.33286).
 
@@ -89,6 +91,7 @@ npm ci --ignore-scripts
 npx playwright install chromium
 python benchmarks/run_sequences.py --elk --output artifacts/sequences-elk.json
 node benchmarks/browser_check.cjs
+node benchmarks/compound_check.cjs
 ```
 
 CI repeats the Python suite, synthetic experiments and browser checks. Results retain case-level failures and skipped requests. GPU use remains behind a [measured-need gate](ROADMAP.md#cloud-gpu-gate).

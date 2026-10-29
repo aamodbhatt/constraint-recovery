@@ -19,7 +19,7 @@ def simplify(points):
 
 
 class OrthogonalRouter:
-    def __init__(self,nodes,width,height,clearance=8,bend_penalty=8,max_states=65536):
+    def __init__(self,nodes,width,height,clearance=8,bend_penalty=8,max_states=65536,extra_points=()):
         self.nodes = nodes
         self.width,self.height = width,height
         self.clearance,self.bend_penalty = clearance,bend_penalty
@@ -33,6 +33,11 @@ class OrthogonalRouter:
             x0,y0,x1,y1 = self.boxes[key]
             xs.update(x for x in [x0,x1,n.x+n.width/2] if 0<=x<=width)
             ys.update(y for y in [y0,y1,n.y+n.height/2] if 0<=y<=height)
+        for p in extra_points:
+            if len(p)!=2 or not all(math.isfinite(v) for v in p):
+                raise DiagramError("Invalid extra routing coordinate")
+            if 0<=p[0]<=width and 0<=p[1]<=height:
+                xs.add(float(p[0]));ys.add(float(p[1]))
         self.x,self.y = np.asarray(sorted(xs)),np.asarray(sorted(ys))
         if len(self.x)*len(self.y)>100000:
             raise DiagramError("Orthogonal routing grid exceeds its vertex budget")
@@ -50,13 +55,19 @@ class OrthogonalRouter:
             self.horizontal &= ~(inside_y[:,None]&cross_x[None,:])
             self.vertical &= ~(cross_y[:,None]&inside_x[None,:])
 
-    def portals(self,key):
+    def portals(self,key,options=None):
         n,c = self.nodes[key],self.clearance
         cx,cy = n.x+n.width/2,n.y+n.height/2
-        options = [([n.x,cy],[n.x-c,cy],0),([n.x+n.width,cy],[n.x+n.width+c,cy],0),
-                   ([cx,n.y],[cx,n.y-c],1),([cx,n.y+n.height],[cx,n.y+n.height+c],1)]
+        if options is None:
+            options = [([n.x,cy],[n.x-c,cy],0),([n.x+n.width,cy],[n.x+n.width+c,cy],0),
+                       ([cx,n.y],[cx,n.y-c],1),([cx,n.y+n.height],[cx,n.y+n.height+c],1)]
         accepted = []
         for port,stub,axis in options:
+            if (axis not in {0,1} or len(port)!=2 or len(stub)!=2 or not all(math.isfinite(v) for v in [*port,*stub])
+                or abs(port[1-axis]-stub[1-axis])>1e-8):
+                raise DiagramError("Invalid axis-aligned routing portal")
+            if not 0<=port[0]<=self.width or not 0<=port[1]<=self.height:
+                continue
             if stub[0] not in self.x_index or stub[1] not in self.y_index:
                 continue
             iy,ix = self.y_index[stub[1]],self.x_index[stub[0]]
@@ -76,10 +87,10 @@ class OrthogonalRouter:
                 accepted.append((iy,ix,axis,port,stub))
         return accepted
 
-    def route(self,source,target):
+    def route(self,source,target,source_ports=None,target_ports=None):
         if source not in self.nodes or target not in self.nodes or source==target:
             raise DiagramError("Invalid routing endpoint IDs")
-        starts,ends = self.portals(source),self.portals(target)
+        starts,ends = self.portals(source,source_ports),self.portals(target,target_ports)
         if not starts or not ends:
             raise DiagramError("No available center port at the requested routing clearance")
         distance,previous,origin = {},{},{}
@@ -141,7 +152,9 @@ class OrthogonalRouter:
         path.append(start[3])
         path = simplify(list(reversed(path)))
         # Separate geometric guard, using original boxes rather than grid masks.
-        if any(segment_hits_rect(p,q,n) for p,q in zip(path,path[1:]) for n in self.nodes.values()):
+        if any(segment_hits_rect(p,q,n) for j,(p,q) in enumerate(zip(path,path[1:])) for key,n in self.nodes.items()
+               if not (source_ports is not None and key==source and j==0)
+               and not (target_ports is not None and key==target and j==len(path)-2)):
             raise DiagramError("Routing guard detected a node-interior crossing")
         return path,{"method":"orthogonal visibility grid with Dijkstra over position and incoming axis",
                      "clearance":self.clearance,"bend_penalty":self.bend_penalty,

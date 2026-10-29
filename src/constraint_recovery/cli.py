@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+import subprocess
 from .model import Diagram, DiagramError
 from .svg import parse_svg, render_svg
 from .layout import edit
@@ -13,6 +14,14 @@ from .check import verify
 def main():
     parser = argparse.ArgumentParser(description="Recover and edit a supported SVG through explicit constraints.")
     commands = parser.add_subparsers(dest="command",required=True)
+    compound=commands.add_parser("edit-compound",help="Browser-verify rigid moves of explicitly reviewed compound objects")
+    compound.add_argument("input",type=Path)
+    manifests=compound.add_mutually_exclusive_group(required=True)
+    manifests.add_argument("--annotation",type=Path)
+    manifests.add_argument("--constraints",type=Path)
+    compound.add_argument("--moves",type=Path,required=True,help="JSON object mapping node object IDs to [dx,dy] in viewBox units")
+    compound.add_argument("--output",type=Path,required=True)
+    compound.add_argument("--node",default="node")
     witness = commands.add_parser("check-witness",help="Verify a saved layout conflict witness without running a solver")
     witness.add_argument("input",type=Path)
     validate_annotation = commands.add_parser("check-annotation",help="Validate annotation structure, source binding and primitive references")
@@ -53,6 +62,22 @@ def main():
         sub.add_argument("--attachments",type=Path,help="Source-hash-bound attachment choices exported by the review view")
     args = parser.parse_args()
     try:
+        if args.command=="edit-compound":
+            if args.output.suffix.lower()!=".svg":
+                raise DiagramError("Compound output must end in .svg")
+            manifest=args.annotation or args.constraints
+            inputs={p.resolve() for p in [args.input,manifest,args.moves]}
+            targets=[args.output,*[args.output.with_suffix(s) for s in [".report.json",".compound.json",".measurements.json"]]]
+            if inputs.intersection(p.resolve() for p in targets):
+                raise DiagramError("Compound output artifacts must not overwrite source or request files")
+            request={"input":str(args.input.resolve()),"manifest":str(manifest.resolve()),"moves":str(args.moves.resolve()),
+                     "output":str(args.output.resolve()),"python":sys.executable}
+            call=subprocess.run([args.node,str(Path(__file__).parent/"assets/compound_edit.cjs")],input=json.dumps(request),
+                                text=True,capture_output=True,timeout=90)
+            if call.returncode:
+                raise DiagramError((call.stderr or call.stdout).strip())
+            print(call.stdout.strip())
+            return 0
         if args.command=="check-annotation":
             from .annotation import validate_annotation
             digest=hashlib.sha256(args.source.read_bytes()).hexdigest() if args.source else None
@@ -186,7 +211,7 @@ def main():
         args.output.with_suffix(".html").write_text(page)
         print(json.dumps(report,indent=2))
         return 0
-    except (DiagramError,OSError,ValueError,KeyError,TypeError) as exc:
+    except (DiagramError,OSError,ValueError,KeyError,TypeError,subprocess.TimeoutExpired) as exc:
         from .conflicts import LayoutConflict
         if isinstance(exc,LayoutConflict):
             failure=args.output.with_suffix(".failure.json")

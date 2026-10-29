@@ -21,6 +21,8 @@ First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone
 - Build independent relationship annotations; avoid scoring inferred rules against themselves.
   - [x] Resumable compound-object annotation UI, source-bound version 2 records, explicit unknown/ambiguous labels, primitive coverage and structural/provenance validation.
   - [ ] Obtain independently reviewed external labels; the authored agent-reviewed workflow fixture is not that dataset.
+  - [x] Reviewed rigid compound-node adapter with affine pose preservation, original attachment offsets, derived-state provenance and fresh browser verification on an authored rich fixture. [Scope](docs/compound-editing.md).
+  - [ ] Establish actual external compound-edit coverage and unsupported-case denominators.
 - Add strong heuristics + ELK and direct source-editing baselines.
   - [x] Tangent-aware endpoint heuristic and a pinned ELK layout configuration.
   - [ ] Direct source-editing baseline and independent real-diagram labels.

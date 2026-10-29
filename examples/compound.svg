@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="440" viewBox="0 0 760 440">
+  <!-- Authored for constraint-recovery. MIT license; no external figure assets. -->
+  <title>Compound objects with a symbol instance and a rotated card</title>
+  <defs>
+    <linearGradient id="soft-fill" x2="0" y2="1"><stop stop-color="#eaf2e8"/><stop offset="1" stop-color="#dae8d8"/></linearGradient>
+    <marker id="arrow" markerWidth="9" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L9 4L0 8Z" fill="#476b50"/></marker>
+    <symbol id="glyph" viewBox="0 0 20 20"><path d="M2 5L10 1L18 5V15L10 19L2 15Z M2 5L10 9L18 5 M10 9V19" fill="none" stroke="#527a56" stroke-width="1.4"/></symbol>
+  </defs>
+  <style>
+    .outline {stroke:#6e8b6c;stroke-width:1.5}
+    text {font-family:Arial,sans-serif;text-anchor:middle;fill:#24432e}
+    .name {font-size:19px;font-weight:600}
+    .detail {font-size:12px;fill:#71876c}
+    .edge {fill:none;stroke:#476b50;stroke-width:2;marker-end:url(#arrow)}
+  </style>
+  <rect id="paper" width="760" height="440" fill="#f6f8f2"/>
+  <g transform="translate(45 30)">
+    <circle id="encoder-shape" class="outline" cx="150" cy="140" r="68" fill="url(#soft-fill)"/>
+    <use id="encoder-icon" href="#glyph" x="140" y="94" width="20" height="20"/>
+    <text id="encoder-name" class="name" x="150" y="145">Encoder</text>
+    <text id="encoder-detail" class="detail" x="150" y="165">shared representation</text>
+  </g>
+  <g transform="rotate(-8 510 165)">
+    <rect id="decoder-shape" class="outline" x="420" y="95" width="180" height="140" rx="14" fill="#e9eff9"/>
+    <text id="decoder-name" class="name" x="510" y="158">Decoder</text>
+    <text id="decoder-detail" class="detail" x="510" y="180">structured output</text>
+  </g>
+  <path id="encoded-decoded" class="edge" d="M263 170 C315 140 355 200 420.8758738 177.5255791"/>
+  <text id="note" x="380" y="405" font-size="11" fill="#8a9983">Authored fixture · symbols, typography and source hierarchy stay intact</text>
+</svg>

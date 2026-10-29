@@ -1,0 +1,84 @@
+{
+  "schema_version": 2,
+  "kind": "diagram-annotation",
+  "diagram_id": "authored-compound",
+  "source_url": "examples/compound.svg",
+  "source_sha256": "a9a027cb0d0ab4948b79b3fa8abbf4f7a9e40ad36d308c2f97d5795803fa295c",
+  "license": "MIT",
+  "split": "unassigned",
+  "review": {
+    "status": "agent-reviewed",
+    "annotator_type": "agent",
+    "annotator": "authored-program-fixture",
+    "evidence": "Objects and edge defined by the authored example program; scripted agent fixture, not human ground truth."
+  },
+  "objects": [
+    {
+      "id": "paper",
+      "role": "background",
+      "name": "paper",
+      "status": "confirmed",
+      "parts": [
+        "svg/rect[3]"
+      ]
+    },
+    {
+      "id": "encoder",
+      "role": "node",
+      "name": "encoder",
+      "status": "confirmed",
+      "parts": [
+        "svg/g[4]/circle[0]",
+        "svg/g[4]/use[1]",
+        "svg/g[4]/text[2]",
+        "svg/g[4]/text[3]"
+      ]
+    },
+    {
+      "id": "decoder",
+      "role": "node",
+      "name": "decoder",
+      "status": "confirmed",
+      "parts": [
+        "svg/g[5]/rect[0]",
+        "svg/g[5]/text[1]",
+        "svg/g[5]/text[2]"
+      ]
+    },
+    {
+      "id": "connection",
+      "role": "connector",
+      "name": "connection",
+      "status": "confirmed",
+      "parts": [
+        "svg/path[6]"
+      ]
+    },
+    {
+      "id": "note",
+      "role": "decoration",
+      "name": "note",
+      "status": "confirmed",
+      "parts": [
+        "svg/text[7]"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "kind": "directed_edge",
+      "objects": [
+        "encoder",
+        "decoder"
+      ],
+      "connector": "connection",
+      "status": "confirmed",
+      "rationale": "The authored path connects the encoder to the rotated decoder card."
+    }
+  ],
+  "coverage": {
+    "total_primitives": 10,
+    "assigned_primitives": 10,
+    "unassigned_parts": []
+  }
+}

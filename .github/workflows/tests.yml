@@ -57,7 +57,10 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npx playwright install --with-deps chromium
       - run: node benchmarks/browser_check.cjs
+      - run: node benchmarks/compound_check.cjs
       - uses: actions/upload-artifact@v4
         with:
           name: browser-integration
-          path: artifacts/browser-*
+          path: |
+            artifacts/browser-*
+            artifacts/compound-integration.json
