@@ -3,6 +3,7 @@
 // font/browser geometry can differ while the saved edit still verifies.
 const fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os'),crypto=require('node:crypto');
 const {spawnSync}=require('node:child_process');
+const {isDeepStrictEqual}=require('node:util');
 const {chromium}=require('playwright');
 const {measureSvg}=require('./measure_svg.cjs');
 const root=path.resolve(__dirname,'..'),python=process.env.PYTHON||'python3';
@@ -50,13 +51,15 @@ function check(ok,message){if(!ok)throw Error(message);}
             {cwd:root,env:{...process.env,PYTHONPATH:path.join(root,'src')},encoding:'utf8',timeout:30000});
           check(result.status===0,'Published SVG failed fresh checks: '+path.basename(candidate)+' '+result.stderr);
           const checked=JSON.parse(await fs.readFile(report,'utf8'));
+          check(isDeepStrictEqual(state,JSON.parse(await fs.readFile(path.join(temp,'state.json'),'utf8'))),
+            'Published derived state differs from independently reconstructed history/annotation: '+path.basename(candidate));
           if(!annotationDigests.has(entry.id))annotationDigests.set(entry.id,checked.annotation_sha256);
           check(checked.annotation_sha256===annotationDigests.get(entry.id)&&checked.accepted_review.status==='agent-reviewed','Original agent annotation provenance changed');
           for(const key of ['moved_primitives','rerouted_connectors','carried_connectors'])check(checked[key]===stored[key],'Published edit-count evidence changed');
           if(mode==='channel')check(checked.parallel_shaft_checks.every(g=>g.contact_pairs===0),'A published channel separation observation did not survive fresh measurement');
           if(mode==='visibility')check(checked.parallel_shaft_checks.some(g=>g.shared_segment_pairs>0),'Published visibility control lost its shared-segment diagnostic');
           records.push({file:path.relative(root,candidate),source_sha256:stored.input_sha256,output_sha256:stored.output_sha256,
-            source_state_binding:true,original_annotation_preserved:true,fresh_style_pose_attachment_checks:true,
+            source_state_binding:true,full_derived_state_reconstructed:true,original_annotation_preserved:true,fresh_style_pose_attachment_checks:true,
             parallel_contacts:checked.parallel_shaft_checks.map(g=>g.contact_pairs)});
           current=candidate;manifest=stem+'.compound.json';
         }

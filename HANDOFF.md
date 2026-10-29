@@ -1,92 +1,107 @@
-# Saved checkpoint — 2026-10-29
+# Saved checkpoint — 2026-10-30
 
 Repository: `aamodbhatt/constraint-recovery`, branch `main`.
-Code checkpoint: `c7b0dce6e9dca26b3966af5176b1e904a91bb851`. Includes the README/workspace redesign, reviewed compound-node editing adapter and expanded diagnostics.
+Latest feature checkpoint: `c6e329b5a78b8e8796eafe4245c565b8448dae3f` (source-bound annotation previews). A following checkpoint strengthens the public-state audit and saves this handoff; consult `git log` for its exact revision.
 
 ## User objective and operating constraints
 
-Build a substantial applied-AI/research tool with real mathematics and a credible GitHub/demo story. The selected project recovers inspectable structural constraints from existing scientific SVGs and preserves accepted relationships through edits. Do not claim that constraint layout or AI diagram editing is new, that a learned advantage has been established, or that a paper is ready.
+Build a substantial applied-AI/research tool with inspectable mathematics and a credible GitHub/demo story. Recover structural constraints from scientific SVGs and preserve accepted relationships through edits. Do not present classical routing/layout, scripted labels, or a fixture demonstration as research novelty, independent ground truth or a learned advantage.
 
-The user authorized ongoing work and pushes, with a stop guard at 5% remaining usage. The user explicitly answered **Continue working into the new usage window** after the earlier reset. Continue under that authorization while monitoring live usage; save, push and halt when 5% remains. Recheck usage on continuation rather than relying on historical values. No reset credit was consumed manually.
+The user authorized autonomous work and pushes, with a stop guard at 5% remaining usage, and explicitly authorized continuing into a new usage window after a reset. Check live usage on continuation. Historical latest reading during this save: 86% of the five-hour window used, 14% weekly used. These are historical values, not current availability. No reset credit was consumed manually.
 
-Final save began with 6% of the five-hour window remaining (94% used), reserving the remainder for saving/pushing and the final report. Feature work stopped at this completed checkpoint. Weekly usage was 37% used. These are historical readings, not a promise of current availability.
+No Runpod/cloud resource was started and no GPU credit spent. The small endpoint pilot still ties a strong tangent-aware heuristic. Its training is trivial on CPU. GPU work needs a measured bottleneck and a bounded experiment.
 
-Cloud GPU work was authorized after a sizeable local checkpoint, subject to a measured need and bounded experiment. **No cloud resource was started and no GPU credit spent.** The existing endpoint pilot trains in a fraction of a second on CPU. Do not provision a GPU just because the infrastructure checkpoint is now large.
+A question about who can independently annotate a few figures was sent during this work; no answer had arrived at save time. Do not invent human labels or call agent review independent. The next study needs actual separate reviewers and an unseen source-paper holdout.
 
-## What is implemented
+## New substantive results
 
-- Strict SVG recovery, reviewed graph corrections, CPU MILP placement, fitted text, explicit branch insertion, serialization/re-import checks and portable reports.
-- Opt-in `--source-preserving` static subset: CSS cascade/inheritance, positive uniform transforms, nonzero viewBox origins and quadratic/cubic connector recovery. Original definitions, source hierarchy and paint survive supported edits. Curves are rerouted as line segments. This is not arbitrary SVG editing.
-- A non-rendering `inspect` inventory for rejected figures.
-- A shared orthogonal visibility-grid router with center ports, eight-unit clearance, bend-aware Dijkstra search and explicit budgets. The old templates remain available.
-- Independently checkable witnesses for oversized nodes, rectangle area, positive flow cycles and excessive flow-path spans. `check-witness` does not invoke a solver.
-- Local endpoint `review`, source-hash-bound attachment choices and explicit override evidence.
-- SHA-256-bound reusable graph sidecars. Output sidecars bind to the newly written SVG, and reviewed graphs can resolve ambiguous ownership before automatic inference. Legacy unbound graphs remain accepted with a warning.
-- Repeated-edit diagnostics with reuse, fresh recovery, direct attributes, topological strip, ELK and ELK-plus-repair controls, plus a portable walkthrough.
-- Offline browser geometry for text, transforms and referenced instances, with source scripts disabled and secondary file/network requests blocked.
-- Compound-object `annotate` workflow: original source in an image context, primitive click/lasso/checklist selection, pan/zoom, explicit roles and relations, unknown/ambiguous status, JSON download/resume, source binding and coverage validation.
-- Version 2 annotation schema and an explicitly scripted **agent-reviewed** authored fixture. No external human labels were created.
-- Reviewed `edit-compound` rigid translations of rich node artwork: affine ancestors, text, circles and symbol instances; original relative connector anchors; conservative obstacles; independently checked serialized segments and fresh browser poses/styles. Original annotation review stays immutable in derived hash-bound state. [Exact scope](docs/compound-editing.md).
-- Redesigned README and responsive sequence workspace, with desktop/mobile/rejected-request visual checks. Authored examples only; no public external-source redistribution.
+### Native author-published SVG development pilot
 
-## Validation and results
+- Froze five original SVG files from two Distill article repositories, source revisions, Git blobs, SHA-256 hashes, attribution, agent annotations and edit requests before extending the adapter. Kept all five failures in the initial checkpoint. This is a purposive development set, not representative or held out.
+- Three 2016 Olah/Carter RNN figures are CC BY 2.0; two 2021 Daigavane/Ravindran/Aggarwal GNN figures are CC BY 4.0. Original source bytes remain unchanged in `data/native-pilot/original`. See `data/native-pilot/ATTRIBUTION.md` and `data/native-pilot-selection.json`.
+- Added explicit reviewed markerless shafts/separately drawn end heads, preserving their relative anchors and head artwork, and whole-connector rigid moves preserving curves and markers. Mid-marker rerouting, unresolved context and unsupported head rotations remain refused.
+- **3/5 complete two-move sequences; 6/10 planned moves accepted; eight attempted moves; three checked out-of-canvas refusals on supported sequences.** The external-memory figure remains blocked by protected unresolved context; the graph-tasks figure by mid-marker rerouting. Unsupported refusals are not feasibility proofs.
+- First-move direct controls: node-only accepts 0/5; a stronger translation rule also carrying equal-motion connectors accepts 1/5, tying the editor on that case. These are small deterministic controls, not comparisons with expert users or current AI diagram editors.
+- `results/native-pilot-initial.json` retains initial failures; `results/native-pilot-visibility.json` retains the earlier shared-route checkpoint; `results/native-pilot.json` records the latest fixed requests, source/annotation hashes and implementation-file hashes. Hashes are reproducibility bindings, not authenticity attestations.
 
-- Latest local Python suite: **160 passing tests**.
-- Compound browser diagnostic passes two consecutive edits on rotated/bold/use artwork, review retention and hash binding, rejection without overwriting an earlier SVG, and rejection of a CSS selector activated by inserted transforms. Saved in `results/compound-integration.json`. This is an authored agent-reviewed fixture, not independent ground truth or external accuracy.
-- Browser integration passes review/download/edit, source-ID collisions, inert source text, 24-unit font scaling and text containment, affine/rotation/use measurements, blocked source scripts and requests, compound grouping/download/resume, click/lasso/zoom, and an independent pixel check of the coordinate projection.
-- Python wheel built successfully; browser bridge assets and the annotation HTML template are included as package data.
-- Final code checkpoint `c7b0dce` passed all four CI jobs in [40891334732](https://github.com/aamodbhatt/constraint-recovery/actions/runs/40891334732): Python 3.11, Python 3.12, ELK and browser integration, including the expanded compound and presentation diagnostics. Any later handoff-only commit does not change that tested code.
-- The expanded diagnostic rejects freshly measured damaged text, gradient definitions, rigid poses and detached endpoints; skew/nonuniform and reflected parent variants pass. The packaged wheel completes a browser-backed edit when run with the SVG extra installed. Presentation smoke checks are portable in `benchmarks/presentation_check.cjs` and run in CI.
-- Original 30-case synthetic layout benchmark: solver 30/30, fixed-placement baseline 20/30.
-- Paired routing diagnostic: visibility solves six feasible authored cases; templates solve one with the same clearance. Both reject the blocked seventh case.
-- Sequence pilot: reuse, fresh recovery, topological strip and ELK repair all complete 30/30 feasible steps across five sequences and reject five final impossible requests. ELK-only completes 12 steps before fixed-canvas overflow. This is a small synthetic diagnostic; it does not establish a reuse or learned advantage.
-- Synthetic endpoint ranker ties the stronger tangent-aware heuristic. Softmax scores are uncalibrated and zero observed accepted errors is not a correctness guarantee.
-- External development prefix: 20 published test rows, 19 available SVGs and one missing source. **Complete-figure editing support remains 0/19.** Browser geometry measures all 1,429 primitives, including 511 text envelopes; 134 text envelopes lie inside multiple non-background rectangle envelopes. Two secondary resources are blocked.
-- Nineteen private, unlabelled compound-annotation views were built. **Zero external annotations or independent human ground-truth claims were created.** A built view is not an editing or rendering-fidelity result.
+### Mathematics and independent shaft checks
 
-## Reproduce locally
+- `channel.py` constructs bounded ordered orthogonal tracks for 2–32 compatible parallel connectors. Port incidence yields precedence inequalities; a DAG topological order and longest-path ranks allocate tracks. Cycles, duplicate columns, insufficient capacity or obstacles decline this candidate and retain visibility routing as fallback.
+- `edge_check.py` reads actual serialized segments independently of the planner and detects contacts/shared segments outside the accepted endpoint envelopes. A global two-million segment-pair budget refuses incomplete checks. It does not cover stroke/head extents, unchanged edges, self contacts or topology hidden inside endpoint envelopes.
+- Same native seven-link source and two fixed moves: independent visibility routing has **8 then 9 contacting shaft pairs**; ordered tracks have **0 then 0**. Both modes complete both edits. This is a classical routing refinement and a local separation result, not a novel algorithm or full topology certificate.
+- `docs/channel-routing.md` documents inequalities, classical references and scope; `results/parallel-routing.json` retains both modes.
 
-Use the repository `.venv` because the SVG extra is installed there. Node is available through the host PATH. Optional JavaScript dependencies are pinned: ELK 0.12.1 and Playwright 1.62.1.
+### Annotation comparison and independent review tools
+
+- Five unlabelled review pages start with no objects, roles or relationships. Advanced imported shaft/head assumptions are displayed and retained on download. Review metadata is never promoted from agent to human.
+- New `compare-annotations` command: exact source/inventory matching; visible joint/individual primitive coverage; role agreement on the confirmed joint domain; ID-invariant adjusted Rand index and variation of information; full-part IoU linear assignment; relation comparisons only when endpoints have exact part/role grounding; unknown/missing positives are not false negatives or ground truth.
+- Portable comparison view shows the same source in both panes, selectable part envelopes, unmatched objects, a common crop and disclosure of unscorable relations/resource limitations.
+- Public demonstration uses **scripted perturbations of one authored fixture**, not two independent annotators: renamed IDs ARI1; split card/labels ARI28/33 with role agreement0.8; leaving the decoder unknown yields conditional ARI1 at only7/10 joint coverage. No real human agreement estimate exists.
+- See `docs/annotation-comparison.md`, `results/annotation-comparison-fixtures.json` and `docs/demo/annotation-comparison.html`.
+
+### Preview repair and published-byte audit
+
+- A pixel regression exposed stretched annotation previews for SVGs lacking explicit dimensions. Repaired measurement with opt-in `--snapshot`: a bounded PNG from the same disabled-script/offline browser viewport, source/image hashes, CSS dimensions and pixel dimensions. Annotation/comparison validates those supplied bindings and uses the snapshot. Explicitly sized, stylesheet-free sources retain a legacy inert SVG-image fallback; ambiguous sizing without a snapshot now refuses with a remeasurement instruction.
+- Regenerated all five public native review pages and the comparison demo. Native pixel probes on two implicit-size sources and the existing styled-fixture probe pass. No independent human labels were collected with the older pages. Few pixel probes are regressions, not a rendering certificate.
+- Regenerated all **19 private reconstructed-SVG review pages** with snapshots under ignored `.cache`. The missing twentieth source remains missing. `artifacts/geometry-snapshot-audit.json` and `artifacts/annotation-snapshot-audit.json` retain this local rebuild; zero annotations were created. Do not redistribute mixed-rights cache contents.
+- `published_examples_check.cjs` freshly measures the **eight SVG files actually distributed** in the native workspace, checks bound reports/histories, immutable original agent annotations, styles, poses, attachments, full reconstructed derived states and parallel-contact observations. This avoids assuming regenerated artifacts equal public downloads. See `results/published-examples-check.json`.
+
+## Provenance correction: keep the two external tracks separate
+
+The original SciDiagramRevision development prefix is **19 available reconstructed figures from20 rows**, not proven original author-written SVGs. Its paper describes an LLM-assisted vector reconstruction pipeline in section3: <https://arxiv.org/html/2607.15272v1>. Original source-paper rights are mixed; the first five source papers checked carried arXiv nonexclusive licenses. Full sources/text/measurements remain private.
+
+The original track still has **0/19 complete-figure editing support**. Browser geometry measures1,429 primitives and511 text envelopes,134 inside multiple non-background rectangles; two secondary resources are blocked. The native pilot's3/5 result does not replace this denominator.
+
+## Existing foundation retained
+
+Strict SVG recovery and reviewed corrections; CPU MILP placement with L1 displacement; fitted text and branch insertion; source-bound graphs; reusable repeated-edit state; independent size/area/flow-cycle/span witnesses; endpoint review; source-preserving static SVG adapter; visibility-grid routing; rich compound rigid moves with affine ancestry, text and symbol instances; fresh browser pose/style/attachment verification; responsive sequence workspace and redesigned README.
+
+Synthetic results remain diagnostics: layout30/30 vs fixed placement20/30; routing6/6 feasible authored cases vs templates1/6; sequence reuse/fresh recovery/strip/ELK repair each30/30 feasible moves, ELK-only12 steps before overflow. No reuse or learned advantage follows from these ties.
+
+## Validation and reproduction
+
+Latest local suite: **219 passing Python tests**. Includes annotation metric edge cases, source binding/coverage, routing families, independent segment contacts, malformed snapshot/digest/size failures and conservative SVG guards. Browser annotation, native editing, damaged-candidate rejection, native workspace/mobile/pixel probes, comparison controls and all eight public SVG exports pass locally. A wheel builds and its new modules/browser assets import in isolation.
+
+Feature CI: <https://github.com/aamodbhatt/constraint-recovery/actions/runs/40946373419> for `c6e329b`; check its live conclusion and the following commit's run before claiming final CI success. Earlier comparison checkpoint `bf0accf` passed all four jobs in40943787354.
 
 ```sh
 .venv/bin/python -m pytest -q
-.venv/bin/python benchmarks/run.py --output artifacts/benchmark.json
-.venv/bin/python benchmarks/compare_routing.py --output artifacts/routing.json
-.venv/bin/python benchmarks/run_sequences.py --elk --output artifacts/sequences.json
 PYTHON=.venv/bin/python node benchmarks/browser_check.cjs
 PYTHON=.venv/bin/python node benchmarks/compound_check.cjs
+PYTHON=.venv/bin/python node benchmarks/native_pilot_check.cjs
+PYTHON=.venv/bin/python node benchmarks/compare_parallel_routing.cjs
+PYTHON=.venv/bin/python node benchmarks/published_examples_check.cjs
+PYTHON=.venv/bin/python node benchmarks/native_presentation_check.cjs
+PYTHON=.venv/bin/python node benchmarks/annotation_comparison_check.cjs
 ```
 
-For a fresh environment, follow README installation including `pip install -e '.[test,svg]'`, `npm ci --ignore-scripts` and `npx playwright install chromium`. CI repeats the core suite and integration checks. The JSON Schema contract is checked through the test extra.
+Use the repository `.venv`; Node is on PATH. Optional Node dependencies are pinned (ELK0.12.1, Playwright1.62.1). In subprocess wheel tests use `Path(sys.executable).absolute()`, not `resolve()` which follows the venv symlink and loses its dependencies.
 
-Private external data already exists locally:
+Regenerate public annotation previews before labeling:
 
 ```sh
-.venv/bin/python benchmarks/audit_external.py --rows 20 --extended --inventory \
-  --cache-dir .cache/external --offline --output artifacts/audit.json
-node benchmarks/measure_external.cjs --rows 20 --output artifacts/geometry-audit.json
-.venv/bin/python benchmarks/build_external_annotations.py --rows 20 \
-  --output artifacts/annotation-view-audit.json
+PYTHON=.venv/bin/python node benchmarks/measure_native_pilot.cjs
+.venv/bin/python benchmarks/build_native_pilot_demo.py
+node benchmarks/measure_svg.cjs examples/compound.svg artifacts/comparison-geometry.json --snapshot
+.venv/bin/python benchmarks/build_annotation_comparison.py
 ```
 
-`.cache/external/` stores source responses; `.cache/browser-geometry/` stores complete geometry; `.cache/annotation-views/` stores annotation pages and SVG copies. These are ignored. **Do not commit them.** Upstream rights vary by source paper. Public demos and screenshots use authored MIT-licensed examples only.
+Private reconstructed-SVG review packet:
 
-## Files to read first
+```sh
+node benchmarks/measure_external.cjs --rows 20 --snapshot --output artifacts/geometry-snapshot-audit.json
+.venv/bin/python benchmarks/build_external_annotations.py --rows 20 --output artifacts/annotation-snapshot-audit.json
+```
 
-- `README.md` and `ROADMAP.md`: executable scope and remaining milestones.
-- `docs/research-plan.md`: hypotheses, stronger controls, split policy and research gate.
-- `docs/compound-annotation.md`, `data/README.md`, `data/annotation-v2.schema.json`: annotation protocol and limitations.
-- `docs/source-preserving.md`, `docs/routing.md`, `docs/conflict-witnesses.md`: mathematics and implementation limits.
-- `docs/edit-sequences.md`: positive results and important ties with simple baselines.
-- `results/`: complete diagnostic records and explicit denominators.
+Do not commit `.cache`, full private measurements or unlicensed external screenshots. Public Distill artwork retains separate attribution/CC licenses; project MIT terms do not override them. Snapshot hashes validate supplied evidence, not semantic fidelity or identity.
 
-Local demos: `docs/demo/sequence/index.html`, `docs/demo/attachment-review.html`, `docs/demo/primitive-annotation.html` and `docs/demo/styled-portrait.html`. A simple server on 127.0.0.1:8765 may still be running; verify availability before relying on it. The HTML tools also work as local files.
+## Read first / next substantive gate
 
-## Next substantive work
+Read `README.md`, `ROADMAP.md`, `docs/native-pilot.md`, `docs/channel-routing.md`, `docs/annotation-comparison.md`, `docs/compound-editing.md`, `docs/research-plan.md` and `data/README.md`.
 
-1. Obtain independent role/object/relation annotations and retain ambiguity. The current prefix is development data, not a fresh test set. Keep different figures/revisions from the same source paper together in any split. Do not count agent-generated fixture labels as human truth.
-2. Evaluate the implemented conservative **compound-node adapter** on independently reviewed examples and a rights-checked external subset. Current support is explicit rigid moves only; no automatic layout, relabeling, resizing, multipart arrow-label groups, moving containers or arbitrary SVG. Follow the documented source/style/pose verification boundary rather than relaxing checks just to obtain success.
-3. Demonstrate actual external editing coverage and track failures before adding another learned model or a larger demo layer. Broad external complete-figure editing remains 0/19; the authored adapter fixture does not change that denominator.
-4. Train a small contextual role/relation model only after splits/labels are fixed, and compare with tangent-aware geometry and source metadata. Use a measured bottleneck to justify any GPU experiment.
+1. Obtain independent role/object/relation labels using the unlabelled packet. Have reviewers label an overlapping subset separately before inspecting each other's or agent labels. Retain ambiguity and quantify coverage before agreement.
+2. Freeze an unseen, rights-checked source-paper holdout and requests before adapter changes; keep all figures/revisions from a paper in one split. Current native figures are CI regressions and cannot become an untouched holdout retroactively.
+3. Evaluate actual recovery/calibration and edit validity under independent labels and stronger controls. Broaden edge topology checks beyond the existing same-endpoint parallel groups; do not turn warning absence into a global proof.
+4. Train contextual role/relationship models only after labels/splits are fixed. Justify GPU spending with a measured local bottleneck. Draft research claims only after the held-out evidence warrants them.
 
-An edit request is not evidence that the true source graph makes the requested layout feasible. Do not remove graph hypotheses or relationships merely to make an edit succeed. A genuine cycle may require an honest refusal. No novelty, human-intent or pixel-level guarantee is established by the current checker.
+Local demo entry points: `docs/demo/native-pilot/index.html`, `docs/demo/native-pilot/review/index.html`, `docs/demo/annotation-comparison.html` and `docs/demo/sequence/index.html`. A local server on127.0.0.1:8765 may still be running. HTML views also open locally.

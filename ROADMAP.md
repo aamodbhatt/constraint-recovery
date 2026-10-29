@@ -28,14 +28,17 @@ First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone
     - [ ] Independent human review and an untouched authoring-origin holdout; crossing/shared-segment safety beyond node envelopes.
 - Add strong heuristics + ELK and direct source-editing baselines.
   - [x] Tangent-aware endpoint heuristic and a pinned ELK layout configuration.
-  - [ ] Direct source-editing baseline and independent real-diagram labels.
+  - [x] Node-only and equal-motion connector translation controls on the fixed five-source native pilot; retain refusals and the stronger-control tie.
+  - [ ] Independent real-diagram labels and comparisons with contemporary diagram-editing tools.
 - Evaluate edit sequences, style/composition holdouts and impossible requests.
   - [x] First fail-stop sequence pilot with fresh recovery, reuse, topological-strip, ELK and ELK-repair controls. [Findings](docs/edit-sequences.md). Reuse has no completion advantage on these motifs.
   - [ ] Independently annotated external sequences and held-out composition/style evaluation.
 - [x] Replace finite routing candidates with a bounded orthogonal visibility-grid router; retain four center ports and explicit clearance/search limits. [Paired diagnostic](docs/routing.md).
+- [x] Add bounded ordered channel tracks and a planner-independent serialized-shaft contact check for compatible parallel connections. [Math and limits](docs/channel-routing.md). Broader topology remains open.
 - Add browser-measured font geometry and rendered visual regression coverage.
   - [x] Add real-browser checks for inverse font scaling, text containment and the interactive attachment-review workflow on authored examples.
-  - [ ] Expand rendered checks to external figures and use measured glyph bounds during layout.
+  - [x] Native implicit-size pixel-projection regressions and fresh checks of all eight published SVG exports; regenerate review pages from source-bound browser snapshots. These are bounded regressions, not full pixel/semantic fidelity.
+  - [ ] Expand rendering/annotation evaluation to an unseen source-paper set and use measured glyph bounds during layout.
 - Add ambiguity review and minimal conflicting-constraint explanations.
   - [x] Independent arithmetic witnesses for positive flow cycles, path-span, node-size and area bounds. [Scope](docs/conflict-witnesses.md).
   - [ ] Minimum conflicting sets/repairs and container/role ambiguity review.
@@ -59,4 +62,4 @@ Before spending credits, establish a reproducible data split, a local learned ba
 
 ## Handoff
 
-Run the commands in README.md before making new claims. Next work should address the zero-support external audit: broader, non-destructive SVG ingestion and independently reviewed relationships. The first local learned model is available, but ties a strong rule. Do not market synthetic results as comparison with contemporary AI diagram editors. No GPU bottleneck has been demonstrated.
+Run the commands in README.md before making new claims. Next work should obtain independent compound-object/relationship labels and freeze an unseen source-paper holdout. The native pilot demonstrates conditional editing on3/5 development figures; the separate reconstructed-SVG audit remains0/19 and broader ingestion remains open. The first local learned model is available, but ties a strong rule. Do not market synthetic results as comparison with contemporary AI diagram editors. No GPU bottleneck has been demonstrated.

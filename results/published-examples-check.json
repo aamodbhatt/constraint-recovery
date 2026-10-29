@@ -10,6 +10,7 @@
       "source_sha256": "45495b3cb50e1bbe260f5ccb5d6cc1abf233c3bae091741da0ba500dbfc6a940",
       "output_sha256": "9c4247b2562b01cf2c7b2b21d1ff763d7769f03863c6e1c81a46de47adc07be9",
       "source_state_binding": true,
+      "full_derived_state_reconstructed": true,
       "original_annotation_preserved": true,
       "fresh_style_pose_attachment_checks": true,
       "parallel_contacts": []
@@ -19,6 +20,7 @@
       "source_sha256": "9c4247b2562b01cf2c7b2b21d1ff763d7769f03863c6e1c81a46de47adc07be9",
       "output_sha256": "b1967ba24d745d64288bacf0bece9348abc848166a37f1ba599638aa788506a9",
       "source_state_binding": true,
+      "full_derived_state_reconstructed": true,
       "original_annotation_preserved": true,
       "fresh_style_pose_attachment_checks": true,
       "parallel_contacts": []
@@ -28,6 +30,7 @@
       "source_sha256": "36dc327998c717ab14f234288cc8ddf6544669e9acc222c0c6be9e10f55159ad",
       "output_sha256": "23352468622a68fb6268f2066180fa02550ad34f926146de734d250cb3c77f10",
       "source_state_binding": true,
+      "full_derived_state_reconstructed": true,
       "original_annotation_preserved": true,
       "fresh_style_pose_attachment_checks": true,
       "parallel_contacts": [
@@ -39,6 +42,7 @@
       "source_sha256": "23352468622a68fb6268f2066180fa02550ad34f926146de734d250cb3c77f10",
       "output_sha256": "4b599719235595a106d6fc3a59cb1e4dad1467668768f4c78d06d8b66970f871",
       "source_state_binding": true,
+      "full_derived_state_reconstructed": true,
       "original_annotation_preserved": true,
       "fresh_style_pose_attachment_checks": true,
       "parallel_contacts": [
@@ -50,6 +54,7 @@
       "source_sha256": "36dc327998c717ab14f234288cc8ddf6544669e9acc222c0c6be9e10f55159ad",
       "output_sha256": "500f762d406d41f031eee286ff895a17b8822b582d6f64685b07f717039d5faf",
       "source_state_binding": true,
+      "full_derived_state_reconstructed": true,
       "original_annotation_preserved": true,
       "fresh_style_pose_attachment_checks": true,
       "parallel_contacts": [
@@ -61,6 +66,7 @@
       "source_sha256": "500f762d406d41f031eee286ff895a17b8822b582d6f64685b07f717039d5faf",
       "output_sha256": "e527cd44280cf523bbb7c98384bec7d512f400fbed1bc64d14dde3423487061a",
       "source_state_binding": true,
+      "full_derived_state_reconstructed": true,
       "original_annotation_preserved": true,
       "fresh_style_pose_attachment_checks": true,
       "parallel_contacts": [
@@ -72,6 +78,7 @@
       "source_sha256": "7c6c02f31025c964d62aa5254b41c2e12d85bf6868cc85007535f68d9504292a",
       "output_sha256": "167a52bcc20b0227421dba63c7b6ea9271c332e003ccd806dc412a415605dda5",
       "source_state_binding": true,
+      "full_derived_state_reconstructed": true,
       "original_annotation_preserved": true,
       "fresh_style_pose_attachment_checks": true,
       "parallel_contacts": []
@@ -81,6 +88,7 @@
       "source_sha256": "167a52bcc20b0227421dba63c7b6ea9271c332e003ccd806dc412a415605dda5",
       "output_sha256": "053fe9b3b93b74e3c6ee62bfa1490d33e56af96e75aad7b63d4455336be67e26",
       "source_state_binding": true,
+      "full_derived_state_reconstructed": true,
       "original_annotation_preserved": true,
       "fresh_style_pose_attachment_checks": true,
       "parallel_contacts": []
