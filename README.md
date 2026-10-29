@@ -1,135 +1,100 @@
 # Constraint recovery
 
+Recover inspectable relationships from scientific SVGs, make structural edits, and check the exported result.
+
 [![Tests](https://github.com/aamodbhatt/constraint-recovery/actions/workflows/tests.yml/badge.svg)](https://github.com/aamodbhatt/constraint-recovery/actions/workflows/tests.yml)
+![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-365847?style=flat-square)
+![CPU only](https://img.shields.io/badge/Runtime-CPU_only-e8eee8?style=flat-square&labelColor=365847)
+[![MIT](https://img.shields.io/badge/License-MIT-e8eee8?style=flat-square&labelColor=365847)](LICENSE)
 
-Recover an inspectable graph from a simple scientific SVG, edit its layout through explicit constraints, and check the exported result.
+[Demos](#demos) · [Quickstart](#quickstart) · [How it works](#how-it-works) · [Research status](#research-status) · [Roadmap](ROADMAP.md)
 
-**Status: geometric baseline plus a first local learning pilot.** The default engine uses explicit geometry. An optional endpoint ranker is trained on synthetic data; it currently ties a stronger hand-written heuristic. Real-diagram relationship evaluation is not complete and no research novelty is claimed.
+![An actual source diagram and its checked portrait edit with an explicit branch](docs/assets/readme-cover.svg)
 
-![Local before-and-after example with verification evidence](docs/demo/preview.png)
+**Local research prototype.** The current system combines geometric recovery, optional learned endpoint ranking, explicit review and constrained editing. Broad real-figure editing and a learned advantage remain open research goals.
 
-The checked-in [example report](docs/demo/portrait.html) and SVGs can be downloaded and opened locally. On the first local 30-case synthetic run, the solver pipeline passed all 30 checks, versus 20 for the simple fixed-placement baseline. See [full results](results/local-baseline.json) for case-level errors and scope.
+## Demos
 
-## Try it
+| Follow an edit | Review an arrow | Annotate a compound object |
+|:---|:---|:---|
+| Six accepted edits, followed by an impossible request with a checkable explanation. | Inspect ambiguous endpoint candidates and save source-bound choices. | Group shapes and text into objects; record relationships and uncertainty. |
+| [Edit-sequence workspace →](docs/demo/sequence/index.html) | [Attachment review →](docs/demo/attachment-review.html) | [Compound annotation →](docs/demo/primitive-annotation.html) |
 
-Python 3.10+; CPU only. No API keys, model downloads, or cloud GPU.
+These are local HTML tools. Clone the repository, run `python -m http.server 8765`, then open [the workspace](http://127.0.0.1:8765/docs/demo/sequence/index.html). The public demos use examples authored for this project.
+
+## Quickstart
+
+Python 3.10+. No API keys, model downloads or cloud GPU.
 
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -e '.[test]'
+pip install -e '.[test,svg]'
 
-constraint-recovery recover examples/pipeline.svg --output artifacts/recovered.json
 constraint-recovery edit examples/pipeline.svg \
   --labels examples/labels.json \
-  --font-size 20 --width 300 --height 650 --flow vertical \
-  --output artifacts/pipeline-portrait.svg
+  --width 300 --height 650 --font-size 20 --flow vertical \
+  --output artifacts/edited.svg
 ```
 
-Open `artifacts/pipeline-portrait.html` in a local browser. The command also writes an editable SVG, the resulting constraint graph, and a JSON verification report. To run from an existing environment without installation, prefix commands with `PYTHONPATH=src python3 -m constraint_recovery` instead of `constraint-recovery`.
+Open `artifacts/edited.html` for the comparison and evidence. The command also saves the SVG, a source-bound constraint graph and a verification report. An infeasible or unverified edit exits with code 2 and writes no new diagram. Older output files may still exist: check the exit status.
 
-## Current pipeline
+## What you can do
+
+| Capability | What it preserves or exposes | Details |
+|:---|:---|:---|
+| **Reflow and relabel** | Accepted node/edge identities, protected labels, requested dimensions and flow | [CLI example](docs/demo/portrait.html) |
+| **Add a branch** | Existing relationships; the new node and arrow are explicit requests | [Branch example](docs/demo/branch.html) |
+| **Patch the source SVG** | Supported CSS, transforms, definitions and element hierarchy | [Source-preserving subset](docs/source-preserving.md) |
+| **Resolve ambiguity** | Candidate evidence and choices bound to the exact source | [Review workflow](docs/attachment-review.md) |
+| **Explain a contradiction** | Independently checkable node-size, area, path-span or cycle witnesses | [Math and witnesses](docs/conflict-witnesses.md) |
+| **Inspect complex figures** | Browser-derived text/shape envelopes and compound-object annotations | [Geometry](docs/browser-geometry.md) · [Annotation](docs/compound-annotation.md) |
+
+The default exporter normalizes styling. `--source-preserving` supports a broader static subset, including CSS, uniform transforms and Bezier connector recovery. Neither mode edits arbitrary SVGs. Compound annotations are not yet a general editing adapter.
+
+## How it works
 
 ```text
-Supported SVG → recovered nodes and directed edges → optional human review
-              → text fitting → MILP placement → connector routing
-              → SVG serialization → fresh SVG import → independent checks
+SVG → observed geometry → reviewed relationships
+    → text fitting + constrained placement + routing
+    → serialized SVG → fresh import + independent checks
 ```
 
-- Import rectangular nodes, editable text, and directed line/polyline/absolute M/L connectors.
-- Infer text ownership by containment and connector ownership by boundary proximity. Ambiguous endpoints are rejected.
-- Inspect the JSON graph; `edit --constraints reviewed.json` accepts corrections to source/target relationships while retaining source text and geometry. New graphs are bound to the input SVG’s SHA-256 digest and require matching primitive IDs. Saved output sidecars bind to the newly written SVG for the next edit. Legacy graphs without a digest remain accepted with an explicit warning.
-- Apply replacement labels, font-size changes, and new canvas dimensions. `--flow vertical` or `horizontal` explicitly requests a directed flow layout; `free` preserves only graph connectivity and geometric feasibility.
-- Insert a requested branch with `--branch SOURCE NEW_ID "Label"`; the original node/edge identities remain protected and the report records the intended graph addition.
-- Fit labels with conservative Pillow font metrics. Place nodes with SciPy/HiGHS mixed-integer optimization: minimize L1 displacement subject to canvas bounds, fixed fitted sizes, pairwise nonoverlap and optional flow constraints.
-- Route connectors with an orthogonal visibility grid and bend-aware shortest-path search, with eight-unit rectangle clearance. The earlier finite-template router remains available through `--router candidates`.
-- Re-import the exported SVG and check node/edge identities, directed connectivity, labels, typography bounds, node overlaps, arrow attachments and node-crossing connectors.
+Placement minimizes total L1 node displacement subject to canvas bounds, nonoverlap and declared flow. The router searches an orthogonal visibility grid with explicit clearance and bend cost. Verification checks the accepted graph and conservative geometry after serialization.
 
-The checker checks compliance with the accepted graph. **It cannot prove that the recovered graph expresses the author's intended meaning.**
+**A correct edit of an accepted graph does not prove that the graph captures the author’s intent.** Typography estimates, stroke/marker extents, edge crossings, unsupported artwork and numerical/search limits are documented in the [method notes](docs/routing.md) and [scope](docs/source-preserving.md).
 
-Ambiguous arrow ownership can be reviewed locally:
+## Research status
 
-```sh
-constraint-recovery review examples/ambiguous.svg --output artifacts/review.json
-# Open artifacts/review.html, choose endpoints, and download attachment-overrides.json.
-constraint-recovery edit examples/ambiguous.svg \
-  --attachments attachment-overrides.json --output artifacts/accepted.svg
-```
+| Experiment | Observed result | What it means |
+|:---|:---|:---|
+| [Endpoint ranking](results/attachment-learning.json) | The synthetic-trained model ties the tangent-aware heuristic | No established learned advantage |
+| [Repeated edits](docs/edit-sequences.md) | 30/30 feasible steps pass; fresh recovery and simple packing also pass | Working behavior, not a demonstrated reuse advantage |
+| [Routing](docs/routing.md) | Visibility search solves all six feasible diagnostic cases; templates solve one | A specific routing capability on authored cases |
+| [External SVG audit](results/browser-geometry-audit.json) | All 1,429 primitives across 19 available sources measured | Geometry acquisition; complete-figure edit support is still **0/19** |
+| [Annotation views](results/annotation-view-audit.json) | 19 private views built, zero external annotations created | Infrastructure for independent data collection |
 
-The [interactive example](docs/demo/attachment-review.html) and [workflow details](docs/attachment-review.md) show source-hash-bound choices. This resolves endpoint decisions within the supported subset; unsupported artwork and ambiguous text ownership still require further work.
+The next research step is independent annotation and a conservative compound-node adapter, followed by evaluation on unseen papers and edit sequences. See the [research plan](docs/research-plan.md), [data protocol](data/README.md) and [model card](models/README.md). No paper-ready novelty claim is made.
 
-```sh
-constraint-recovery edit examples/pipeline.svg \
-  --branch model review "Independent review" --height 450 \
-  --output artifacts/branch.svg
-```
+Related work: [Constraint SVG](https://constraints.cs.washington.edu/web/csvg-uwtr-2000-08-04.pdf), [Mockdown](https://www.cs.cornell.edu/~jsarracino/files/mockdown-final.pdf), [Penrose](https://penrose.cs.cmu.edu/), [constraint-graph layout generation](https://arxiv.org/abs/2011.13417), [SciDiagramEdit](https://arxiv.org/abs/2607.15272), [InfoEdit](https://arxiv.org/abs/2609.33286).
 
-A portable [branch example](docs/demo/branch.html) is included alongside the original portrait demo.
-
-An opt-in [source-preserving importer](docs/source-preserving.md) now handles static CSS, translated/uniformly scaled groups and quadratic/cubic connectors while patching original elements. Install `pip install -e '.[svg,test]'` and pass `--source-preserving`. See the [styled example](docs/demo/styled-portrait.html). This remains a narrow subset: the repeated external audit still accepts zero complete figures.
-
-For a rejected figure, `constraint-recovery inspect figure.svg --output artifacts/inventory.json` produces a non-rendering inventory of primitives, bounds where available, text anchors and reference signals. It does not turn unsupported artwork into an editable graph. The 19 available external development SVGs contain 1,429 visible-tree primitives and 136 text anchors inside multiple non-background rectangles, motivating explicit container/role recovery. These are source observations, not gold semantic labels.
-
-The optional [browser geometry bridge](docs/browser-geometry.md) now measures all 1,429 primitives in those 19 sources, including text, rotations and referenced instances, with source scripts disabled and secondary resources blocked. Full measurements remain private. This is annotation infrastructure; complete-figure editing coverage remains zero.
-
-The [compound annotation tool](docs/compound-annotation.md) lets a reviewer group shapes/text into nodes, containers and connectors, then record relationships and uncertainty. It provides no model suggestions and retains explicit unassigned coverage. [The authored demo](docs/demo/primitive-annotation.html) is available locally; no external annotations have been promoted to human ground truth.
-
-## First learning and external-data checkpoint
-
-- A CPU-trained, inspectable endpoint ranker with opt-in CLI integration and abstention. See [model card](models/README.md).
-- Separate synthetic training, validation and test seeds, plus a held-out scene family. The model improves over nearest-boundary matching but **ties the tangent-aware heuristic**.
-- A fixed 20-row external dataset audit: 19 SVGs, one missing source, and zero supported by the strict baseline parser. All rows and first rejection reasons are retained; source figures are not redistributed.
-- A pinned ELK 0.12.1 layout comparison with supplied graphs, fixed canvas checks, and case-level failures. This isolates layout from learned recovery.
-
-See [phase findings](docs/phase1-findings.md), [annotation protocol](data/README.md), and [experiment results](results/attachment-learning.json). The immediate bottleneck is real SVG ingestion and independent annotations, not GPU training.
-
-```sh
-PYTHONPATH=src python benchmarks/learn_attachments.py
-constraint-recovery recover examples/pipeline.svg \
-  --endpoint-model models/attachment-ranker.json \
-  --output artifacts/learned-recovery.json
-
-# Optional mature layout baseline (requires Node.js):
-npm ci --ignore-scripts
-PYTHONPATH=src python benchmarks/compare_elk.py
-```
-
-## Scope and limits
-
-The default exporter normalizes styling and geometry. It retains node IDs, labels, basic fills/strokes and accepted connectivity. Its strict importer rejects inherited styling, transforms and curves. The optional source-preserving mode supports a broader static subset described above, but neither mode edits arbitrary SVGs. Nested containers, plots, raster images, text outlines and decorative or unmarked lines remain unsupported. Start with the supplied examples or similarly simple diagrams.
-
-Text sizing is a conservative local estimate, not browser pixel-level certification. Routing searches a bounded orthogonal graph with four center ports per node, not every possible curve or attachment point. Clearances, search limits, large diagrams, dense routing and solver time limits can prevent a usable result. Edge-edge crossings and marker/stroke extents are not certified. The baseline caps inputs at 40 nodes.
-
-When an edit is infeasible or fails verification, the CLI exits with code 2 and does not export a new diagram. It does not silently shrink text or remove nodes. A pre-existing file at the output path is not removed on failure: check the exit status rather than treating its presence as success. Output must differ from the input path.
-
-For supported mathematical contradictions, it saves a `.failure.json` witness identifying an oversized node, excess rectangle area, a positive flow cycle, or a path longer than the canvas. `constraint-recovery check-witness file.failure.json` verifies the saved arithmetic without a layout solver. See [witnesses and limits](docs/conflict-witnesses.md); a missing witness does not imply feasibility.
-
-## Tests and benchmark
+## Reproduce
 
 ```sh
 python -m pytest -q
-PYTHONPATH=src python benchmarks/run.py --output artifacts/benchmark.json
-PYTHONPATH=src python benchmarks/compare_routing.py --output artifacts/routing-comparison.json
-# Optional real-browser integration (npm ci and playwright install chromium first):
+python benchmarks/run_sequences.py --output artifacts/sequences.json
+
+# Optional ELK and browser checks:
+npm ci --ignore-scripts
+npx playwright install chromium
+python benchmarks/run_sequences.py --elk --output artifacts/sequences-elk.json
 node benchmarks/browser_check.cjs
 ```
 
-The original seeded 30-case engineering benchmark covers longer labels, larger fonts and portrait conversion on generated chains. It compares the solver pipeline with a simple baseline that scales positions and fits text while keeping node placements fixed. Full case records and failures are retained. That original comparison is **not** against ELK, a learned model, an LLM, or external scientific diagrams; the ELK and learning pilots are separate experiments, with their own limitations.
+CI repeats the Python suite, synthetic experiments and browser checks. Results retain case-level failures and skipped requests. GPU use remains behind a [measured-need gate](ROADMAP.md#cloud-gpu-gate).
 
-A separate [routing diagnostic](results/routing-comparison.json) fixes geometry and eight-unit clearance for both routers: visibility search solves all six feasible authored cases, while templates solve one. Both reject the blocked seventh case. These deliberately challenging examples are not a population accuracy estimate. [Routing details](docs/routing.md) and an [authored maze SVG](docs/demo/routing-maze.svg) are included.
+---
 
-The [repeated-edit pilot](docs/edit-sequences.md) completes 30 feasible steps across five authored sequences and rejects five impossible requests. Fresh recovery and a simple topological strip tie graph reuse on completion, so the experiment does **not** establish a reuse advantage. A portable [sequence walkthrough](docs/demo/sequence/index.html) and all baseline records are included.
+MIT · [License](LICENSE) · [Roadmap](ROADMAP.md) · [Saved handoff](HANDOFF.md)
 
-## Research direction
-
-The research target is recovering latent relationships from supported existing SVGs, distinguishing intended constraints from incidental geometry, representing uncertainty, and improving preservation over repeated edits.
-
-Relevant prior work includes [Constraint SVG](https://constraints.cs.washington.edu/web/csvg-uwtr-2000-08-04.pdf), [Mockdown](https://www.cs.cornell.edu/~jsarracino/files/mockdown-final.pdf), [Penrose](https://penrose.cs.cmu.edu/), [constraint-graph layout generation](https://arxiv.org/abs/2011.13417), [SciDiagramEdit](https://arxiv.org/abs/2607.15272), and [InfoEdit](https://arxiv.org/abs/2609.33286). Constraint-based SVG layout and AI diagram editing are established areas; this repository does not claim to invent them.
-
-See [ROADMAP.md](ROADMAP.md) for milestones and the cloud-training gate.
-
-[The next research gate](docs/research-plan.md) specifies the independent-data, holdout and stronger-baseline requirements before making a novelty claim or spending GPU credits.
-
-## License
-
-MIT. See [LICENSE](LICENSE).
+External figure rights remain with their source papers; private source caches and annotation pages are not redistributed with this repository.
