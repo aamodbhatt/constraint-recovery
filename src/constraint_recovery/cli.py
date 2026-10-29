@@ -1,5 +1,6 @@
 import argparse
 import html
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -73,11 +74,21 @@ def main():
         if args.attachments:
             from .recovery import load_overrides
             overrides=load_overrides(json.loads(args.attachments.read_text()),source_text)
+        reviewed=None
+        effective_overrides=overrides
+        if args.command=="edit" and args.constraints:
+            reviewed=Diagram.from_dict(json.loads(args.constraints.read_text()))
+            if reviewed.source_sha256 and reviewed.source_sha256!=hashlib.sha256(source_text.encode("utf-8")).hexdigest():
+                raise DiagramError("Reviewed constraint graph belongs to a different source SVG")
+            effective_overrides={edge.id:{"source":edge.source,"target":edge.target} for edge in reviewed.edges}
+            for key,values in (overrides or {}).items():
+                if key not in effective_overrides or any(effective_overrides[key].get(role)!=value for role,value in values.items()):
+                    raise DiagramError("Reviewed graph conflicts with explicit attachment choices")
         document = None
         if args.source_preserving:
             from .source import SourceDocument
-            document = SourceDocument(source_text,attachment_model=model,attachment_overrides=overrides,review=args.command=="review")
-        original = (document.review if args.command=="review" else document.diagram) if document else parse_svg(source_text,attachment_model=model,attachment_overrides=overrides,review=args.command=="review")
+            document = SourceDocument(source_text,attachment_model=model,attachment_overrides=effective_overrides,review=args.command=="review")
+        original = (document.review if args.command=="review" else document.diagram) if document else parse_svg(source_text,attachment_model=model,attachment_overrides=effective_overrides,review=args.command=="review")
         if args.command=="review":
             from .review import render_review
             if args.output.suffix.lower()!=".json":
@@ -94,14 +105,15 @@ def main():
             return 0
         declared = original
         if args.constraints:
-            declared = Diagram.from_dict(json.loads(args.constraints.read_text()))
-            for edge in declared.edges:
-                if any(getattr(edge,role)!=value for role,value in (overrides or {}).get(edge.id,{}).items()):
-                    raise DiagramError("Reviewed graph conflicts with explicit attachment choices")
+            declared = reviewed
             if {n.id for n in declared.nodes}!={n.id for n in original.nodes} or {e.id for e in declared.edges}!={e.id for e in original.edges}:
                 raise DiagramError("Reviewed graph IDs do not match the source SVG")
             # Only relationship corrections are accepted; source geometry/text remains authoritative.
-            declared = Diagram(original.width,original.height,original.nodes,declared.edges,original.warnings).validate()
+            warnings=list(original.warnings)
+            if not declared.source_sha256:
+                warnings.append("Legacy constraint graph has no source hash; only node/edge IDs were checked")
+            declared = Diagram(original.width,original.height,original.nodes,declared.edges,warnings,
+                               source_sha256=original.source_sha256).validate()
         if args.branch:
             from .operations import add_branch
             for source,new_id,label in args.branch:
@@ -111,18 +123,23 @@ def main():
             raise DiagramError("Labels JSON must be an object")
         result,solver = edit(declared,labels,args.width,args.height,args.font_size,flow=args.flow,router=args.router)
         output = document.export(result) if document else render_svg(result)
+        if not output.endswith("\n"):
+            output+="\n"
         reparsed = SourceDocument(output,tolerance=.01).diagram if document else parse_svg(output,tolerance=.01)
         checks = verify(declared,reparsed,labels,args.font_size or 0,flow=args.flow,gap=24)
         if not checks["passed"]:
             raise DiagramError("Independent verification failed: "+"; ".join(checks["errors"]))
+        result.source_sha256=hashlib.sha256(output.encode("utf-8")).hexdigest()
         report = {"verification":checks,"solver":solver,"warnings":result.warnings,
+                  "input_sha256":original.source_sha256,"output_sha256":result.source_sha256,
                   "requested_branch_insertions":args.branch or [],
                   "export_mode":"source-preserving" if document else "normalized",
                   "attachment_decisions":model.decisions if model else [],
                   "attachment_overrides":overrides or {},
+                  "reviewed_constraint_graph":str(args.constraints) if args.constraints else None,
                   "input":str(args.input),"node_count":len(result.nodes),"edge_count":len(result.edges)}
         args.output.parent.mkdir(parents=True,exist_ok=True)
-        args.output.write_text(output+"\n")
+        args.output.write_bytes(output.encode("utf-8"))
         args.output.with_suffix(".report.json").write_text(json.dumps(report,indent=2)+"\n")
         args.output.with_suffix(".constraints.json").write_text(json.dumps(result.to_dict(),indent=2)+"\n")
         # Object embeds keep source SVG separate; report is local, with no remote scripts or assets.

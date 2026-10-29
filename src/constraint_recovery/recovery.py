@@ -70,7 +70,7 @@ def assemble(width,height,nodes,connectors,warnings,source_text,tolerance=8,atta
                 "warnings":warnings+["Review observations are not an accepted constraint graph; model scores are not calibrated correctness probabilities"]}
     if overrides:
         warnings=warnings+["Explicit attachment overrides applied; inspect the requested relationships"]
-    return Diagram(width,height,nodes,edges,warnings).validate()
+    return Diagram(width,height,nodes,edges,warnings,source_sha256=hashlib.sha256(source_text.encode()).hexdigest()).validate()
 
 
 def load_overrides(data,source_text):

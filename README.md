@@ -36,7 +36,7 @@ Supported SVG → recovered nodes and directed edges → optional human review
 
 - Import rectangular nodes, editable text, and directed line/polyline/absolute M/L connectors.
 - Infer text ownership by containment and connector ownership by boundary proximity. Ambiguous endpoints are rejected.
-- Inspect the JSON graph; `edit --constraints reviewed.json` accepts corrections to source/target relationships while retaining source text and geometry. It requires matching primitive IDs.
+- Inspect the JSON graph; `edit --constraints reviewed.json` accepts corrections to source/target relationships while retaining source text and geometry. New graphs are bound to the input SVG’s SHA-256 digest and require matching primitive IDs. Saved output sidecars bind to the newly written SVG for the next edit. Legacy graphs without a digest remain accepted with an explicit warning.
 - Apply replacement labels, font-size changes, and new canvas dimensions. `--flow vertical` or `horizontal` explicitly requests a directed flow layout; `free` preserves only graph connectivity and geometric feasibility.
 - Insert a requested branch with `--branch SOURCE NEW_ID "Label"`; the original node/edge identities remain protected and the report records the intended graph addition.
 - Fit labels with conservative Pillow font metrics. Place nodes with SciPy/HiGHS mixed-integer optimization: minimize L1 displacement subject to canvas bounds, fixed fitted sizes, pairwise nonoverlap and optional flow constraints.
