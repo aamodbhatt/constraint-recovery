@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "declared_on": "2026-10-30",
+  "track": "author-published-native-svg-development-pilot",
+  "selection": "Purposive fixed five-figure pilot from two Distill articles, chosen by subject and availability of original vector assets before edit attempts. No success-based replacement. Not a random sample or an untouched holdout.",
+  "article_clusters": 2,
+  "annotation_policy": "Agent-reviewed exploratory assumptions; independent human annotations and recovery accuracy remain unestablished.",
+  "cases": [
+    {
+      "id": "distill-rnn-basic",
+      "repo": "post--augmented-rnns",
+      "revision": "fdc3526167133f5a97cee9e7cb48af293e67d66d",
+      "path": "public/assets/rnn_basic_rnn.svg",
+      "git_blob": "25971606ee2a53cf7dc4a50fec36a45a434adb65",
+      "source_url": "https://raw.githubusercontent.com/distillpub/post--augmented-rnns/fdc3526167133f5a97cee9e7cb48af293e67d66d/public/assets/rnn_basic_rnn.svg",
+      "article_url": "https://distill.pub/2016/augmented-rnns/",
+      "license": "CC-BY-2.0",
+      "source_sha256": "45495b3cb50e1bbe260f5ccb5d6cc1abf233c3bae091741da0ba500dbfc6a940",
+      "authors": [
+        "Chris Olah",
+        "Shan Carter"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/2.0/",
+      "rights_checked_on": "2026-10-30",
+      "rights_evidence": "Article reuse section; selected source is an original article illustration without a third-party attribution exception. Repository code license does not replace diagram license."
+    },
+    {
+      "id": "distill-rnn-memory",
+      "repo": "post--augmented-rnns",
+      "revision": "fdc3526167133f5a97cee9e7cb48af293e67d66d",
+      "path": "public/assets/rnn_memory.svg",
+      "git_blob": "e4f40c62d46f7799c299307a1f953343ee9f9068",
+      "source_url": "https://raw.githubusercontent.com/distillpub/post--augmented-rnns/fdc3526167133f5a97cee9e7cb48af293e67d66d/public/assets/rnn_memory.svg",
+      "article_url": "https://distill.pub/2016/augmented-rnns/",
+      "license": "CC-BY-2.0",
+      "source_sha256": "c81ed722d5bee6e02681c0b934c6ab2fef72c7649ecc7fefb35767eba92af5b7",
+      "authors": [
+        "Chris Olah",
+        "Shan Carter"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/2.0/",
+      "rights_checked_on": "2026-10-30",
+      "rights_evidence": "Article reuse section; selected source is an original article illustration without a third-party attribution exception. Repository code license does not replace diagram license."
+    },
+    {
+      "id": "distill-rnn-read",
+      "repo": "post--augmented-rnns",
+      "revision": "fdc3526167133f5a97cee9e7cb48af293e67d66d",
+      "path": "public/assets/rnn_read.svg",
+      "git_blob": "79e299b0b7cb5678eb4b541f58898136154f410d",
+      "source_url": "https://raw.githubusercontent.com/distillpub/post--augmented-rnns/fdc3526167133f5a97cee9e7cb48af293e67d66d/public/assets/rnn_read.svg",
+      "article_url": "https://distill.pub/2016/augmented-rnns/",
+      "license": "CC-BY-2.0",
+      "source_sha256": "36dc327998c717ab14f234288cc8ddf6544669e9acc222c0c6be9e10f55159ad",
+      "authors": [
+        "Chris Olah",
+        "Shan Carter"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/2.0/",
+      "rights_checked_on": "2026-10-30",
+      "rights_evidence": "Article reuse section; selected source is an original article illustration without a third-party attribution exception. Repository code license does not replace diagram license."
+    },
+    {
+      "id": "distill-graph-tasks",
+      "repo": "post--understanding-gnns",
+      "revision": "917b5ea81966de18a08600a3acdb809b009ef478",
+      "path": "public/images/graph-tasks.svg",
+      "git_blob": "df1825882d1b5f1eeac9663c20b0d93c7cabf9bc",
+      "source_url": "https://raw.githubusercontent.com/distillpub/post--understanding-gnns/917b5ea81966de18a08600a3acdb809b009ef478/public/images/graph-tasks.svg",
+      "article_url": "https://distill.pub/2021/understanding-gnns/",
+      "license": "CC-BY-4.0",
+      "source_sha256": "c55beae1c402cd430eba7a369d5afaf99395713bf6a3be0696bd4ccf17cfc617",
+      "authors": [
+        "Ameya Daigavane",
+        "Balaraman Ravindran",
+        "Gaurav Aggarwal"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "rights_checked_on": "2026-10-30",
+      "rights_evidence": "Article reuse section; selected source is an original article illustration without a third-party attribution exception. Repository code license does not replace diagram license."
+    },
+    {
+      "id": "distill-standard-networks",
+      "repo": "post--understanding-gnns",
+      "revision": "917b5ea81966de18a08600a3acdb809b009ef478",
+      "path": "public/images/standard-neural-networks.svg",
+      "git_blob": "4f3768df11d3a73afcbbcc6aaa1937be42c3a7d7",
+      "source_url": "https://raw.githubusercontent.com/distillpub/post--understanding-gnns/917b5ea81966de18a08600a3acdb809b009ef478/public/images/standard-neural-networks.svg",
+      "article_url": "https://distill.pub/2021/understanding-gnns/",
+      "license": "CC-BY-4.0",
+      "source_sha256": "7c6c02f31025c964d62aa5254b41c2e12d85bf6868cc85007535f68d9504292a",
+      "authors": [
+        "Ameya Daigavane",
+        "Balaraman Ravindran",
+        "Gaurav Aggarwal"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "rights_checked_on": "2026-10-30",
+      "rights_evidence": "Article reuse section; selected source is an original article illustration without a third-party attribution exception. Repository code license does not replace diagram license."
+    }
+  ]
+}
