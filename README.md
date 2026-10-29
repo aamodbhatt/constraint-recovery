@@ -45,6 +45,17 @@ Supported SVG → recovered nodes and directed edges → optional human review
 
 The checker checks compliance with the accepted graph. **It cannot prove that the recovered graph expresses the author's intended meaning.**
 
+Ambiguous arrow ownership can be reviewed locally:
+
+```sh
+constraint-recovery review examples/ambiguous.svg --output artifacts/review.json
+# Open artifacts/review.html, choose endpoints, and download attachment-overrides.json.
+constraint-recovery edit examples/ambiguous.svg \
+  --attachments attachment-overrides.json --output artifacts/accepted.svg
+```
+
+The [interactive example](docs/demo/attachment-review.html) and [workflow details](docs/attachment-review.md) show source-hash-bound choices. This resolves endpoint decisions within the supported subset; unsupported artwork and ambiguous text ownership still require further work.
+
 ```sh
 constraint-recovery edit examples/pipeline.svg \
   --branch model review "Independent review" --height 450 \
@@ -93,6 +104,8 @@ For supported mathematical contradictions, it saves a `.failure.json` witness id
 python -m pytest -q
 PYTHONPATH=src python benchmarks/run.py --output artifacts/benchmark.json
 PYTHONPATH=src python benchmarks/compare_routing.py --output artifacts/routing-comparison.json
+# Optional real-browser integration (npm ci and playwright install chromium first):
+node benchmarks/browser_check.cjs
 ```
 
 The original seeded 30-case engineering benchmark covers longer labels, larger fonts and portrait conversion on generated chains. It compares the solver pipeline with a simple baseline that scales positions and fits text while keeping node placements fixed. Full case records and failures are retained. That original comparison is **not** against ELK, a learned model, an LLM, or external scientific diagrams; the ELK and learning pilots are separate experiments, with their own limitations.

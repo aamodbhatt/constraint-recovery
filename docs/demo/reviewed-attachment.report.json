@@ -1,0 +1,46 @@
+{
+  "verification": {
+    "passed": true,
+    "errors": [],
+    "scope": "Checks accepted graph, geometry and conservative font metrics; does not prove inferred author intent or pixel-perfect browser typography."
+  },
+  "solver": {
+    "method": "MILP minimum L1 node displacement with nonoverlap and fixed fitted node sizes",
+    "solver_status": 0,
+    "optimal_within_tolerance": true,
+    "objective": 23.99999999999999,
+    "flow": "free",
+    "gap": 24,
+    "router": "visibility",
+    "routing": [
+      {
+        "edge_id": "ambiguous-result",
+        "method": "orthogonal visibility grid with Dijkstra over position and incoming axis",
+        "clearance": 8,
+        "bend_penalty": 8,
+        "search_cost": 412.0,
+        "length": 380.0,
+        "bends": 4,
+        "visited_states": 70,
+        "grid_vertices": 52
+      }
+    ]
+  },
+  "warnings": [
+    "Geometric baseline only. Review recovered arrow attachments before treating them as semantic constraints.",
+    "Export normalizes typography, node styling, and connectors; this is not a lossless SVG editor.",
+    "Explicit attachment overrides applied; inspect the requested relationships"
+  ],
+  "requested_branch_insertions": [],
+  "export_mode": "normalized",
+  "attachment_decisions": [],
+  "attachment_overrides": {
+    "ambiguous-result": {
+      "source": "option-a",
+      "target": "result"
+    }
+  },
+  "input": "examples/ambiguous.svg",
+  "node_count": 3,
+  "edge_count": 1
+}

@@ -173,7 +173,7 @@ class Binding:
 
 
 class SourceDocument:
-    def __init__(self,text,tolerance=8,attachment_model=None):
+    def __init__(self,text,tolerance=8,attachment_model=None,attachment_overrides=None,review=False):
         dependencies()
         guard_xml(text)
         try:
@@ -277,22 +277,19 @@ class SourceDocument:
             n.label = " ".join(n.lines)
             n.font_size = number(st["font-size"])*scale(binding.matrix)
             self.texts[n.id] = binding
-        edge_list = []
-        for identifier,pts in connectors:
-            if attachment_model:
-                source = attachment_model.resolve(pts[0],np.subtract(pts[0],pts[1]).tolist(),node_list)
-                target = attachment_model.resolve(pts[-1],np.subtract(pts[-1],pts[-2]).tolist(),node_list)
-            else:
-                source,target = endpoint(pts[0],node_list,tolerance),endpoint(pts[-1],node_list,tolerance)
-            edge_list.append(Edge(identifier,source,target,pts))
-        self.diagram = Diagram(width,height,node_list,edge_list,[
+        from .recovery import assemble
+        recovered = assemble(width,height,node_list,connectors,[
             "Experimental source-bound SVG subset. Review recovered arrow ownership.",
             "Bezier recovery uses a 0.2 viewBox-unit subdivision tolerance; edits reroute connectors as straight segments.",
             "Checks cover box geometry and conservative sans-serif metrics, not pixel appearance or author intent."
-        ]).validate()
+        ],text,tolerance,attachment_model,attachment_overrides,review)
+        self.review = recovered if review else None
+        self.diagram = None if review else recovered
 
     def export(self,diagram):
         """Patch original elements; reject graph insertions until explicitly supported."""
+        if self.diagram is None:
+            raise DiagramError("An attachment review is not an accepted graph; apply decisions before editing")
         diagram.validate()
         if {n.id for n in diagram.nodes}!=set(self.nodes) or {e.id for e in diagram.edges}!=set(self.edges):
             raise DiagramError("Source-preserving export currently requires the original node and edge IDs; use normalized export for branch insertions")

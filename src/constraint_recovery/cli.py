@@ -20,6 +20,9 @@ def main():
     recover = commands.add_parser("recover",help="Export the recovered graph for inspection")
     recover.add_argument("input",type=Path)
     recover.add_argument("--output",type=Path,required=True)
+    review = commands.add_parser("review",help="Inspect ambiguous endpoint candidates in a portable local view")
+    review.add_argument("input",type=Path)
+    review.add_argument("--output",type=Path,required=True,help="Review observations JSON; an HTML view is written alongside")
     change = commands.add_parser("edit",help="Edit and independently validate the serialized SVG")
     change.add_argument("input",type=Path)
     change.add_argument("--output",type=Path,required=True)
@@ -32,9 +35,10 @@ def main():
     change.add_argument("--router",choices=["visibility","candidates"],default="visibility")
     change.add_argument("--branch",nargs=3,action="append",metavar=("SOURCE","NEW_ID","LABEL"),
                         help="Add a labeled node and directed edge from an existing node; repeatable")
-    for sub in [recover,change]:
+    for sub in [recover,change,review]:
         sub.add_argument("--endpoint-model",type=Path,help="Experimental synthetic-trained endpoint ranker JSON")
         sub.add_argument("--source-preserving",action="store_true",help="Opt-in static CSS/translation/uniform-scale/Bezier subset; patch original SVG elements")
+        sub.add_argument("--attachments",type=Path,help="Source-hash-bound attachment choices exported by the review view")
     args = parser.parse_args()
     try:
         if args.command=="check-witness":
@@ -46,7 +50,12 @@ def main():
             print(json.dumps({"verified":verified,"kind":cert.get("kind"),
                               "scope":"Arithmetic and referenced inequalities of the saved fitted graph; does not re-establish SVG recovery or author intent"},indent=2))
             return 0 if verified else 2
-        if args.input.resolve()==args.output.resolve():
+        destinations=[args.output]
+        if args.command=="review":
+            destinations.append(args.output.with_suffix(".html"))
+        elif args.command=="edit":
+            destinations.extend(args.output.with_suffix(suffix) for suffix in [".report.json",".constraints.json",".original.svg",".html",".failure.json"])
+        if args.input.resolve() in {p.resolve() for p in destinations}:
             raise DiagramError("Output must differ from input; preserve the original SVG")
         if args.command=="inspect":
             from .inventory import inspect_svg
@@ -59,11 +68,25 @@ def main():
         if args.endpoint_model:
             from .attachment import AttachmentModel
             model = AttachmentModel.load(args.endpoint_model)
+        source_text=args.input.read_bytes().decode("utf-8")
+        overrides=None
+        if args.attachments:
+            from .recovery import load_overrides
+            overrides=load_overrides(json.loads(args.attachments.read_text()),source_text)
         document = None
         if args.source_preserving:
             from .source import SourceDocument
-            document = SourceDocument(args.input.read_text(),attachment_model=model)
-        original = document.diagram if document else parse_svg(args.input.read_text(),attachment_model=model)
+            document = SourceDocument(source_text,attachment_model=model,attachment_overrides=overrides,review=args.command=="review")
+        original = (document.review if args.command=="review" else document.diagram) if document else parse_svg(source_text,attachment_model=model,attachment_overrides=overrides,review=args.command=="review")
+        if args.command=="review":
+            from .review import render_review
+            if args.output.suffix.lower()!=".json":
+                raise DiagramError("Review output must end in .json; the companion view uses .html")
+            args.output.parent.mkdir(parents=True,exist_ok=True)
+            args.output.write_text(json.dumps(original,indent=2)+"\n")
+            args.output.with_suffix(".html").write_text(render_review(original))
+            print(f"Review {len(original['connectors'])} arrows; {original['unresolved_endpoints']} endpoints need a choice. Open {args.output.with_suffix('.html')}")
+            return 0
         if args.command=="recover":
             args.output.parent.mkdir(parents=True,exist_ok=True)
             args.output.write_text(json.dumps(original.to_dict(),indent=2)+"\n")
@@ -72,6 +95,9 @@ def main():
         declared = original
         if args.constraints:
             declared = Diagram.from_dict(json.loads(args.constraints.read_text()))
+            for edge in declared.edges:
+                if any(getattr(edge,role)!=value for role,value in (overrides or {}).get(edge.id,{}).items()):
+                    raise DiagramError("Reviewed graph conflicts with explicit attachment choices")
             if {n.id for n in declared.nodes}!={n.id for n in original.nodes} or {e.id for e in declared.edges}!={e.id for e in original.edges}:
                 raise DiagramError("Reviewed graph IDs do not match the source SVG")
             # Only relationship corrections are accepted; source geometry/text remains authoritative.
@@ -93,6 +119,7 @@ def main():
                   "requested_branch_insertions":args.branch or [],
                   "export_mode":"source-preserving" if document else "normalized",
                   "attachment_decisions":model.decisions if model else [],
+                  "attachment_overrides":overrides or {},
                   "input":str(args.input),"node_count":len(result.nodes),"edge_count":len(result.edges)}
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(output+"\n")
@@ -100,7 +127,7 @@ def main():
         args.output.with_suffix(".constraints.json").write_text(json.dumps(result.to_dict(),indent=2)+"\n")
         # Object embeds keep source SVG separate; report is local, with no remote scripts or assets.
         original_copy = args.output.with_suffix(".original.svg")
-        original_copy.write_text(args.input.read_text())
+        original_copy.write_bytes(source_text.encode("utf-8"))
         source = html.escape(original_copy.name,quote=True)
         target = html.escape(args.output.name,quote=True)
         page = f'''<!doctype html><meta charset="utf-8"><title>Constraint recovery · verified edit</title>

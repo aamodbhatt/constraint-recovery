@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "kind": "attachment-overrides",
+  "source_sha256": "761133c3b8aab836056833966f5ca9b5ade81d427655255513bd236d21ae3929",
+  "decisions": {
+    "ambiguous-result": {
+      "source": "option-a",
+      "target": "result"
+    }
+  }
+}

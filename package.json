@@ -1,8 +1,9 @@
 {
   "name": "constraint-recovery-baselines",
   "private": true,
-  "description": "Optional JavaScript layout baselines for the Python research package",
+  "description": "Optional layout baselines and browser integration checks for the Python research package",
   "devDependencies": {
-    "elkjs": "0.12.1"
+    "elkjs": "0.12.1",
+    "playwright": "1.62.1"
   }
 }

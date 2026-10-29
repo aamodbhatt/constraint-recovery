@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "kind": "attachment-review",
+  "source_sha256": "761133c3b8aab836056833966f5ca9b5ade81d427655255513bd236d21ae3929",
+  "width": 640.0,
+  "height": 280.0,
+  "nodes": [
+    {
+      "id": "option-a",
+      "x": 40.0,
+      "y": 80.0,
+      "width": 140.0,
+      "height": 80.0,
+      "label": "Option A",
+      "font_size": 16.0,
+      "fill": "#eef3fb",
+      "stroke": "#30445f",
+      "lines": [
+        "Option A"
+      ]
+    },
+    {
+      "id": "option-b",
+      "x": 180.0,
+      "y": 80.0,
+      "width": 140.0,
+      "height": 80.0,
+      "label": "Option B",
+      "font_size": 16.0,
+      "fill": "#eef3fb",
+      "stroke": "#30445f",
+      "lines": [
+        "Option B"
+      ]
+    },
+    {
+      "id": "result",
+      "x": 440.0,
+      "y": 80.0,
+      "width": 140.0,
+      "height": 80.0,
+      "label": "Result",
+      "font_size": 16.0,
+      "fill": "#eef3fb",
+      "stroke": "#30445f",
+      "lines": [
+        "Result"
+      ]
+    }
+  ],
+  "connectors": [
+    {
+      "id": "ambiguous-result",
+      "points": [
+        [
+          180.0,
+          120.0
+        ],
+        [
+          440.0,
+          120.0
+        ]
+      ],
+      "source": {
+        "point": [
+          180.0,
+          120.0
+        ],
+        "toward": [
+          -260.0,
+          0.0
+        ],
+        "selected": null,
+        "reason": "Ambiguous arrow endpoint [180.0, 120.0]: ['option-a', 'option-b']; review the drawing",
+        "candidates": [
+          {
+            "node_id": "option-a",
+            "boundary_distance": 0.0
+          },
+          {
+            "node_id": "option-b",
+            "boundary_distance": 0.0
+          },
+          {
+            "node_id": "result",
+            "boundary_distance": 260.0
+          }
+        ]
+      },
+      "target": {
+        "point": [
+          440.0,
+          120.0
+        ],
+        "toward": [
+          260.0,
+          0.0
+        ],
+        "selected": "result",
+        "reason": "Unambiguous boundary proximity",
+        "candidates": [
+          {
+            "node_id": "result",
+            "boundary_distance": 0.0
+          },
+          {
+            "node_id": "option-b",
+            "boundary_distance": 120.0
+          },
+          {
+            "node_id": "option-a",
+            "boundary_distance": 260.0
+          }
+        ]
+      },
+      "valid_pair": false
+    }
+  ],
+  "automatic_recovery_complete": false,
+  "unresolved_endpoints": 1,
+  "warnings": [
+    "Geometric baseline only. Review recovered arrow attachments before treating them as semantic constraints.",
+    "Export normalizes typography, node styling, and connectors; this is not a lossless SVG editor.",
+    "Review observations are not an accepted constraint graph; model scores are not calibrated correctness probabilities"
+  ]
+}

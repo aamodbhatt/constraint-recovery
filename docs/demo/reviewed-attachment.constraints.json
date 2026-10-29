@@ -1,0 +1,88 @@
+{
+  "width": 640.0,
+  "height": 280.0,
+  "nodes": [
+    {
+      "id": "option-a",
+      "x": 16.00000000000001,
+      "y": 80.0,
+      "width": 140.0,
+      "height": 80.0,
+      "label": "Option A",
+      "font_size": 16.0,
+      "fill": "#eef3fb",
+      "stroke": "#30445f",
+      "lines": [
+        "Option A"
+      ]
+    },
+    {
+      "id": "option-b",
+      "x": 180.0,
+      "y": 80.0,
+      "width": 140.0,
+      "height": 80.0,
+      "label": "Option B",
+      "font_size": 16.0,
+      "fill": "#eef3fb",
+      "stroke": "#30445f",
+      "lines": [
+        "Option B"
+      ]
+    },
+    {
+      "id": "result",
+      "x": 440.0,
+      "y": 80.0,
+      "width": 140.0,
+      "height": 80.0,
+      "label": "Result",
+      "font_size": 16.0,
+      "fill": "#eef3fb",
+      "stroke": "#30445f",
+      "lines": [
+        "Result"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "ambiguous-result",
+      "source": "option-a",
+      "target": "result",
+      "points": [
+        [
+          156.0,
+          120.0
+        ],
+        [
+          172.0,
+          120.0
+        ],
+        [
+          172.0,
+          72.0
+        ],
+        [
+          432.0,
+          72.0
+        ],
+        [
+          432.0,
+          120.0
+        ],
+        [
+          440.0,
+          120.0
+        ]
+      ],
+      "evidence": "Explicit user-supplied attachment override; not independent author-intent verification"
+    }
+  ],
+  "warnings": [
+    "Geometric baseline only. Review recovered arrow attachments before treating them as semantic constraints.",
+    "Export normalizes typography, node styling, and connectors; this is not a lossless SVG editor.",
+    "Explicit attachment overrides applied; inspect the requested relationships"
+  ],
+  "schema_version": 1
+}

@@ -25,9 +25,12 @@ First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone
 - Evaluate edit sequences, style/composition holdouts and impossible requests.
 - [x] Replace finite routing candidates with a bounded orthogonal visibility-grid router; retain four center ports and explicit clearance/search limits. [Paired diagnostic](docs/routing.md).
 - Add browser-measured font geometry and rendered visual regression coverage.
+  - [x] Add real-browser checks for inverse font scaling, text containment and the interactive attachment-review workflow on authored examples.
+  - [ ] Expand rendered checks to external figures and use measured glyph bounds during layout.
 - Add ambiguity review and minimal conflicting-constraint explanations.
   - [x] Independent arithmetic witnesses for positive flow cycles, path-span, node-size and area bounds. [Scope](docs/conflict-witnesses.md).
-  - [ ] Minimum conflicting sets/repairs and human ambiguity review.
+  - [ ] Minimum conflicting sets/repairs and container/role ambiguity review.
+  - [x] Add local endpoint review with candidate evidence and source-bound override manifests. This is not yet general container/role review or an independently annotated dataset.
 
 ## M2 — learned recovery on local hardware
 

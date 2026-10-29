@@ -56,7 +56,7 @@ def guard_xml(text):
         raise DiagramError("SVG processing instructions and document types are unsupported")
 
 
-def parse_svg(text, tolerance=8, attachment_model=None):
+def parse_svg(text, tolerance=8, attachment_model=None,attachment_overrides=None,review=False):
     guard_xml(text)
     try:
         root = SafeET.fromstring(text)
@@ -138,22 +138,13 @@ def parse_svg(text, tolerance=8, attachment_model=None):
         n.lines = ["".join(c.itertext()) for c in spans] if spans else ["".join(e.itertext())]
         n.label = " ".join(n.lines)
         n.font_size = number(e.get("font-size"), 16)
-    edges = []
-    for i,p in connectors:
-        if attachment_model is None:
-            source,target = endpoint(p[0],nodes,tolerance),endpoint(p[-1],nodes,tolerance)
-        else:
-            source = attachment_model.resolve(p[0],[p[0][k]-p[1][k] for k in range(2)],nodes)
-            target = attachment_model.resolve(p[-1],[p[-1][k]-p[-2][k] for k in range(2)],nodes)
-        edge = Edge(i,source,target,p)
-        if attachment_model is not None:
-            edge.evidence = "Experimental synthetic-trained endpoint ranker; review required; scores are not correctness guarantees"
-        edges.append(edge)
-    return Diagram(width, height, nodes, edges,
+    from .recovery import assemble
+    return assemble(width,height,nodes,connectors,
                    [("Experimental learned geometric attachment recovery. Review required." if attachment_model else
                      "Geometric baseline only. Review recovered arrow attachments before treating them as semantic constraints."),
                     "Export normalizes typography, node styling, and connectors; this is not a lossless SVG editor."]+
-                   (["Experimental learned attachment selection enabled; synthetic validation only"] if attachment_model else [])).validate()
+                   (["Experimental learned attachment selection enabled; synthetic validation only"] if attachment_model else []),
+                   text,tolerance,attachment_model,attachment_overrides,review)
 
 
 def route(a, b):

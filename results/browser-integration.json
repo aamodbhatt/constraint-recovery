@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "browser": "151.0.7922.34",
+  "review_download_roundtrip": true,
+  "self_attachment_blocked": true,
+  "source_id_collision_test": true,
+  "inert_source_text_test": true,
+  "unexpected_remote_requests": [],
+  "typography": [
+    {
+      "id": "data",
+      "global_font_size": 24.000000953674316,
+      "text_inside_node": true
+    },
+    {
+      "id": "model",
+      "global_font_size": 24.000000953674316,
+      "text_inside_node": true
+    }
+  ],
+  "scope": "Two authored SVGs and one adversarial variation; not an external-figure rendering benchmark"
+}
