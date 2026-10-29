@@ -34,7 +34,7 @@ function option(args,name,fallback){const i=args.indexOf(name);return i===-1?fal
         record.measured=false;record.failure=typeof source==='string'?'Truncated source':'Unavailable source';records.push(record);continue;
       }
       try{
-        const measured=await measureSvg(browser,source);
+        const measured=await measureSvg(browser,source,{snapshot:args.includes('--snapshot')});
         await fs.writeFile(path.join(measurements,`row-${String(row).padStart(4,'0')}.json`),JSON.stringify(measured,null,2)+'\n');
         const visible=measured.primitives.filter(p=>p.visible_by_display_visibility_opacity&&p.viewbox_bounds);
         const rects=visible.filter(p=>p.tag==='rect');

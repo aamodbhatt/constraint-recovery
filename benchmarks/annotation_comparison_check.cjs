@@ -9,7 +9,7 @@ function check(ok,message){if(!ok)throw Error(message);}
 (async()=>{const browser=await chromium.launch({headless:true});try{
   const source=path.join(root,'examples/compound.svg'),geometry=path.join(root,'artifacts/comparison-geometry.json');
   await fs.mkdir(path.join(root,'artifacts'),{recursive:true});
-  await fs.writeFile(geometry,JSON.stringify(await measureSvg(browser,await fs.readFile(source,'utf8'))));
+  await fs.writeFile(geometry,JSON.stringify(await measureSvg(browser,await fs.readFile(source,'utf8'),{snapshot:true})));
   const page=await browser.newPage({viewport:{width:1440,height:1100}}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   const generate=variant=>{

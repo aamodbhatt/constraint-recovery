@@ -8,6 +8,7 @@
     "content": 390
   },
   "unlabelled_review_views": 5,
+  "native_pixel_projection_probes": 2,
   "connector_geometry_exposed_and_retained": true,
   "no_review_promotion": true,
   "routing_comparison_and_warning": true,

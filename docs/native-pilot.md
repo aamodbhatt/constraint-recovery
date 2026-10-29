@@ -46,10 +46,14 @@ The [saved results](../results/native-pilot.json) include every case, planned/sk
 ```sh
 PYTHON=.venv/bin/python node benchmarks/measure_native_pilot.cjs
 PYTHON=.venv/bin/python node benchmarks/native_pilot_check.cjs
-node benchmarks/native_presentation_check.cjs
+PYTHON=.venv/bin/python node benchmarks/native_presentation_check.cjs
 PYTHON=.venv/bin/python node benchmarks/compare_parallel_routing.cjs
 python benchmarks/build_native_pilot_demo.py
 ```
+
+The [published-export audit](../results/published-examples-check.json) also verifies the eight SVG files actually distributed in the workspace, rather than assuming regenerated artifacts match them. Fresh browser measurements check styles, rigid poses, attachments, source/state hashes and the retained parallel-shaft observations. This is not pixel identity or semantic ground truth.
+
+The five unlabelled review pages now use source-bound measurement snapshots. A regression caught SVGs without explicit dimensions being stretched in an image context; the repaired packet passes independent pixel probes on two such sources. No independent human labels were collected using the earlier pages. Run `measure_native_pilot.cjs` and rebuild the workspace to regenerate these previews; never reuse old private views for labeling without remeasurement.
 
 The frozen source and annotation files are checked in with attribution. Full browser style measurements and intermediate controls remain under ignored `.cache/` and `artifacts/`. The external development fixtures also run as CI regressions; they are consequently not an untouched holdout.
 

@@ -23,7 +23,7 @@ async function main(){
       const record={id:entry.id,source_sha256:sha,original_git_blob_verified:true,license:entry.license,
         static_edit_guard:{passed:guard.status===0,reason:guard.stdout.trim()||null}};
       try{
-        const measured=await measureSvg(browser,source,{styleDetails:true,includeText:true,maxPrimitives:500});
+        const measured=await measureSvg(browser,source,{styleDetails:true,includeText:true,snapshot:true,maxPrimitives:500});
         await fs.writeFile(path.join(folder,entry.id+'.json'),JSON.stringify(measured,null,2)+'\n');
         record.geometry={measured:true,canvas:measured.canvas,primitives:measured.primitives.length,
           unmeasured:measured.primitives.filter(p=>!p.viewbox_bounds).length,

@@ -77,7 +77,7 @@ function cli(args,expected=0){
       });
     });
     assert(measured.every(r=>r.global_font_size>=23.999&&r.text_inside_node),JSON.stringify(measured));
-    const geometry=await measureSvg(browser,await fs.readFile(path.join(root,'examples/styled-pipeline.svg'),'utf8'));
+    const geometry=await measureSvg(browser,await fs.readFile(path.join(root,'examples/styled-pipeline.svg'),'utf8'),{snapshot:true});
     const recovered=geometry.primitives.find(r=>r.source_id==='data').viewbox_bounds;
     assert(recovered.every((v,i)=>Math.abs(v-[54,92,198,176][i])<1e-4),JSON.stringify(recovered));
     const probe=`<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
@@ -190,7 +190,7 @@ function cli(args,expected=0){
 
     // The original SVG is an image resource, never active inline source markup.
     const imageProbe=probe.replace("fetch('https://example.invalid/active');", "window.parent.postMessage({diagram_probe:true},'*');fetch('https://example.invalid/active');");
-    const imageGeometry=await measureSvg(browser,imageProbe);
+    const imageGeometry=await measureSvg(browser,imageProbe,{snapshot:true});
     const probeFile=path.join(temp,'image-probe.svg'),probeMeasurements=path.join(temp,'image-probe.json'),probeView=path.join(temp,'image-probe.html');
     await fs.writeFile(probeFile,imageProbe);await fs.writeFile(probeMeasurements,JSON.stringify(imageGeometry));
     cli(['annotate',probeFile,'--measurements',probeMeasurements,'--output',probeView]);

@@ -6,12 +6,12 @@
   "implementation_files": {
     "src/constraint_recovery/compound.py": "5f848f15f7d414a1befd62a8ca2267e6f86acea1c66ca5300fdcb5cddd417e8a",
     "src/constraint_recovery/static_svg.py": "af32e17be5701dc7d2caa58921fdc49ddf9a0ee3fa55bc8224e2b0666b1405d7",
-    "src/constraint_recovery/annotation.py": "e3ccacbf7a8fcbecc3d39dab337157e0f3096771b57342ee9cc7b4c47954857c",
+    "src/constraint_recovery/annotation.py": "b775239a2de3330d2f4a1963fe280c2d9ae97d8ad95083f173932905e7cc6031",
     "src/constraint_recovery/routing.py": "b5fd891986e63325ee3413b757622aef17bbef8511cb9340fd33f4d418e28100",
     "src/constraint_recovery/check.py": "9fcb355d35235fbc37e57c8d53bcd6319d27f16c1bd1c7e58c535acbd99380db",
     "src/constraint_recovery/channel.py": "9e319635e70c8dd6313f2768ee14c8dad43b7b48382747ca18301568f3656e1d",
     "src/constraint_recovery/edge_check.py": "d51f6e2702c0c6476fe0f3830b082de11b3a547e9c0a2e6a54e37b42e1424f99",
-    "src/constraint_recovery/assets/browser_geometry.cjs": "3f39a17ec822de6c0cd7cc515de1928b408eeff29432b314223533b6a287505f",
+    "src/constraint_recovery/assets/browser_geometry.cjs": "8c42e3b9222243d60512d02e12a11b1a42de2eaddb0f91778af4eb9e6b5ca6f2",
     "src/constraint_recovery/assets/compound_edit.cjs": "e575c07377c6ee1e84a7e90b1de95fe6f5a659d305e8f3c354234f4fa180a2c1",
     "benchmarks/native_direct_move.py": "82bfd4bc3b7e69135df91401a5e7d98f4c08ce7cd22b1065b89ce96aef59d242",
     "benchmarks/run_native_pilot.cjs": "af70eb07fbe1a62df125102a735d68f66294afcbb4393c58e2797b776f82682a"

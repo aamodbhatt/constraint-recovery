@@ -6,7 +6,7 @@ const path=require('node:path');
 const crypto=require('node:crypto');
 const {pathToFileURL}=require('node:url');
 
-async function measureSvg(browser,source,{includeText=false,styleDetails=false,maxPrimitives=5000,timeout=15000}={}){
+async function measureSvg(browser,source,{includeText=false,styleDetails=false,snapshot=false,maxPrimitives=5000,timeout=15000}={}){
   if(typeof source!=='string'||Buffer.byteLength(source)>8000000)throw Error('SVG must be UTF-8 text of at most eight MB');
   if(!Number.isInteger(maxPrimitives)||maxPrimitives<1||maxPrimitives>10000)throw Error('Invalid primitive budget');
   if(/<!DOCTYPE|<\?(?!xml(?:\s|\?>))/i.test(source))throw Error('Document types and processing instructions are unsupported');
@@ -28,7 +28,7 @@ async function measureSvg(browser,source,{includeText=false,styleDetails=false,m
     const page=await context.newPage();
     const work=(async()=>{
       await page.goto(url,{waitUntil:'domcontentloaded',timeout});
-      return page.evaluate(async({includeText,styleDetails,maxPrimitives})=>{
+      const measured=await page.evaluate(async({includeText,styleDetails,maxPrimitives})=>{
         const root=document.documentElement;
         if(root.localName!=='svg'||root.namespaceURI!=='http://www.w3.org/2000/svg')throw Error('Expected an SVG document');
         if(root.pauseAnimations)root.pauseAnimations();
@@ -110,6 +110,16 @@ async function measureSvg(browser,source,{includeText=false,styleDetails=false,m
           image_projection:[imageProjection.a,imageProjection.b,imageProjection.c,imageProjection.d,imageProjection.e,imageProjection.f],
           root_css_transform:getComputedStyle(root).transform,primitives:records,...(styleDetails?{document_styles:documentStyles}:{})};
       },{includeText,styleDetails,maxPrimitives});
+      if(snapshot){
+        const clip=await page.evaluate(()=>{const r=document.documentElement.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};});
+        if(!Object.values(clip).every(Number.isFinite)||clip.x<0||clip.y<0||clip.width<=0||clip.height<=0||Math.max(clip.width,clip.height)>8192||clip.width*clip.height>16000000)throw Error('Source snapshot exceeds its supported viewport/pixel budget');
+        const png=await page.screenshot({type:'png',clip,animations:'disabled'});
+        if(png.length>8000000)throw Error('Source snapshot exceeds its eight-MB image budget');
+        measured.snapshot={format:'png',source_sha256:crypto.createHash('sha256').update(source).digest('hex'),
+          sha256:crypto.createHash('sha256').update(png).digest('hex'),css_size:measured.image_size,
+          pixel_size:[png.readUInt32BE(16),png.readUInt32BE(20)],data:png.toString('base64')};
+      }
+      return measured;
     })();
     const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Browser geometry deadline exceeded')),timeout);});
     const result=await Promise.race([work,deadline]);
@@ -133,7 +143,7 @@ async function main(args=process.argv.slice(2)){
     const browser=await chromium.launch({headless:true});
     try{
       const source=new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(await fs.readFile(input));
-      const result=await measureSvg(browser,source,{includeText:args.includes('--include-text'),styleDetails:args.includes('--style-details')});
+      const result=await measureSvg(browser,source,{includeText:args.includes('--include-text'),styleDetails:args.includes('--style-details'),snapshot:args.includes('--snapshot')});
       await fs.mkdir(path.dirname(out),{recursive:true});
       await fs.writeFile(out,JSON.stringify(result,null,2)+'\n');
       console.log(JSON.stringify({primitives:result.primitives.length,bounded:result.primitives.filter(p=>p.viewbox_bounds).length,blocked_references:result.blocked_references.length}));

@@ -1,8 +1,7 @@
 """Portable adjudication view; neither input is promoted to ground truth."""
-import base64
 import hashlib
 import json
-from .annotation import annotation_page
+from .annotation import annotation_page,source_image_url
 from .model import DiagramError
 
 TEMPLATE='''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Annotation comparison · constraint recovery</title><style>
@@ -17,7 +16,7 @@ const data=JSON.parse(document.getElementById('data').textContent),r=data.report
 const left=new Map(data.left.objects.map(o=>[o.id,o])),right=new Map(data.right.objects.map(o=>[o.id,o]));
 function draw(side,key){el(side+'-overlays').replaceChildren();el(side+'-selected').textContent=key||'No corresponding object';if(!data.geometry||!key)return;const object=(side==='left'?left:right).get(key),m=data.geometry.projection;for(const part of object.parts){const b=data.geometry.bounds[part];if(!b)continue;const corners=[[b[0],b[1]],[b[2],b[1]],[b[0],b[3]],[b[2],b[3]]].map(([x,y])=>[m[0]*x+m[2]*y+m[4],m[1]*x+m[3]*y+m[5]]),xs=corners.map(p=>p[0]),ys=corners.map(p=>p[1]);const rect=document.createElementNS(NS,'rect');rect.setAttribute('x',Math.min(...xs));rect.setAttribute('y',Math.min(...ys));rect.setAttribute('width',Math.max(.5,Math.max(...xs)-Math.min(...xs)));rect.setAttribute('height',Math.max(.5,Math.max(...ys)-Math.min(...ys)));rect.setAttribute('class',side+'-highlight');el(side+'-overlays').append(rect);}}
 let selectedLeft=null,selectedRight=null;function select(a,b,row){selectedLeft=a;selectedRight=b;for(const x of el('matches').children)x.classList.toggle('active',x===row);draw('left',a);draw('right',b);}
-if(data.geometry){el('images').hidden=false;el('image-controls').hidden=false;for(const side of ['left','right']){el(side+'-canvas').setAttribute('viewBox','0 0 '+data.geometry.imageSize.join(' '));el(side+'-image').setAttribute('width',data.geometry.imageSize[0]);el(side+'-image').setAttribute('height',data.geometry.imageSize[1]);}}
+if(data.geometry){const w=data.geometry.warnings;if(w&&(w.blocked_references||w.unmeasured_primitives||w.effect_envelopes))el('domain').textContent+=' Source-view limits: '+w.blocked_references+' blocked resources, '+w.unmeasured_primitives+' missing primitive envelopes, '+w.effect_envelopes+' effect-affected envelopes.';el('images').hidden=false;el('image-controls').hidden=false;for(const side of ['left','right']){el(side+'-canvas').setAttribute('viewBox','0 0 '+data.geometry.imageSize.join(' '));el(side+'-image').setAttribute('width',data.geometry.imageSize[0]);el(side+'-image').setAttribute('height',data.geometry.imageSize[1]);}}
 for(const match of r.object_correspondence.matches){const row=document.createElement('tr');row.dataset.match=match.left;row.tabIndex=0;for(const [text,sub]of [[match.left,left.get(match.left).role],[match.right,right.get(match.right).role],[match.iou.toFixed(3),'full part sets'],[match.exact_parts&&match.roles_equal?'Exact parts + role':match.exact_parts?'Role differs':'Grouping differs',match.local_iou_tie?'Local IoU tie':'']]){const cell=document.createElement('td');cell.textContent=text;if(sub){const small=document.createElement('small');small.textContent=sub;cell.append(small);}row.append(cell);}row.onclick=()=>select(match.left,match.right,row);row.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(match.left,match.right,row);}};el('matches').append(row);}
 for(const side of ['left','right'])for(const key of r.object_correspondence['unmatched_'+side]){const button=document.createElement('button');button.textContent=side+': '+key;button.onclick=()=>select(side==='left'?key:null,side==='right'?key:null,null);el('unmatched').append(button);}
 el('full-view').onclick=()=>{if(!data.geometry)return;for(const side of ['left','right'])el(side+'-canvas').setAttribute('viewBox','0 0 '+data.geometry.imageSize.join(' '));};el('focus-view').onclick=()=>{if(!data.geometry)return;const rects=[...el('left-overlays').children,...el('right-overlays').children];if(!rects.length)return;const boxes=rects.map(e=>[Number(e.getAttribute('x')),Number(e.getAttribute('y')),Number(e.getAttribute('width')),Number(e.getAttribute('height'))]);let x=Math.min(...boxes.map(b=>b[0])),y=Math.min(...boxes.map(b=>b[1])),w=Math.max(...boxes.map(b=>b[0]+b[2]))-x,h=Math.max(...boxes.map(b=>b[1]+b[3]))-y;const margin=Math.max(w,h)*.15+3;x-=margin;y-=margin;w+=2*margin;h+=2*margin;for(const side of ['left','right'])el(side+'-canvas').setAttribute('viewBox',[x,y,w,h].join(' '));};
@@ -36,8 +35,9 @@ def comparison_page(report,left,right,source=None,measurements=None):
         # inserted into the report DOM as active vector markup.
         annotation_page(source,measurements,left['diagram_id'],left['source_url'],left['license'])
         geometry=dict(imageSize=measurements['image_size'],projection=measurements['image_projection'],
+                      warnings=dict(blocked_references=len(measurements.get('blocked_references',[])),unmeasured_primitives=sum(p.get('viewbox_bounds') is None for p in measurements['primitives']),effect_envelopes=sum(bool(p.get('has_unbounded_effects')) for p in measurements['primitives'])),
                       bounds={p['location']:p.get('viewbox_bounds') for p in measurements['primitives']},
                       sourceIds={p['location']:p.get('source_id') for p in measurements['primitives']})
-        image='data:image/svg+xml;base64,'+base64.b64encode(source.encode('utf-8')).decode('ascii')
+        image=source_image_url(source,measurements)
     payload=dict(report=report,left=left,right=right,geometry=geometry)
     return TEMPLATE.replace('__IMAGE__',image).replace('__DATA__',json.dumps(payload).replace('<','\\u003c'))

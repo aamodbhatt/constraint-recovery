@@ -1,5 +1,6 @@
 const fs=require('node:fs/promises'),path=require('node:path');
 const {pathToFileURL}=require('node:url');
+const {spawnSync}=require('node:child_process');
 const {chromium}=require('playwright');
 const root=path.resolve(__dirname,'..');
 function check(ok,message){if(!ok)throw Error(message);}
@@ -40,6 +41,20 @@ function check(ok,message){if(!ok)throw Error(message);}
     check(await page.locator('#relations').evaluate(e=>e.children.length)===0,'Review view prefilled relations');
     check(await page.locator('#role').inputValue()==='','Review view preselected a role');
   }
+  // Native files without explicit width/height require the image projection to
+  // agree with actual rendered pixels, not merely with its own overlay boxes.
+  for(const [id,world,kind] of [['distill-rnn-read',[66,29],'blue'],['distill-rnn-basic',[100,90],'band']]){
+    await page.goto(pathToFileURL(path.join(root,'docs/demo/native-pilot/review',id+'.html')).href);
+    const sample=await page.evaluate(([x,y])=>{
+      const data=JSON.parse(document.getElementById('data').textContent),[a,b,c,d,e,f]=data.image_projection;
+      const canvas=document.getElementById('canvas'),point=new DOMPoint(a*x+c*y+e,b*x+d*y+f).matrixTransform(canvas.getScreenCTM()),box=canvas.getBoundingClientRect();
+      return [Math.round(point.x-box.left),Math.round(point.y-box.top)];
+    },world);
+    const png=path.join(root,'artifacts',id+'-projection.png');await page.locator('#canvas').screenshot({path:png});
+    const read=spawnSync(process.env.PYTHON||'python3',['-c','from PIL import Image; import json,sys; print(json.dumps(Image.open(sys.argv[1]).convert("RGB").getpixel((int(sys.argv[2]),int(sys.argv[3])))))',png,String(sample[0]),String(sample[1])],{encoding:'utf8'});
+    check(read.status===0,read.stderr);const color=JSON.parse(read.stdout);
+    check(kind==='blue'?color[2]>color[0]+60:color[2]>color[0]+3&&Math.abs(color[0]-240)<12,'Native source image/projection mismatch: '+id+' '+JSON.stringify({sample,color}));
+  }
   // Resume must expose and retain advanced connector assumptions, rather than
   // silently dropping them when a reviewer downloads an existing record.
   await page.goto(pathToFileURL(path.join(root,'docs/demo/native-pilot/review/distill-rnn-basic.html')).href);
@@ -53,7 +68,7 @@ function check(ok,message){if(!ok)throw Error(message);}
   check(downloaded.review.status==='agent-reviewed','Resume promoted agent annotations to human review');
   check(!errors.length,errors.join(';'));
   const report={passed:true,all_five_comparisons:true,refused_request_retains_source:true,focus_controls:true,mobile,
-    unlabelled_review_views:5,connector_geometry_exposed_and_retained:true,no_review_promotion:true,routing_comparison_and_warning:true,errors};
+    unlabelled_review_views:5,native_pixel_projection_probes:2,connector_geometry_exposed_and_retained:true,no_review_promotion:true,routing_comparison_and_warning:true,errors};
   await fs.writeFile(path.join(root,'artifacts/native-presentation-check.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify(report));
 }finally{await browser.close();}})().catch(e=>{console.error(e.message);process.exit(1);});

@@ -104,6 +104,7 @@ node benchmarks/native_pilot_check.cjs
 node benchmarks/native_presentation_check.cjs
 node benchmarks/compare_parallel_routing.cjs
 node benchmarks/annotation_comparison_check.cjs
+node benchmarks/published_examples_check.cjs
 ```
 
 CI repeats the Python suite, synthetic experiments and browser checks. Results retain case-level failures and skipped requests. GPU use remains behind a [measured-need gate](ROADMAP.md#cloud-gpu-gate).

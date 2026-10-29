@@ -9,7 +9,7 @@ The [interactive demonstration](demo/annotation-comparison.html) uses scripted p
 Have reviewers use separate [unlabelled source views](demo/native-pilot/review/index.html) and save their own records before inspecting existing agent labels. Retain unknown/ambiguous parts and relations. For an overlapping subset, compare the two independent records before adjudicating differences.
 
 ```sh
-node benchmarks/measure_svg.cjs figure.svg artifacts/geometry.json
+node benchmarks/measure_svg.cjs figure.svg artifacts/geometry.json --snapshot
 
 constraint-recovery compare-annotations reviewer-a.json reviewer-b.json \
   --source figure.svg --measurements artifacts/geometry.json \
@@ -74,6 +74,6 @@ The last row demonstrates why a perfect conditional score must not hide abstenti
 Rebuild the demonstration with:
 
 ```sh
-node benchmarks/measure_svg.cjs examples/compound.svg artifacts/comparison-geometry.json
+node benchmarks/measure_svg.cjs examples/compound.svg artifacts/comparison-geometry.json --snapshot
 python benchmarks/build_annotation_comparison.py
 ```

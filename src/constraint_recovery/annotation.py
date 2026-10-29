@@ -3,6 +3,7 @@ import base64
 import hashlib
 import json
 import math
+import io
 from pathlib import Path
 import re
 from defusedxml import ElementTree as SafeET
@@ -12,6 +13,34 @@ from .svg import guard_xml,local,NS
 ROLES={"node","container","connector","text","background","decoration","unknown"}
 RELATIONS={"directed_edge","contains","group","align_x","align_y","before_x","before_y"}
 STATUSES={"confirmed","ambiguous","unknown"}
+
+
+def source_image_url(source,measurements):
+    """Use the measured browser snapshot when intrinsic SVG sizing can drift."""
+    snapshot=measurements.get('snapshot')
+    if snapshot is not None:
+        from PIL import Image
+        if not isinstance(snapshot,dict) or snapshot.get('format')!='png' or snapshot.get('source_sha256')!=hashlib.sha256(source.encode('utf-8')).hexdigest() or snapshot.get('css_size')!=measurements.get('image_size'):
+            raise DiagramError('Source snapshot is not bound to this SVG and measured viewport')
+        encoded=snapshot.get('data')
+        if not isinstance(encoded,str) or len(encoded)>10_666_672:
+            raise DiagramError('Invalid or oversized source snapshot')
+        try:
+            raw=base64.b64decode(encoded,validate=True)
+            if len(raw)>8_000_000 or hashlib.sha256(raw).hexdigest()!=snapshot.get('sha256'):
+                raise ValueError('Snapshot digest or size mismatch')
+            with Image.open(io.BytesIO(raw)) as image:
+                if image.format!='PNG' or min(image.size)<=0 or max(image.size)>8192 or image.width*image.height>16_000_000 or list(image.size)!=snapshot.get('pixel_size'):
+                    raise ValueError('Snapshot pixel dimensions are outside scope')
+                image.verify()
+        except Exception as error:
+            raise DiagramError(f'Invalid source snapshot: {error}') from error
+        return 'data:image/png;base64,'+encoded
+    root=SafeET.fromstring(source)
+    absolute=r'\s*(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?(?:px|pt|pc|mm|cm|in|Q)?\s*'
+    if not all(re.fullmatch(absolute,root.get(k,'')) for k in ['width','height']) or root.get('style') or any(isinstance(e.tag,str) and local(e.tag)=='style' for e in root.iter()):
+        raise DiagramError('This SVG needs a source-bound browser snapshot for reliable image projection; remeasure with --snapshot')
+    return 'data:image/svg+xml;base64,'+base64.b64encode(source.encode('utf-8')).decode('ascii')
 
 
 def validate_annotation(data,source_sha256=None,measurements=None):
@@ -163,5 +192,5 @@ def annotation_page(source,measurements,diagram_id,source_url,license_name):
              "browser":measurements.get("browser"),"blocked_references":len(measurements.get("blocked_references",[])),
              "primitives":[{k:p[k] for k in ["location","source_id","tag","viewbox_bounds","visible_by_display_visibility_opacity"]} for p in primitives]}
     template=(Path(__file__).parent/"assets/annotation.html").read_text()
-    image_url="data:image/svg+xml;base64,"+base64.b64encode(source.encode("utf-8")).decode("ascii")
+    image_url=source_image_url(source,measurements)
     return template.replace("__IMAGE_URL__",image_url,1).replace("__DATA_JSON__",json.dumps(payload).replace("<","\\u003c"),1)

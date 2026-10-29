@@ -10,7 +10,7 @@ The external figures contain backgrounds, frames, labels, icons and shapes that 
 # Optional Node/Playwright development tools:
 npm ci --ignore-scripts
 npx playwright install chromium
-node benchmarks/measure_svg.cjs figure.svg artifacts/geometry.json
+node benchmarks/measure_svg.cjs figure.svg artifacts/geometry.json --snapshot
 
 constraint-recovery annotate figure.svg --measurements artifacts/geometry.json \
   --diagram-id my-diagram --source-url SOURCE_URL --license SOURCE_LICENSE \
@@ -40,10 +40,19 @@ The checker validates structure, source binding, primitive/object references and
 
 ## Display and measurement scope
 
-The original SVG is encoded as an image resource; it is not injected as active source markup into the tool’s DOM. Source scripts and external references are disabled in SVG image processing; see [SVG 2 processing modes](https://www.w3.org/TR/SVG2/conform.html#secure-animated-mode). The browser test includes a source-script message probe and verifies that no secondary network request is made. A pixel test also checks that the measured coordinate projection lands on the original blue node fill, independently of the overlay drawing.
+Use `--snapshot` when measuring for annotation or comparison. The measurement browser records a PNG from the same viewport as the primitive envelopes, with source/image hashes and pixel dimensions. The tool validates those bindings and embeds the PNG as an inert image. This prevents implicit SVG dimensions or CSS sizing from stretching the drawing independently of its overlays. The original SVG bytes remain unchanged. Explicitly sized SVGs without stylesheets retain a legacy SVG-image fallback; implicit/CSS-sized sources without a snapshot are refused with a remeasurement instruction. Hashes bind supplied evidence; they do not prove an untrusted image was faithfully captured.
 
-Overlays project browser-measured envelopes into the source viewport. They exclude stroke/marker outlines and filter/clipping effects, and font fallback can vary across machines. Animated/conditional stylesheets and root CSS transforms are rejected for the annotation preview rather than displaying a knowingly mismatched overlay. Blocked assets are reported; verify missing artwork against the original before confirming semantics.
+Source scripts are disabled and secondary file/network references blocked during measurement. Browser tests include a source-script message probe and independent pixel probes on the styled authored fixture and two native figures without explicit dimensions. Snapshots are bounded to 8,192 pixels per side, 16 million pixels and eight MB of PNG data. Blocked assets, missing primitive envelopes and effect-affected envelopes are disclosed; inspect the original before confirming semantics. Font fallback can vary across machines.
 
-The generated HTML **contains the original SVG**, and full measurements contain source geometry. Keep external figures under ignored `artifacts/` or `.cache/` unless their individual reuse terms allow redistribution. The public demo uses an SVG authored for this MIT-licensed project. Measurement and annotation are not new editing coverage: complete-figure external edit support remains 0/19. The immediate next step is independent annotation and a source-preserving compound-node adapter, followed by held-out relation and edit-sequence evaluation.
+Overlays exclude stroke/marker outlines and filter/clipping effects. Animated/conditional stylesheets and root CSS transforms remain outside the annotation preview scope. A few pixel probes are regressions for projection, not a complete rendering-fidelity certificate.
+
+Generated HTML contains source artwork, and full measurements contain source geometry and, with `--snapshot`, its image. Keep mixed-rights figures under ignored `artifacts/` or `.cache/`. Public examples include authored MIT fixtures and the separately attributed [native pilot](native-pilot.md). The original reconstructed-SVG audit remains 0/19 complete-figure editing; the native development track is separately reported at 3/5 two-move sequences under agent-reviewed assumptions.
+
+Old private annotation pages built without a snapshot must be regenerated before human labeling:
+
+```sh
+node benchmarks/measure_external.cjs --rows 20 --snapshot --output artifacts/geometry-audit.json
+python benchmarks/build_external_annotations.py --rows 20 --output artifacts/annotation-view-audit.json
+```
 
 `python benchmarks/build_external_annotations.py --rows 20` builds the existing development prefix from private cached sources and measurements. The [build audit](../results/annotation-view-audit.json) creates 19 unlabelled views, retains the missing twentieth source and creates **zero annotations**. Views and source copies remain in ignored `.cache/annotation-views/`. A successful build is not a rendering-fidelity certificate. See the [research gate](research-plan.md) before treating these development figures as evaluation data or training another model.
