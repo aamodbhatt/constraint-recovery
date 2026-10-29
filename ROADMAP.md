@@ -26,6 +26,8 @@ First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone
 - [x] Replace finite routing candidates with a bounded orthogonal visibility-grid router; retain four center ports and explicit clearance/search limits. [Paired diagnostic](docs/routing.md).
 - Add browser-measured font geometry and rendered visual regression coverage.
 - Add ambiguity review and minimal conflicting-constraint explanations.
+  - [x] Independent arithmetic witnesses for positive flow cycles, path-span, node-size and area bounds. [Scope](docs/conflict-witnesses.md).
+  - [ ] Minimum conflicting sets/repairs and human ambiguity review.
 
 ## M2 — learned recovery on local hardware
 

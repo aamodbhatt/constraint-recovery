@@ -12,6 +12,8 @@ from .check import verify
 def main():
     parser = argparse.ArgumentParser(description="Recover and edit a supported SVG through explicit constraints.")
     commands = parser.add_subparsers(dest="command",required=True)
+    witness = commands.add_parser("check-witness",help="Verify a saved layout conflict witness without running a solver")
+    witness.add_argument("input",type=Path)
     inventory = commands.add_parser("inspect",help="Non-rendering primitive inventory; does not promise edit support")
     inventory.add_argument("input",type=Path)
     inventory.add_argument("--output",type=Path,required=True)
@@ -35,6 +37,15 @@ def main():
         sub.add_argument("--source-preserving",action="store_true",help="Opt-in static CSS/translation/uniform-scale/Bezier subset; patch original SVG elements")
     args = parser.parse_args()
     try:
+        if args.command=="check-witness":
+            from .conflicts import verify_certificate
+            saved=json.loads(args.input.read_text())
+            cert=saved["certificate"]
+            verified=verify_certificate(Diagram.from_dict(saved["fitted_diagram"]),cert,
+                                        cert.get("flow"),cert.get("gap"),cert.get("padding"))
+            print(json.dumps({"verified":verified,"kind":cert.get("kind"),
+                              "scope":"Arithmetic and referenced inequalities of the saved fitted graph; does not re-establish SVG recovery or author intent"},indent=2))
+            return 0 if verified else 2
         if args.input.resolve()==args.output.resolve():
             raise DiagramError("Output must differ from input; preserve the original SVG")
         if args.command=="inspect":
@@ -103,6 +114,16 @@ def main():
         print(json.dumps(report,indent=2))
         return 0
     except (DiagramError,OSError,ValueError,KeyError,TypeError) as exc:
+        from .conflicts import LayoutConflict
+        if isinstance(exc,LayoutConflict):
+            failure=args.output.with_suffix(".failure.json")
+            try:
+                failure.parent.mkdir(parents=True,exist_ok=True)
+                failure.write_text(json.dumps({"status":"infeasible","message":str(exc),"certificate":exc.certificate,
+                                               "fitted_diagram":exc.fitted_diagram,"input":str(args.input)},indent=2)+"\n")
+                print(f"Verified conflict witness: {failure}",file=sys.stderr)
+            except OSError as output_error:
+                print(f"Could not save conflict witness: {output_error}",file=sys.stderr)
         print(f"constraint-recovery: {exc}",file=sys.stderr)
         return 2
 

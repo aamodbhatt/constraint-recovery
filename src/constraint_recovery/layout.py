@@ -44,6 +44,8 @@ def reroute(edge, nodes, width, height,clearance=0):
 
 def edit(diagram, labels=None, width=None, height=None, font_size=None, gap=24, flow="free", time_limit=10,router="visibility"):
     diagram.validate()
+    if not diagram.nodes:
+        raise DiagramError("Cannot lay out an empty diagram")
     labels = labels or {}
     unknown = set(labels)-{n.id for n in diagram.nodes}
     if unknown:
@@ -69,6 +71,12 @@ def edit(diagram, labels=None, width=None, height=None, font_size=None, gap=24, 
     count = len(d.nodes)
     if count > 40:
         raise DiagramError("This baseline supports at most 40 nodes")
+    from .conflicts import diagnose,verify_certificate,explain,LayoutConflict
+    certificate=diagnose(d,flow,gap)
+    if certificate:
+        if not verify_certificate(d,certificate,flow,gap):
+            raise DiagramError("Conflict witness failed independent arithmetic verification")
+        raise LayoutConflict(explain(certificate),certificate,d)
     pairs = list(itertools.combinations(range(count),2))
     size = 4*count+4*len(pairs)
     objective = np.zeros(size)

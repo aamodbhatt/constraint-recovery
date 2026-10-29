@@ -85,6 +85,8 @@ Text sizing is a conservative local estimate, not browser pixel-level certificat
 
 When an edit is infeasible or fails verification, the CLI exits with code 2 and does not export a new diagram. It does not silently shrink text or remove nodes. A pre-existing file at the output path is not removed on failure: check the exit status rather than treating its presence as success. Output must differ from the input path.
 
+For supported mathematical contradictions, it saves a `.failure.json` witness identifying an oversized node, excess rectangle area, a positive flow cycle, or a path longer than the canvas. `constraint-recovery check-witness file.failure.json` verifies the saved arithmetic without a layout solver. See [witnesses and limits](docs/conflict-witnesses.md); a missing witness does not imply feasibility.
+
 ## Tests and benchmark
 
 ```sh

@@ -1,0 +1,114 @@
+{
+  "status": "infeasible",
+  "message": "No feasible flow layout: data \u2192 model \u2192 result needs 272 units of height, but the canvas has 200",
+  "certificate": {
+    "schema_version": 1,
+    "subject_sha256": "414c3ebe50019d8b9c400b5d5b0142a6099424953677dae9f89b3039ecf79b9f",
+    "flow": "vertical",
+    "gap": 24,
+    "padding": 16,
+    "scope": "Necessary-condition witness for fitted rectangular geometry; not an author-intent judgment or a minimum repair",
+    "kind": "flow_span",
+    "node_ids": [
+      "data",
+      "model",
+      "result"
+    ],
+    "edge_ids": [
+      "data-model",
+      "model-result"
+    ],
+    "axis": "height",
+    "required": 272.0,
+    "available": 200.0,
+    "shortfall": 72.0
+  },
+  "fitted_diagram": {
+    "width": 720.0,
+    "height": 200.0,
+    "nodes": [
+      {
+        "id": "data",
+        "x": 36.0,
+        "y": 95.0,
+        "width": 170.0,
+        "height": 64.0,
+        "label": "Input data",
+        "font_size": 16.0,
+        "fill": "#e1ecff",
+        "stroke": "#30445f",
+        "lines": [
+          "Input data"
+        ]
+      },
+      {
+        "id": "model",
+        "x": 275.0,
+        "y": 95.0,
+        "width": 170.0,
+        "height": 64.0,
+        "label": "Model",
+        "font_size": 16.0,
+        "fill": "#e5f2ed",
+        "stroke": "#30445f",
+        "lines": [
+          "Model"
+        ]
+      },
+      {
+        "id": "result",
+        "x": 514.0,
+        "y": 95.0,
+        "width": 170.0,
+        "height": 64.0,
+        "label": "Evaluation",
+        "font_size": 16.0,
+        "fill": "#fff0de",
+        "stroke": "#30445f",
+        "lines": [
+          "Evaluation"
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": "data-model",
+        "source": "data",
+        "target": "model",
+        "points": [
+          [
+            206.0,
+            127.0
+          ],
+          [
+            275.0,
+            127.0
+          ]
+        ],
+        "evidence": "unambiguous boundary proximity; not author-confirmed semantics"
+      },
+      {
+        "id": "model-result",
+        "source": "model",
+        "target": "result",
+        "points": [
+          [
+            445.0,
+            127.0
+          ],
+          [
+            514.0,
+            127.0
+          ]
+        ],
+        "evidence": "unambiguous boundary proximity; not author-confirmed semantics"
+      }
+    ],
+    "warnings": [
+      "Geometric baseline only. Review recovered arrow attachments before treating them as semantic constraints.",
+      "Export normalizes typography, node styling, and connectors; this is not a lossless SVG editor."
+    ],
+    "schema_version": 1
+  },
+  "input": "examples/pipeline.svg"
+}
