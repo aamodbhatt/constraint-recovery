@@ -29,4 +29,8 @@ python benchmarks/audit_external.py --extended --cache-dir .cache/external --off
   --output artifacts/external-audit-offline.json
 ```
 
+Add `--inventory` to record aggregate observations across all visible-tree primitives, rather than only the first rejection. The 19 available development sources contain 1,429 such primitives: 305 rectangles, 511 texts, 304 paths, 209 circles, 59 lines, 22 polygons, 10 images, seven uses and two ellipses. Eighteen rectangles cover the canvas. After excluding these backgrounds, 136 of 511 directly positioned text anchors lie in multiple rectangles and 185 lie in none. These counts are computed without resolving CSS visibility, glyph extents or semantic roles. They motivate container and decoration handling; they do not imply an accuracy result.
+
+`constraint-recovery inspect input.svg --output artifacts/inventory.json` provides local primitive locations and geometry. It supports arbitrary finite 2D affine transforms for **inventory bounds only**; the editor retains its stricter transform policy. Ellipse envelopes are analytic; path bounds conservatively transform the path’s local axis-aligned envelope. Strokes, effects and referenced instances are not included. Inspection does not fetch resources or execute scripts. It is not a sanitizer and must never authorize embedding an otherwise rejected source. Checked-in external results retain aggregate observations, source IDs and hashes, without figure geometry or text.
+
 Source figures are not committed. The upstream license is mixed by arXiv source; inspect individual rights before redistribution. These development rows are not an untouched test set. An independent relation-label evaluation and fresh holdout are still needed.

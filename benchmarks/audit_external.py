@@ -22,6 +22,7 @@ def main():
     p.add_argument("--cache-dir",type=Path,help="Private local response cache; source SVGs must not be committed")
     p.add_argument("--offline",action="store_true",help="Require cached responses; make no network requests")
     p.add_argument("--extended",action="store_true",help="Also test the opt-in source-preserving importer")
+    p.add_argument("--inventory",action="store_true",help="Record aggregate source syntax/geometry observations, without redistributing artwork")
     args = p.parse_args()
     if not 1 <= args.rows <= 100:
         p.error("--rows must be between 1 and 100")
@@ -77,6 +78,13 @@ def main():
                     record["source_preserving"] = {"supported":True,"nodes":len(d.nodes),"edges":len(d.edges),"first_failure":None}
                 except DiagramError as exc:
                     record["source_preserving"] = {"supported":False,"first_failure":str(exc)}
+            if args.inventory:
+                from constraint_recovery.inventory import inspect_svg
+                try:
+                    inventory = inspect_svg(svg)
+                    record["inventory"] = {k:inventory[k] for k in ["all_element_counts","reference_counts","active_content_signals","summary"]}
+                except DiagramError as exc:
+                    record["inventory"] = {"failure":str(exc)}
             records.append(record)
     report = {"dataset":DATASET,"source":"https://huggingface.co/datasets/"+DATASET,
               "selection":f"Contiguous published test rows {args.offset}..{args.offset+args.rows-1}; not a representative random sample",
@@ -89,6 +97,15 @@ def main():
         extended = [r.get("source_preserving",{"supported":False,"first_failure":r["first_failure"]}) for r in records]
         report["source_preserving"] = {"supported":sum(r["supported"] for r in extended),
             "first_failure_counts":dict(collections.Counter(r["first_failure"] for r in extended if not r["supported"]))}
+    if args.inventory:
+        inventories = [r["inventory"] for r in records if "inventory" in r and "failure" not in r["inventory"]]
+        tags = collections.Counter()
+        stats = collections.Counter()
+        for item in inventories:
+            tags.update(item["summary"]["visible_tags"])
+            stats.update({k:v for k,v in item["summary"].items() if k!="visible_tags"})
+        report["inventory"] = {"inventoried_sources":len(inventories),"visible_tag_counts":dict(tags),
+            "aggregate_observations":dict(stats),"interpretation":"Source syntax/geometry observations only; not node/edge labels or editing coverage"}
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(report,indent=2)+"\n")
     print(json.dumps({k:v for k,v in report.items() if k!="records"},indent=2))

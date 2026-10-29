@@ -34,6 +34,36 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Only singly directed connectors with marker-end are supported"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "marker": 2,
+          "path": 30,
+          "rect": 27,
+          "g": 8,
+          "text": 10,
+          "tspan": 4
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 65,
+          "visible_tags": {
+            "rect": 27,
+            "text": 10,
+            "path": 28
+          },
+          "bounded_primitives": 55,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 26,
+          "rectangles_containing_text_anchors": 0,
+          "text_anchors": 10,
+          "text_anchors_with_zero_rect_owners": 10,
+          "text_anchors_with_multiple_rect_owners": 0,
+          "explicit_marker_end_attributes": 1
+        }
       }
     },
     {
@@ -47,6 +77,42 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: filter"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "filter": 1,
+          "feDropShadow": 1,
+          "marker": 1,
+          "path": 13,
+          "rect": 8,
+          "g": 2,
+          "text": 11,
+          "tspan": 2,
+          "image": 1
+        },
+        "reference_counts": {
+          "embedded": 1
+        },
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 32,
+          "visible_tags": {
+            "rect": 8,
+            "path": 12,
+            "text": 11,
+            "image": 1
+          },
+          "bounded_primitives": 21,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 7,
+          "rectangles_containing_text_anchors": 7,
+          "text_anchors": 11,
+          "text_anchors_with_zero_rect_owners": 0,
+          "text_anchors_with_multiple_rect_owners": 0,
+          "explicit_marker_end_attributes": 6
+        }
       }
     },
     {
@@ -60,6 +126,45 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: symbol"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "rect": 10,
+          "defs": 1,
+          "symbol": 1,
+          "polygon": 1,
+          "g": 9,
+          "line": 1,
+          "circle": 122,
+          "use": 7,
+          "text": 14,
+          "image": 2
+        },
+        "reference_counts": {
+          "fragment": 7,
+          "embedded": 2
+        },
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 156,
+          "visible_tags": {
+            "rect": 10,
+            "line": 1,
+            "circle": 122,
+            "use": 7,
+            "text": 14,
+            "image": 2
+          },
+          "bounded_primitives": 135,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 9,
+          "rectangles_containing_text_anchors": 2,
+          "text_anchors": 14,
+          "text_anchors_with_zero_rect_owners": 4,
+          "text_anchors_with_multiple_rect_owners": 1,
+          "explicit_marker_end_attributes": 0
+        }
       }
     },
     {
@@ -73,6 +178,38 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: circle"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "marker": 3,
+          "path": 42,
+          "style": 1,
+          "g": 1,
+          "rect": 26,
+          "text": 45,
+          "circle": 12
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 122,
+          "visible_tags": {
+            "rect": 26,
+            "path": 39,
+            "text": 45,
+            "circle": 12
+          },
+          "bounded_primitives": 77,
+          "canvas_covering_rectangles": 0,
+          "other_rectangles": 26,
+          "rectangles_containing_text_anchors": 15,
+          "text_anchors": 45,
+          "text_anchors_with_zero_rect_owners": 0,
+          "text_anchors_with_multiple_rect_owners": 43,
+          "explicit_marker_end_attributes": 22
+        }
       }
     },
     {
@@ -86,6 +223,39 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: circle"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "marker": 3,
+          "path": 71,
+          "style": 1,
+          "rect": 30,
+          "g": 7,
+          "text": 30,
+          "tspan": 19,
+          "circle": 13
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 141,
+          "visible_tags": {
+            "rect": 30,
+            "text": 30,
+            "path": 68,
+            "circle": 13
+          },
+          "bounded_primitives": 111,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 29,
+          "rectangles_containing_text_anchors": 11,
+          "text_anchors": 30,
+          "text_anchors_with_zero_rect_owners": 1,
+          "text_anchors_with_multiple_rect_owners": 10,
+          "explicit_marker_end_attributes": 0
+        }
       }
     },
     {
@@ -99,6 +269,41 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: image"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "rect": 39,
+          "image": 2,
+          "text": 4,
+          "polygon": 1,
+          "g": 9,
+          "circle": 1,
+          "line": 2
+        },
+        "reference_counts": {
+          "embedded": 2
+        },
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 49,
+          "visible_tags": {
+            "rect": 39,
+            "image": 2,
+            "text": 4,
+            "polygon": 1,
+            "circle": 1,
+            "line": 2
+          },
+          "bounded_primitives": 45,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 38,
+          "rectangles_containing_text_anchors": 2,
+          "text_anchors": 4,
+          "text_anchors_with_zero_rect_owners": 2,
+          "text_anchors_with_multiple_rect_owners": 0,
+          "explicit_marker_end_attributes": 0
+        }
       }
     },
     {
@@ -112,6 +317,34 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Only normal-weight, unspaced text is editable"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "marker": 2,
+          "path": 5,
+          "rect": 2,
+          "text": 17
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 22,
+          "visible_tags": {
+            "rect": 2,
+            "text": 17,
+            "path": 3
+          },
+          "bounded_primitives": 5,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 1,
+          "rectangles_containing_text_anchors": 1,
+          "text_anchors": 17,
+          "text_anchors_with_zero_rect_owners": 0,
+          "text_anchors_with_multiple_rect_owners": 0,
+          "explicit_marker_end_attributes": 3
+        }
       }
     },
     {
@@ -125,6 +358,40 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: filter"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "filter": 1,
+          "feDropShadow": 1,
+          "style": 1,
+          "rect": 5,
+          "g": 7,
+          "path": 3,
+          "text": 77,
+          "line": 14,
+          "tspan": 118
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 99,
+          "visible_tags": {
+            "rect": 5,
+            "path": 3,
+            "text": 77,
+            "line": 14
+          },
+          "bounded_primitives": 22,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 4,
+          "rectangles_containing_text_anchors": 4,
+          "text_anchors": 77,
+          "text_anchors_with_zero_rect_owners": 3,
+          "text_anchors_with_multiple_rect_owners": 0,
+          "explicit_marker_end_attributes": 0
+        }
       }
     },
     {
@@ -138,6 +405,40 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: ellipse"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "rect": 21,
+          "g": 1,
+          "style": 1,
+          "path": 13,
+          "ellipse": 1,
+          "text": 19,
+          "line": 2,
+          "polygon": 2
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 58,
+          "visible_tags": {
+            "rect": 21,
+            "path": 13,
+            "ellipse": 1,
+            "text": 19,
+            "line": 2,
+            "polygon": 2
+          },
+          "bounded_primitives": 39,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 20,
+          "rectangles_containing_text_anchors": 7,
+          "text_anchors": 19,
+          "text_anchors_with_zero_rect_owners": 5,
+          "text_anchors_with_multiple_rect_owners": 8,
+          "explicit_marker_end_attributes": 0
+        }
       }
     },
     {
@@ -151,6 +452,40 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: polygon"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "linearGradient": 3,
+          "stop": 6,
+          "style": 1,
+          "rect": 28,
+          "g": 1,
+          "text": 44,
+          "tspan": 15,
+          "polygon": 4,
+          "line": 1
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 77,
+          "visible_tags": {
+            "rect": 28,
+            "text": 44,
+            "polygon": 4,
+            "line": 1
+          },
+          "bounded_primitives": 33,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 27,
+          "rectangles_containing_text_anchors": 27,
+          "text_anchors": 44,
+          "text_anchors_with_zero_rect_owners": 15,
+          "text_anchors_with_multiple_rect_owners": 25,
+          "explicit_marker_end_attributes": 0
+        }
       }
     },
     {
@@ -164,6 +499,46 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: image"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "marker": 5,
+          "path": 24,
+          "rect": 1,
+          "text": 19,
+          "image": 4,
+          "polygon": 2,
+          "g": 2,
+          "circle": 34,
+          "tspan": 18,
+          "ellipse": 1
+        },
+        "reference_counts": {
+          "external": 4
+        },
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 80,
+          "visible_tags": {
+            "rect": 1,
+            "text": 19,
+            "image": 4,
+            "path": 19,
+            "polygon": 2,
+            "circle": 34,
+            "ellipse": 1
+          },
+          "bounded_primitives": 61,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 0,
+          "rectangles_containing_text_anchors": 0,
+          "text_anchors": 19,
+          "text_anchors_with_zero_rect_owners": 19,
+          "text_anchors_with_multiple_rect_owners": 0,
+          "explicit_marker_end_attributes": 18
+        }
       }
     },
     {
@@ -177,6 +552,36 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Only singly directed connectors with marker-end are supported"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "marker": 1,
+          "path": 23,
+          "style": 1,
+          "rect": 11,
+          "text": 36,
+          "tspan": 23
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 69,
+          "visible_tags": {
+            "rect": 11,
+            "text": 36,
+            "path": 22
+          },
+          "bounded_primitives": 33,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 10,
+          "rectangles_containing_text_anchors": 5,
+          "text_anchors": 36,
+          "text_anchors_with_zero_rect_owners": 32,
+          "text_anchors_with_multiple_rect_owners": 2,
+          "explicit_marker_end_attributes": 9
+        }
       }
     },
     {
@@ -190,6 +595,40 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: circle"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "style": 1,
+          "marker": 2,
+          "path": 31,
+          "rect": 21,
+          "line": 31,
+          "text": 50,
+          "circle": 12,
+          "tspan": 22
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 143,
+          "visible_tags": {
+            "rect": 21,
+            "line": 31,
+            "text": 50,
+            "path": 29,
+            "circle": 12
+          },
+          "bounded_primitives": 93,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 20,
+          "rectangles_containing_text_anchors": 20,
+          "text_anchors": 50,
+          "text_anchors_with_zero_rect_owners": 26,
+          "text_anchors_with_multiple_rect_owners": 8,
+          "explicit_marker_end_attributes": 14
+        }
       }
     },
     {
@@ -203,6 +642,40 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: pattern"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "marker": 4,
+          "path": 24,
+          "pattern": 1,
+          "rect": 8,
+          "line": 1,
+          "g": 8,
+          "circle": 10,
+          "text": 32,
+          "tspan": 19
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 69,
+          "visible_tags": {
+            "rect": 7,
+            "path": 20,
+            "circle": 10,
+            "text": 32
+          },
+          "bounded_primitives": 37,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 6,
+          "rectangles_containing_text_anchors": 6,
+          "text_anchors": 32,
+          "text_anchors_with_zero_rect_owners": 26,
+          "text_anchors_with_multiple_rect_owners": 0,
+          "explicit_marker_end_attributes": 20
+        }
       }
     },
     {
@@ -216,6 +689,34 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: image"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "rect": 1,
+          "image": 1,
+          "text": 12
+        },
+        "reference_counts": {
+          "external": 1
+        },
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 14,
+          "visible_tags": {
+            "rect": 1,
+            "image": 1,
+            "text": 12
+          },
+          "bounded_primitives": 2,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 0,
+          "rectangles_containing_text_anchors": 0,
+          "text_anchors": 12,
+          "text_anchors_with_zero_rect_owners": 12,
+          "text_anchors_with_multiple_rect_owners": 0,
+          "explicit_marker_end_attributes": 0
+        }
       }
     },
     {
@@ -238,6 +739,36 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: polygon"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "rect": 9,
+          "g": 6,
+          "text": 14,
+          "tspan": 40,
+          "path": 2,
+          "polygon": 5
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 30,
+          "visible_tags": {
+            "rect": 9,
+            "text": 14,
+            "path": 2,
+            "polygon": 5
+          },
+          "bounded_primitives": 16,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 8,
+          "rectangles_containing_text_anchors": 5,
+          "text_anchors": 14,
+          "text_anchors_with_zero_rect_owners": 7,
+          "text_anchors_with_multiple_rect_owners": 0,
+          "explicit_marker_end_attributes": 0
+        }
       }
     },
     {
@@ -251,6 +782,36 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Only singly directed connectors with marker-end are supported"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "defs": 1,
+          "marker": 1,
+          "path": 29,
+          "style": 1,
+          "rect": 52,
+          "text": 55,
+          "g": 9
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 135,
+          "visible_tags": {
+            "rect": 52,
+            "text": 55,
+            "path": 28
+          },
+          "bounded_primitives": 80,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 51,
+          "rectangles_containing_text_anchors": 48,
+          "text_anchors": 55,
+          "text_anchors_with_zero_rect_owners": 13,
+          "text_anchors_with_multiple_rect_owners": 39,
+          "explicit_marker_end_attributes": 19
+        }
       }
     },
     {
@@ -264,6 +825,40 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Unsupported element: polygon"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "rect": 1,
+          "defs": 1,
+          "marker": 4,
+          "path": 22,
+          "g": 3,
+          "polygon": 8,
+          "circle": 5,
+          "text": 10,
+          "tspan": 18
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 42,
+          "visible_tags": {
+            "rect": 1,
+            "polygon": 8,
+            "path": 18,
+            "circle": 5,
+            "text": 10
+          },
+          "bounded_primitives": 32,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 0,
+          "rectangles_containing_text_anchors": 0,
+          "text_anchors": 10,
+          "text_anchors_with_zero_rect_owners": 10,
+          "text_anchors_with_multiple_rect_owners": 0,
+          "explicit_marker_end_attributes": 4
+        }
       }
     },
     {
@@ -277,6 +872,33 @@
       "source_preserving": {
         "supported": false,
         "first_failure": "Only singly directed connectors with marker-end are supported"
+      },
+      "inventory": {
+        "all_element_counts": {
+          "svg": 1,
+          "rect": 6,
+          "g": 3,
+          "line": 8,
+          "text": 12
+        },
+        "reference_counts": {},
+        "active_content_signals": {},
+        "summary": {
+          "visible_primitives": 26,
+          "visible_tags": {
+            "rect": 6,
+            "line": 8,
+            "text": 12
+          },
+          "bounded_primitives": 14,
+          "canvas_covering_rectangles": 1,
+          "other_rectangles": 5,
+          "rectangles_containing_text_anchors": 4,
+          "text_anchors": 12,
+          "text_anchors_with_zero_rect_owners": 0,
+          "text_anchors_with_multiple_rect_owners": 0,
+          "explicit_marker_end_attributes": 0
+        }
       }
     }
   ],
@@ -294,5 +916,31 @@
       "Unsupported element: pattern": 1,
       "Source SVG unavailable in dataset row": 1
     }
+  },
+  "inventory": {
+    "inventoried_sources": 19,
+    "visible_tag_counts": {
+      "rect": 305,
+      "text": 511,
+      "path": 304,
+      "image": 10,
+      "line": 59,
+      "circle": 209,
+      "use": 7,
+      "polygon": 22,
+      "ellipse": 2
+    },
+    "aggregate_observations": {
+      "visible_primitives": 1429,
+      "bounded_primitives": 911,
+      "canvas_covering_rectangles": 18,
+      "other_rectangles": 287,
+      "rectangles_containing_text_anchors": 164,
+      "text_anchors": 511,
+      "text_anchors_with_zero_rect_owners": 185,
+      "text_anchors_with_multiple_rect_owners": 136,
+      "explicit_marker_end_attributes": 116
+    },
+    "interpretation": "Source syntax/geometry observations only; not node/edge labels or editing coverage"
   }
 }

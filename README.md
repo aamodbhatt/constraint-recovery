@@ -55,6 +55,8 @@ A portable [branch example](docs/demo/branch.html) is included alongside the ori
 
 An opt-in [source-preserving importer](docs/source-preserving.md) now handles static CSS, translated/uniformly scaled groups and quadratic/cubic connectors while patching original elements. Install `pip install -e '.[svg,test]'` and pass `--source-preserving`. See the [styled example](docs/demo/styled-portrait.html). This remains a narrow subset: the repeated external audit still accepts zero complete figures.
 
+For a rejected figure, `constraint-recovery inspect figure.svg --output artifacts/inventory.json` produces a non-rendering inventory of primitives, bounds where available, text anchors and reference signals. It does not turn unsupported artwork into an editable graph. The 19 available external development SVGs contain 1,429 visible-tree primitives and 136 text anchors inside multiple non-background rectangles, motivating explicit container/role recovery. These are source observations, not gold semantic labels.
+
 ## First learning and external-data checkpoint
 
 - A CPU-trained, inspectable endpoint ranker with opt-in CLI integration and abstention. See [model card](models/README.md).

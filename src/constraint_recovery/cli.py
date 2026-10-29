@@ -12,6 +12,9 @@ from .check import verify
 def main():
     parser = argparse.ArgumentParser(description="Recover and edit a supported SVG through explicit constraints.")
     commands = parser.add_subparsers(dest="command",required=True)
+    inventory = commands.add_parser("inspect",help="Non-rendering primitive inventory; does not promise edit support")
+    inventory.add_argument("input",type=Path)
+    inventory.add_argument("--output",type=Path,required=True)
     recover = commands.add_parser("recover",help="Export the recovered graph for inspection")
     recover.add_argument("input",type=Path)
     recover.add_argument("--output",type=Path,required=True)
@@ -33,6 +36,13 @@ def main():
     try:
         if args.input.resolve()==args.output.resolve():
             raise DiagramError("Output must differ from input; preserve the original SVG")
+        if args.command=="inspect":
+            from .inventory import inspect_svg
+            inventory = inspect_svg(args.input.read_text())
+            args.output.parent.mkdir(parents=True,exist_ok=True)
+            args.output.write_text(json.dumps(inventory,indent=2)+"\n")
+            print(json.dumps(inventory["summary"],indent=2))
+            return 0
         model = None
         if args.endpoint_model:
             from .attachment import AttachmentModel

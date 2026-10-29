@@ -16,7 +16,7 @@ def numbers(value):
     return result
 
 
-def transform(value):
+def transform(value,allow_affine=False):
     matrix = np.eye(3)
     consumed = 0
     for match in re.finditer(r"([A-Za-z]+)\s*\(([^)]*)\)",value):
@@ -33,15 +33,27 @@ def transform(value):
         elif name=="matrix" and len(v)==6:
             a,b,c,d,e,f = v
             step = np.array([[a,c,e],[b,d,f],[0,0,1]],dtype=float)
-        elif name=="rotate" and len(v) in {1,3} and abs(v[0]%360)<1e-9:
-            pass
+        elif name=="rotate" and len(v) in {1,3}:
+            angle = math.radians(v[0])
+            if not allow_affine and abs(v[0]%360)>1e-9:
+                raise DiagramError("Rotation requires a shape-aware importer")
+            c,s = math.cos(angle),math.sin(angle)
+            step[:2,:2] = [[c,-s],[s,c]]
+            if len(v)==3:
+                center = np.asarray(v[1:])
+                step[:2,2] = center-step[:2,:2]@center
+        elif name in {"skewX","skewY"} and len(v)==1 and allow_affine:
+            step[0 if name=="skewX" else 1,1 if name=="skewX" else 0] = math.tan(math.radians(v[0]))
         else:
             raise DiagramError(f"Unsupported transform: {name}; only translation and positive uniform scale are editable")
         matrix = matrix@step
         consumed = match.end()
     if value[consumed:].strip():
         raise DiagramError("Invalid transform syntax")
-    scale(matrix)
+    if not np.isfinite(matrix).all():
+        raise DiagramError("Non-finite SVG transform")
+    if not allow_affine:
+        scale(matrix)
     return matrix
 
 
