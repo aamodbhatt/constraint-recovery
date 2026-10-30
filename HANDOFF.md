@@ -1,7 +1,7 @@
 # Saved checkpoint — 2026-10-30
 
 Repository: `aamodbhatt/constraint-recovery`, branch `main`.
-Tested code checkpoint: `f9fb3b49d5cfb229c7b5c96dcc53b93b3d36b650` (source-bound annotation previews and complete public-state verification). A following documentation-only commit records the final CI result in this handoff.
+Latest tested code checkpoint: `ba096977555e41e332932b4241382e355cbe2369` (blinded source-reference recovery). All four CI jobs passed in41013575166. The following handoff-only commit changes no tested code. Earlier checkpoints below retain their historical context.
 
 ## User objective and operating constraints
 
@@ -60,7 +60,7 @@ Synthetic results remain diagnostics: layout30/30 vs fixed placement20/30; routi
 
 ## Validation and reproduction
 
-Latest local suite: **219 passing Python tests**. Includes annotation metric edge cases, source binding/coverage, routing families, independent segment contacts, malformed snapshot/digest/size failures and conservative SVG guards. Browser annotation, native editing, damaged-candidate rejection, native workspace/mobile/pixel probes, comparison controls and all eight public SVG exports pass locally. A wheel builds and its new modules/browser assets import in isolation.
+Latest local suite: **239 passing Python tests**, including the new geometry-only recovery/reference controls. Includes annotation metric edge cases, source binding/coverage, routing families, independent segment contacts, malformed snapshot/digest/size failures and conservative SVG guards. Browser annotation, native editing, damaged-candidate rejection, native workspace/mobile/pixel probes, comparison controls and all eight public SVG exports pass locally. A wheel builds and its new modules/browser assets import in isolation.
 
 Final code CI: all four jobs passed for `f9fb3b4` in <https://github.com/aamodbhatt/constraint-recovery/actions/runs/40946859211>. The preceding preview checkpoint `c6e329b` also passed all four jobs in40946373419. This subsequent handoff-only edit changes no tested code. The phase is complete before the usage guard; independent human labels remain an external research input, not something to fabricate to keep working.
 
@@ -128,4 +128,6 @@ Result: **1/2 figures scored**. Lamp flowchart:6/6 nodes and5/5 shafts detected/
 
 Metadata-binding mutation leaves blinded SVG, observations and predictions byte-identical while the reference changes; input permutation leaves decisions unchanged; an incorrect endpoint reduces scorer counts. Additional tests reject wrong source geometry, misplaced heads, missing visible parts, semantic fields and hash mismatch; functional fragment IDs survive anonymization. Latest local Python suite239 passing; authored browser workflow and both external probes pass their declared checks. No need to repeat older rendering suites locally when unchanged; CI runs them after pushing.
 
-Next: broaden the source-program pool with predeclared eligibility/splits, expand the restricted exporter grounding with explicit coverage/failures, and measure a local role/relation model against these strong controls before GPU spending. The existing flowchart is already a development regression and cannot become an untouched holdout. Last live usage reading81% used,27% weekly; recheck before continuing and honor5% remaining cutoff.
+Next: broaden the source-program pool with predeclared eligibility/splits, expand the restricted exporter grounding with explicit coverage/failures, and measure a local role/relation model against these strong controls before GPU spending. The existing flowchart is already a development regression and cannot become an untouched holdout. Final live usage reading86% used (14% remaining),27% weekly; recheck before continuing and honor5% remaining cutoff. This completed checkpoint stops before the guard; no reset credit was used.
+
+Final validation for `ba09697`: all four CI jobs passed in <https://github.com/aamodbhatt/constraint-recovery/actions/runs/41013575166>. The wheel builds and its predictor, run in isolation from the extracted wheel, reproduces the frozen external-case predictions exactly. Repository pushed; this final handoff update changes documentation only.
