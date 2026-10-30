@@ -34,7 +34,7 @@ Original SVGs remain in ignored `.cache/label-source-audit`; no artwork is redis
 4. Freeze predictions before the scorer reads references. Retain unsupported examples and direction/containment uncertainty. Source graph absence does not prove that a visible connection is semantically absent.
 5. Report explicit connections separately from alignment, latent intent and perceived composition, which an authoring file may not encode.
 
-**Only metadata acquisition has been demonstrated here.** The flowchart contains ten HTML `foreignObject` labels, outside the current conservative SVG editor. No geometry-to-cell grounding, metadata stripping, recovery evaluation or new editing coverage is claimed. The next implementation is a blinded reference pipeline, followed by an authoring-origin holdout. The native pilot remains a separate agent-reviewed development track.
+The [blinded reference pipeline](source-reference-recovery.md) now strips the graph, preserves browser pixels and scores geometry-only endpoint predictions against a restricted exporter mapping. One of these two development probes is scored: both classical baselines recover10/10 bindings on the flowchart; the resource-blocked tutorial remains unscored. This is not a holdout or learned improvement. The flowchart's HTML labels remain outside the conservative editing adapter, so no new editing coverage follows. An expanded source-program pool and authoring-origin holdout remain next.
 
 ## Existing expert annotations: AI2D-RST
 

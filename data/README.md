@@ -44,3 +44,5 @@ After independent records are saved, use [annotation comparison](../docs/annotat
 ## External source-program feasibility
 
 `source-oracle-feasibility-selection.json` pins two purposive development probes from the public draw.io diagram repository. `results/source-oracle-feasibility.json` records verified original-source hashes and declared vertex/binding counts; artwork remains private in `.cache/label-source-audit`. These are source-declared references, not agent-confirmed or newly human-reviewed annotation records. No SVG editing support, grounding accuracy or unseen evaluation follows from metadata extraction. One probe has zero edges and is retained.
+
+The [blinded recovery checkpoint](../docs/source-reference-recovery.md) now implements metadata stripping, render preservation, separate numeric-input prediction and source-reference scoring. Its protocol is `source-recovery-protocol.json`; `results/source-recovery.json` retains1/2 scored development probes and the geometry-baseline tie. Original artwork and private grounding remain ignored. It creates no newly human-reviewed labels and expands no editing denominator.

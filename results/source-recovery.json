@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "kind": "blinded-source-recovery-development",
+  "selection_sha256": "4a3b3d68c6fd0046723fed004c8ad9f59cc81d8083d17e4a3d582db035f58a0f",
+  "protocol_sha256": "bba15d68421502772a53c95d214964b70f9575d67aeb39cc1a0ecb751c3ae21c",
+  "browser": "151.0.7922.34",
+  "device": "CPU",
+  "selected_figures": 2,
+  "scored_figures": 1,
+  "implementations": {
+    "benchmarks/run_source_recovery.cjs": "c6e1ac48e666637670fa7744316c19e0b8853e8dda2a145f29fdc7a63f55e169",
+    "benchmarks/source_recovery.py": "d3393bbcb808f22d682efd0f989b668409f3c492fd31f1e5aabc8fa3a134c787",
+    "benchmarks/audit_source_oracles.py": "859b5d63767320c963b4d9f82b658f030b8749eb8b883f240655ca61f7ff4530",
+    "src/constraint_recovery/geometric_recovery.py": "20490fdf587d78d29014d0fbeef8332df4d73262130c94b637378c91fa5d66e6",
+    "src/constraint_recovery/assets/browser_geometry.cjs": "8c42e3b9222243d60512d02e12a11b1a42de2eaddb0f91778af4eb9e6b5ca6f2"
+  },
+  "scope": "Previously inspected two-source development probes, not a holdout. Source-declared bindings, no new human labels. Identical local render pixels do not prove semantic intent. No new editing support or learned advantage.",
+  "records": [
+    {
+      "id": "connect-shapes",
+      "source_sha256": "d989403e10354b524162fbabf8ee1304836740bf56d0af6d77100051bf9ca8f3",
+      "blinded_svg_sha256": "1c960b90b1d9122487539518d99cefbed5252a9afd5b92768cfaec707d0d745c",
+      "observation_sha256": "b1cbc62eabd923108bf98237221b200c42dd8313d46a426b5052828c7e83a260",
+      "prediction_sha256": "f0c7b95e24237e9549008b84eba40cd54d2a05176e3667650cbfc103afb2a248",
+      "preparation": {
+        "known_dtds_removed": 1,
+        "redactions": {
+          "attribute:content": 1,
+          "attribute:resource": 1,
+          "external-link": 2
+        },
+        "source_sha256": "d989403e10354b524162fbabf8ee1304836740bf56d0af6d77100051bf9ca8f3"
+      },
+      "prediction_written_before_reference_loaded": true,
+      "pixel_check": {
+        "passed": true,
+        "pixel_dimensions": [
+          1280,
+          960
+        ],
+        "changed_rgba_pixels": 0,
+        "scope": "Exact full-viewport pixels in this browser with scripts disabled and secondary requests blocked, not cross-browser identity."
+      },
+      "blocked_secondary_resources": 4,
+      "scored": false,
+      "stage": "source-resources",
+      "reason": "Blocked source assets prevent an intact-artwork recovery claim"
+    },
+    {
+      "id": "flowchart.drawio",
+      "source_sha256": "362ad71f92e9f8dcd73d1fdb3166975d1dea1f036bb9a6be36c3536813e9c421",
+      "blinded_svg_sha256": "b962de1dd30295665f6612d3ee00ca8d76acffe99c65c3757b6d013bc0e72781",
+      "observation_sha256": "4dcebfeb53186ba726b137a46f12e7e3c7740a177b194616c176d208e231494d",
+      "prediction_sha256": "21c34ed09d5356110176e412c537b0fc9a01f4c954a284ee005b8980f93863cd",
+      "preparation": {
+        "known_dtds_removed": 1,
+        "redactions": {
+          "attribute:content": 1,
+          "attribute:data-drawio-colors": 10,
+          "external-link": 1,
+          "attribute:target": 1
+        },
+        "source_sha256": "362ad71f92e9f8dcd73d1fdb3166975d1dea1f036bb9a6be36c3536813e9c421"
+      },
+      "prediction_written_before_reference_loaded": true,
+      "pixel_check": {
+        "passed": true,
+        "pixel_dimensions": [
+          281,
+          391
+        ],
+        "changed_rgba_pixels": 0,
+        "scope": "Exact full-viewport pixels in this browser with scripts disabled and secondary requests blocked, not cross-browser identity."
+      },
+      "blocked_secondary_resources": 0,
+      "scored": true,
+      "reference_sha256": "9a7a9b11cd5046863fa932059469c97680070170fbaee38082560da0049fa04f",
+      "scores": {
+        "reference_vertices": 6,
+        "grounded_vertices": 6,
+        "reference_edges": 5,
+        "grounded_edges": 5,
+        "fully_bound_reference_edges": 5,
+        "node_candidates": {
+          "predicted": 6,
+          "reference": 6,
+          "matched": 6,
+          "recall": 1,
+          "precision": 1
+        },
+        "shaft_candidates": {
+          "predicted": 5,
+          "reference": 5,
+          "matched": 5,
+          "recall": 1,
+          "precision": 1
+        },
+        "methods": {
+          "nearest_boundary": {
+            "reference_endpoints": 10,
+            "answered_endpoints": 10,
+            "correct_endpoints": 10,
+            "endpoint_accuracy": 1,
+            "both_end_correct_edges": 5,
+            "both_end_accuracy": 1
+          },
+          "tangent_aware": {
+            "reference_endpoints": 10,
+            "answered_endpoints": 10,
+            "correct_endpoints": 10,
+            "endpoint_accuracy": 1,
+            "both_end_correct_edges": 5,
+            "both_end_accuracy": 1
+          }
+        }
+      },
+      "checks": {
+        "primitive_permutation_invariant": true,
+        "wrong_endpoint_detected": true,
+        "hidden_binding_mutation_preserves_blind_input_and_predictions": true
+      }
+    }
+  ]
+}

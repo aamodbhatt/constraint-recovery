@@ -83,7 +83,7 @@ Placement minimizes total L1 node displacement subject to canvas bounds, nonover
 | [Author-published SVG pilot](docs/native-pilot.md) | 3/5 fixed figures complete both moves; stronger translate-only control accepts 1/5 first moves | Conditional on agent-reviewed assumptions; two authoring origins, no independent human labels |
 | [Parallel-shaft routing](docs/channel-routing.md) | Ordered tracks remove observed contacts on both seven-link native edits; the checker reads exported segments | A bounded classical routing refinement, not a learned or novel-routing claim |
 
-The next research step is a blinded source-program reference pipeline or compatible existing expert labels, broader edge-topology checks and an unseen source-paper holdout. [Reference-data routes](docs/existing-reference-data.md) can avoid new manual annotation. See the [research plan](docs/research-plan.md), [data protocol](data/README.md) and [model card](models/README.md). No paper-ready novelty claim is made.
+A [blinded source-reference pipeline](docs/source-reference-recovery.md) now scores one of two external development probes: both geometry controls recover10/10 bindings on the scored flowchart; missing assets exclude the other. Next are a larger reference pool, broader topology checks and an unseen authoring-origin holdout. [Reference-data routes](docs/existing-reference-data.md) can avoid new manual annotation. See the [research plan](docs/research-plan.md), [data protocol](data/README.md) and [model card](models/README.md). No paper-ready novelty claim is made.
 
 Related work: [Constraint SVG](https://constraints.cs.washington.edu/web/csvg-uwtr-2000-08-04.pdf), [Mockdown](https://www.cs.cornell.edu/~jsarracino/files/mockdown-final.pdf), [Penrose](https://penrose.cs.cmu.edu/), [constraint-graph layout generation](https://arxiv.org/abs/2011.13417), [SciDiagramEdit](https://arxiv.org/abs/2607.15272), [InfoEdit](https://arxiv.org/abs/2609.33286).
 
@@ -105,6 +105,7 @@ node benchmarks/native_presentation_check.cjs
 node benchmarks/compare_parallel_routing.cjs
 node benchmarks/annotation_comparison_check.cjs
 node benchmarks/published_examples_check.cjs
+node benchmarks/source_recovery_check.cjs
 ```
 
 CI repeats the Python suite, synthetic experiments and browser checks. Results retain case-level failures and skipped requests. GPU use remains behind a [measured-need gate](ROADMAP.md#cloud-gpu-gate).

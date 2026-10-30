@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "scope": "Authored workflow fixture, not external accuracy",
+  "source_sha256": "6a8bb6e1a637962cd3996cce36b1dd81d15a67ec5b9e932090ee1ea7441ed96d",
+  "blinded_svg_sha256": "723be6d20952b3d72d255b545a8997f1190506f6ff1e7a58ca1936be3df474f7",
+  "observation_sha256": "778293110c63556510f3292633fce2723915a5a45fe4679f81f30d67f39e13c6",
+  "prediction_sha256": "223bf3a60fc333d5998b4223458563ce49617cdda214faeb3fb9f1081e7128f6",
+  "preparation": {
+    "known_dtds_removed": 0,
+    "redactions": {
+      "attribute:content": 1
+    },
+    "source_sha256": "6a8bb6e1a637962cd3996cce36b1dd81d15a67ec5b9e932090ee1ea7441ed96d"
+  },
+  "prediction_written_before_reference_loaded": true,
+  "pixel_check": {
+    "passed": true,
+    "pixel_dimensions": [
+      300,
+      140
+    ],
+    "changed_rgba_pixels": 0,
+    "scope": "Exact full-viewport pixels in this browser with scripts disabled and secondary requests blocked, not cross-browser identity."
+  },
+  "blocked_secondary_resources": 0,
+  "scored": true,
+  "reference_sha256": "51e59905436d56310a6c1f2f1b4d6382a24f6928b2c2513b8fed5bb4938a5347",
+  "scores": {
+    "reference_vertices": 2,
+    "grounded_vertices": 2,
+    "reference_edges": 1,
+    "grounded_edges": 1,
+    "fully_bound_reference_edges": 1,
+    "node_candidates": {
+      "predicted": 2,
+      "reference": 2,
+      "matched": 2,
+      "recall": 1,
+      "precision": 1
+    },
+    "shaft_candidates": {
+      "predicted": 1,
+      "reference": 1,
+      "matched": 1,
+      "recall": 1,
+      "precision": 1
+    },
+    "methods": {
+      "nearest_boundary": {
+        "reference_endpoints": 2,
+        "answered_endpoints": 2,
+        "correct_endpoints": 2,
+        "endpoint_accuracy": 1,
+        "both_end_correct_edges": 1,
+        "both_end_accuracy": 1
+      },
+      "tangent_aware": {
+        "reference_endpoints": 2,
+        "answered_endpoints": 2,
+        "correct_endpoints": 2,
+        "endpoint_accuracy": 1,
+        "both_end_correct_edges": 1,
+        "both_end_accuracy": 1
+      }
+    }
+  },
+  "checks": {
+    "primitive_permutation_invariant": true,
+    "wrong_endpoint_detected": true,
+    "hidden_binding_mutation_preserves_blind_input_and_predictions": true
+  }
+}

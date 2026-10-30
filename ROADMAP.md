@@ -29,7 +29,8 @@ First pilot delivered: [phase findings](docs/phase1-findings.md). This milestone
 - Add strong heuristics + ELK and direct source-editing baselines.
   - [x] Tangent-aware endpoint heuristic and a pinned ELK layout configuration.
   - [x] Node-only and equal-motion connector translation controls on the fixed five-source native pilot; retain refusals and the stronger-control tie.
-  - [ ] Independent real-diagram labels and comparisons with contemporary diagram-editing tools.
+  - [x] Blinded source-program reference pipeline: graph stripping, identical local render pixels, separate numeric-geometry predictor, frozen predictions and restricted source grounding. Two development probes yield one scored case, with a tie between the geometry controls. [Scope](docs/source-reference-recovery.md).
+  - [ ] Broader source-program pool, unseen authoring origins and comparisons with contemporary diagram-editing tools.
 - Evaluate edit sequences, style/composition holdouts and impossible requests.
   - [x] First fail-stop sequence pilot with fresh recovery, reuse, topological-strip, ELK and ELK-repair controls. [Findings](docs/edit-sequences.md). Reuse has no completion advantage on these motifs.
   - [ ] Independently annotated external sequences and held-out composition/style evaluation.

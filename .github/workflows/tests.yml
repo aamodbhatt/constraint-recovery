@@ -64,6 +64,7 @@ jobs:
       - run: node benchmarks/published_examples_check.cjs
       - run: node benchmarks/native_presentation_check.cjs
       - run: node benchmarks/annotation_comparison_check.cjs
+      - run: node benchmarks/source_recovery_check.cjs
       - uses: actions/upload-artifact@v4
         with:
           name: browser-integration
@@ -77,3 +78,4 @@ jobs:
             artifacts/parallel-routing/report.json
             artifacts/annotation-comparison-check.json
             artifacts/published-examples-check.json
+            artifacts/source-recovery-check.json

@@ -26,7 +26,7 @@ def parse_xml(text):
     return ET.fromstring(text,forbid_entities=True,forbid_external=True)
 
 
-def graph_reference(source):
+def graph_reference(source,include_cells=False):
     root=parse_xml(source)
     if root.tag!='{http://www.w3.org/2000/svg}svg':
         raise ValueError('Expected an SVG source')
@@ -57,7 +57,7 @@ def graph_reference(source):
             raise ValueError('Missing mxGraphModel/root')
         cell_total+=len(model.find('root'))
         if cell_total>5000:raise ValueError('Authoring reference exceeds the 5000-cell budget')
-        cells={}
+        cells={};labels={}
         for item in model.find('root'):
             if item.tag=='mxCell':
                 cell=item;identifier=cell.get('id')
@@ -68,6 +68,7 @@ def graph_reference(source):
             if not identifier or identifier in cells:
                 raise ValueError('Missing or duplicate authoring cell ID')
             cells[identifier]=cell
+            labels[identifier]=item.get('label',cell.get('value',''))
         vertices={key for key,cell in cells.items() if cell.get('vertex')=='1'}
         edges=[]
         for key,cell in cells.items():
@@ -81,8 +82,14 @@ def graph_reference(source):
             edges.append(dict(id=key,source=source_id,target=target_id,
                 both_endpoints_are_declared_vertices=source_id in vertices and target_id in vertices,
                 start_arrow=style.get('startArrow'),end_arrow=style.get('endArrow')))
-        pages.append(dict(id=page.get('id'),name=page.get('name'),vertices=len(vertices),edges=len(edges),
-            bound_edges=sum(e['both_endpoints_are_declared_vertices'] for e in edges),bindings=edges))
+        record=dict(id=page.get('id'),name=page.get('name'),vertices=len(vertices),edges=len(edges),
+            bound_edges=sum(e['both_endpoints_are_declared_vertices'] for e in edges),bindings=edges)
+        if include_cells:
+            record['cells']=[dict(id=key,attributes=dict(cell.attrib),label_present=bool(labels[key]),
+                geometry=dict(cell.find('mxGeometry').attrib) if cell.find('mxGeometry') is not None else None,
+                geometry_children=len(cell.find('mxGeometry')) if cell.find('mxGeometry') is not None else 0)
+                for key,cell in cells.items()]
+        pages.append(record)
     if not pages:raise ValueError('No authoring pages')
     return dict(pages=pages,foreign_objects=len(root.findall('.//{http://www.w3.org/2000/svg}foreignObject')))
 
