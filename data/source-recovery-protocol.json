@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "kind": "source-reference-development-protocol",
+  "selection": "data/source-oracle-feasibility-selection.json",
+  "scope": "Two previously inspected development probes; no untouched holdout or human reannotation.",
+  "prediction_input": "Shuffled numeric primitive geometry, primitive tag, closed-path flag and visible paint booleans. No source code, graph, IDs, classes, text, hierarchy, filenames or reference labels.",
+  "node_candidates": {
+    "minimum_width": 16,
+    "minimum_height": 12,
+    "tags": ["rect", "circle", "ellipse", "polygon", "closed-path"],
+    "condition": "Visible filled or stroked closed primitive; no oracle node boxes supplied."
+  },
+  "connector_candidates": "Visible stroked open line/polyline/path; endpoint separation > 2 units; filled open shapes are excluded.",
+  "endpoint_baselines": {
+    "nearest_boundary": "Minimum scale-normalized axis-aligned envelope boundary distance.",
+    "tangent_aware": "Nearest-boundary score plus 0.25 * (1 - center alignment with outward endpoint tangent).",
+    "tie_policy": "Equal scores within 1e-9 cause abstention; no forced candidate-order tie breaking."
+  },
+  "grounding": "Separate restricted draw.io flat export-order grammar; rectangular/rounded-rectangle/rhombus vertices, stroked shaft plus explicit block end head, optional one label group. All vertex envelopes must agree with source mxGeometry under one common translation within 0.2 units. Missing arrow defaults, relative/nested vertices and unknown syntax are ungrounded, not guessed.",
+  "reference_direction": "Only explicit endArrow=block with startArrow absent/none in the restricted export grammar; report binding accuracy separately from semantic direction.",
+  "required_checks": [
+    "Source Git blob matches the pinned original",
+    "Known legacy SVG DTD removal is logged; unknown DTDs refused",
+    "Graph payload and semantic metadata are removed; functional fragment IDs are renamed",
+    "Source normalized render and blinded render have identical sampled full-viewport RGBA pixels in the same offline browser",
+    "No blocked secondary resources for a scored case",
+    "Predictions are written and hashed before the scorer reads the separate reference file",
+    "Changing only reference bindings must not change the blinded input or predictions",
+    "Scorer detects an intentionally incorrect endpoint",
+    "Primitive-list permutation does not change endpoint decisions",
+    "Every selected case remains in the report, including unsupported and zero-edge cases"
+  ],
+  "metrics": ["reference vertex/edge grounding coverage", "node candidate recall and precision", "shaft candidate recall and precision", "source/target binding accuracy with abstentions counted as errors", "both-end binding accuracy", "candidate coverage", "conditional metrics and explicit complete-reference denominators"],
+  "limitations": ["Source-declared graph is not verified semantic intent", "SVG artwork and HTML labels remain unchanged; this is read-only recovery, not newly supported editing", "Axis-aligned envelopes approximate shaped-node boundaries", "No model fitting or threshold selection on these outcomes", "No learned advantage, paper-ready novelty or representative-population estimate"]
+}
