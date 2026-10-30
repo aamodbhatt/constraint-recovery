@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "selection_policy": "Two purposive discovery probes, inspected while researching alternatives to new manual labels. Retains the zero-edge example. Not a random sample, evaluation dataset or untouched holdout.",
+  "repository": "jgraph/drawio-diagrams",
+  "revision": "cc78dc2e7df8cf3ad437e6f876fbc33d2d0b7e01",
+  "repository_license": "Apache-2.0; no source artwork is redistributed by this probe",
+  "cases": [
+    {
+      "id": "connect-shapes",
+      "source_url": "https://raw.githubusercontent.com/jgraph/drawio-diagrams/cc78dc2e7df8cf3ad437e6f876fbc33d2d0b7e01/diagrams/connect-shapes.svg",
+      "git_blob": "f4f2af73246a14eec70a19b83931aef31b9a80af"
+    },
+    {
+      "id": "flowchart.drawio",
+      "source_url": "https://raw.githubusercontent.com/jgraph/drawio-diagrams/cc78dc2e7df8cf3ad437e6f876fbc33d2d0b7e01/diagrams/flowchart.drawio.svg",
+      "git_blob": "431a45f31f84375a1992844ae6b1acc2d4e86989"
+    }
+  ]
+}

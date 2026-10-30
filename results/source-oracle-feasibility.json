@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "kind": "external-source-reference-feasibility",
+  "selection": "data/source-oracle-feasibility-selection.json",
+  "selection_policy": "Two purposive discovery probes, inspected while researching alternatives to new manual labels. Retains the zero-edge example. Not a random sample, evaluation dataset or untouched holdout.",
+  "records": [
+    {
+      "id": "connect-shapes",
+      "source_url": "https://raw.githubusercontent.com/jgraph/drawio-diagrams/cc78dc2e7df8cf3ad437e6f876fbc33d2d0b7e01/diagrams/connect-shapes.svg",
+      "git_blob": "f4f2af73246a14eec70a19b83931aef31b9a80af",
+      "source_sha256": "d989403e10354b524162fbabf8ee1304836740bf56d0af6d77100051bf9ca8f3",
+      "foreign_objects": 0,
+      "pages": [
+        {
+          "id": null,
+          "name": "4 Ways to Connect Shapes",
+          "vertices": 18,
+          "edges": 0,
+          "bound_edges": 0
+        }
+      ],
+      "separately_human_reviewed": false
+    },
+    {
+      "id": "flowchart.drawio",
+      "source_url": "https://raw.githubusercontent.com/jgraph/drawio-diagrams/cc78dc2e7df8cf3ad437e6f876fbc33d2d0b7e01/diagrams/flowchart.drawio.svg",
+      "git_blob": "431a45f31f84375a1992844ae6b1acc2d4e86989",
+      "source_sha256": "362ad71f92e9f8dcd73d1fdb3166975d1dea1f036bb9a6be36c3536813e9c421",
+      "foreign_objects": 10,
+      "pages": [
+        {
+          "id": "8twDXiIusBOmwGRFx4Py",
+          "name": "Page-1",
+          "vertices": 6,
+          "edges": 5,
+          "bound_edges": 5
+        }
+      ],
+      "separately_human_reviewed": false
+    }
+  ],
+  "limitations": [
+    "Source-declared bindings only, not human reannotation or verified author intent",
+    "Source/target ordering is not semantic direction; missing arrow styles require renderer defaults",
+    "No geometry-to-cell grounding, label recovery, SVG editing support or accuracy measured",
+    "Remove authoring payload and semantic identifiers before any geometry-only recovery; retain oracle separately",
+    "These inspected feasibility cases are development data, not an untouched holdout"
+  ]
+}

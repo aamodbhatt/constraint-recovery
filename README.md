@@ -83,7 +83,7 @@ Placement minimizes total L1 node displacement subject to canvas bounds, nonover
 | [Author-published SVG pilot](docs/native-pilot.md) | 3/5 fixed figures complete both moves; stronger translate-only control accepts 1/5 first moves | Conditional on agent-reviewed assumptions; two authoring origins, no independent human labels |
 | [Parallel-shaft routing](docs/channel-routing.md) | Ordered tracks remove observed contacts on both seven-link native edits; the checker reads exported segments | A bounded classical routing refinement, not a learned or novel-routing claim |
 
-The next research step is independent annotation, broader edge-topology checks and an unseen source-paper holdout. See the [research plan](docs/research-plan.md), [data protocol](data/README.md) and [model card](models/README.md). No paper-ready novelty claim is made.
+The next research step is a blinded source-program reference pipeline or compatible existing expert labels, broader edge-topology checks and an unseen source-paper holdout. [Reference-data routes](docs/existing-reference-data.md) can avoid new manual annotation. See the [research plan](docs/research-plan.md), [data protocol](data/README.md) and [model card](models/README.md). No paper-ready novelty claim is made.
 
 Related work: [Constraint SVG](https://constraints.cs.washington.edu/web/csvg-uwtr-2000-08-04.pdf), [Mockdown](https://www.cs.cornell.edu/~jsarracino/files/mockdown-final.pdf), [Penrose](https://penrose.cs.cmu.edu/), [constraint-graph layout generation](https://arxiv.org/abs/2011.13417), [SciDiagramEdit](https://arxiv.org/abs/2607.15272), [InfoEdit](https://arxiv.org/abs/2609.33286).
 

@@ -25,12 +25,12 @@ PYTHONPATH=src python benchmarks/audit_external.py --rows 20
 
 If your Python installation needs an explicit trusted CA bundle, supply `--ca-file /path/to/cacert.pem`. TLS verification stays enabled. Network failures stop the run rather than silently shrinking its denominator.
 
-## Real relationship annotations: next step
+## Independent references: next step
 
 1. Keep the audit prefix as a frozen ingestion test, including unsupported cases.
 2. Create a separate licensed, supported pool for relationship evaluation; report all exclusions and any normalization performed.
 3. Assign train/development/test by source paper or authoring origin before fitting a model. Do not split edits of the same diagram across partitions.
-4. Annotate from the original drawing and, when available, its authored source program. Do not show the annotator model predictions as suggested answers.
+4. Reuse existing expert annotations or extract a separately stored source-program reference where the task permits. Strip answer-bearing metadata from recovery inputs and report geometry-to-reference mapping coverage. New manual labeling is an alternative for perceptual intent, not a mandatory blocker; see [existing reference data](../docs/existing-reference-data.md). Do not show a new annotator model predictions as suggested answers.
 5. Record arrow endpoints, containment, grouping, alignment, and ordering separately. Mark ambiguous or unobservable author intent instead of forcing a label.
 6. Record annotator identity/type, evidence, review status, source hashes, license, and changes to labels. Agent annotations must not be described as human-reviewed.
 7. Freeze test annotations before selecting features, thresholds or models. Treat the present synthetic experiment as a pilot, not a final paper result.
@@ -40,3 +40,7 @@ The original `annotation.schema.json` describes the proposed relation-only versi
 Use the [local compound annotation workflow](../docs/compound-annotation.md) after browser measurement. It starts with no predicted role or relationship selected and supports resumable source-bound JSON downloads. `check-annotation` checks structural/provenance consistency; it does not establish semantic truth or verify who performed the annotation. The checked-in authored example is explicitly a scripted agent-reviewed workflow test. External annotation pages contain original figure bytes and must remain private until reuse rights are checked.
 
 After independent records are saved, use [annotation comparison](../docs/annotation-comparison.md) to inspect coverage, grouping and grounded positive-label overlap before adjudication. The demo uses constructed variations of one authored record, not independent reviewers. Agreement tooling does not fill the missing human-label dataset.
+
+## External source-program feasibility
+
+`source-oracle-feasibility-selection.json` pins two purposive development probes from the public draw.io diagram repository. `results/source-oracle-feasibility.json` records verified original-source hashes and declared vertex/binding counts; artwork remains private in `.cache/label-source-audit`. These are source-declared references, not agent-confirmed or newly human-reviewed annotation records. No SVG editing support, grounding accuracy or unseen evaluation follows from metadata extraction. One probe has zero edges and is retained.

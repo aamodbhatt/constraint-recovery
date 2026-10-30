@@ -11,7 +11,7 @@ The user authorized autonomous work and pushes, with a stop guard at 5% remainin
 
 No Runpod/cloud resource was started and no GPU credit spent. The small endpoint pilot still ties a strong tangent-aware heuristic. Its training is trivial on CPU. GPU work needs a measured bottleneck and a bounded experiment.
 
-A question about who can independently annotate a few figures was sent during this work; no answer had arrived at save time. Do not invent human labels or call agent review independent. The next study needs actual separate reviewers and an unseen source-paper holdout.
+The user answered that they cannot provide annotators and asked us to find existing Internet resources or another automated route. New manual annotation is not mandatory: continue with a blinded authoring-program reference track, or compatible existing expert annotations. Do not relabel model review as human truth. See `docs/existing-reference-data.md` and the source-reference feasibility checkpoint below.
 
 ## New substantive results
 
@@ -105,3 +105,13 @@ Read `README.md`, `ROADMAP.md`, `docs/native-pilot.md`, `docs/channel-routing.md
 4. Train contextual role/relationship models only after labels/splits are fixed. Justify GPU spending with a measured local bottleneck. Draft research claims only after the held-out evidence warrants them.
 
 Local demo entry points: `docs/demo/native-pilot/index.html`, `docs/demo/native-pilot/review/index.html`, `docs/demo/annotation-comparison.html` and `docs/demo/sequence/index.html`. A local server on127.0.0.1:8765 may still be running. HTML views also open locally.
+
+## Follow-up: existing labels / source references — 2026-10-30
+
+The user requested a route that does not require them to find annotators. Researched primary sources for AI2D-RST, FlowLearn, SketchGraphs, Penrose and draw.io. Best immediate SVG fit is a source-program reference: extract authoring graph separately, then score blinded geometric recovery. Existing human AI2D-RST labels are relevant to raster grouping/connectivity, not directly to native SVG editing; official URN returned403 and the full corpus has not been acquired. Do not imply a completed human-label integration.
+
+Implemented `benchmarks/audit_source_oracles.py` with bounded non-rendering XML/raw-deflate/percent-encoding parsing and immutable Git-blob acquisition. Pinned two public draw.io source probes; original artwork stays ignored/private. One has6 vertices and5 bound edges; the other18 vertices and0 edges. `results/source-oracle-feasibility.json` records both. Neither is a holdout. HTML labels remain unsupported by the current editor; no new editing coverage is claimed.
+
+Latest local suite:227 tests passing, including8 source-reference parser checks. No model/API/GPU resource started. The next concrete work can proceed without human input: freeze a source-program pool, independently ground source cells to SVG parts, remove answer-bearing metadata/semantic IDs while verifying visual preservation, resolve direction conventions, freeze predictions before reference scoring and compare against source-metadata/geometry controls. Obtain new human review later for semantics or edit quality not observable in source.
+
+The latest five-hour usage window reset naturally; initial follow-up reading was0% used, weekly14%. Recheck live usage. Earlier89% used is historical. No reset credit was consumed manually.
